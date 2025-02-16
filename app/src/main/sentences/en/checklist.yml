@@ -1,0 +1,31 @@
+start_list:
+ - (let s|us)? start|resume|begin|continue (a|the)? (last|.list.)? (checklist|list) (for? .list.)?
+
+complete_item:
+ - (check (mark|(it? off))?)|(complete item?) (it|((this|that) (one|item|step)?)|((.item.|(item? number .item_number.)) (on the? (checklist|list)? .list. (checklist|list)?)?))?
+
+skip_item:
+ - (skip)|(come back to) it|(this|that (one|item|step)?)
+ - skip
+ - come back
+ - next step
+
+wait:
+ - wait
+ - hold on
+ - give me a (second|minute|moment)
+ - abort|exit|stop the? checklist
+
+query_item:
+ - what (s|is|was) next (on the? (checklist|list)? .list. (checklist|list)?)?
+ - ((which one)|(what (item|step)?)) ((was|am) I)|((were|are) we) ((working? on)|doing) (on (checklist|list)? .list.)?
+ - say (it|that|this)? again
+ - remind me
+ - let (s|us) continue
+ - where ((was|am) I)|((were|are) we) (on (checklist|list)? .list.)?
+ - please? repeat (that again?)?
+
+reset_list:
+ - (let (us|s))? take this from the top
+ - (let (us|s))? restart|start|(begin again) (at|from) (the beginning)|(the top)
+ - reset|restart the? checklist

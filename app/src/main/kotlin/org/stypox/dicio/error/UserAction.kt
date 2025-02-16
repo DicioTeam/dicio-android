@@ -15,5 +15,7 @@ enum class UserAction(val message: String) : Parcelable {
     SKILL_EVALUATION("Skill evaluation"),
     WAKE_DOWNLOADING("Downloading wake word model"),
     WAKE_LOADING("Loading wake word model"),
-    FLASHLIGHT("Turning flashlight on or off");
+    FLASHLIGHT("Turning flashlight on or off"),
+    IMPORTING_CHECKLIST("Importing checklist"),
+    EXPORTING_CHECKLIST("Exporting checklist");
 }

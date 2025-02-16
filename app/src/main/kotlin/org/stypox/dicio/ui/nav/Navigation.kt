@@ -20,6 +20,7 @@ import org.stypox.dicio.R
 import org.stypox.dicio.io.input.stt_popup.SttPopupActivity
 import org.stypox.dicio.settings.MainSettingsScreen
 import org.stypox.dicio.settings.SkillSettingsScreen
+import org.stypox.dicio.skills.checklist.ChecklistSettingsScreen
 import org.stypox.dicio.ui.home.HomeScreen
 
 @Composable
@@ -53,12 +54,16 @@ fun Navigation() {
         composable<MainSettings> {
             MainSettingsScreen(
                 navigationIcon = backIcon,
-                navigateToSkillSettings = { navController.navigate(SkillSettings) },
+                navigationController = navController,
             )
         }
 
         composable<SkillSettings> {
             SkillSettingsScreen(navigationIcon = backIcon)
+        }
+
+        composable<ChecklistSettings> {
+            ChecklistSettingsScreen(navigationIcon = backIcon)
         }
     }
 }
