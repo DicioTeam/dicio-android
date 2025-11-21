@@ -1,0 +1,2 @@
+query:
+  - play .song. (by .artist.)?
