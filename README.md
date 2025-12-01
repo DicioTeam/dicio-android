@@ -18,7 +18,11 @@ Dicio is a *free and open source* **voice assistant** running on Android. It sup
 
 ## Name
 
-"Dicio" is Latin for "I say" and is pronounced /dɛɛtʃɒ/ (DEECH-oh)
+"Dicio" is Latin for "I say" and can be pronounced numerous way, namely:
+- /dɛɛtʃɒ/ (deecho)
+- /dɛɛcɪɒ/ (deecio)
+- /dɛɛsɪɒ/ (deesio)
+- /dɛɛscɪɒ/ (deescio)
 
 ## Screenshots
 
