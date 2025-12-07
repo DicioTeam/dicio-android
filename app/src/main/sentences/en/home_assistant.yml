@@ -1,0 +1,9 @@
+get_status:
+  - (get|what is|whats|check) (the )?(home assistant |ha )?status (of|for) .entity_name.
+  - (get|what is|whats|check) .entity_name. (status|state)
+  - how is .entity_name. doing
+  - is .entity_name. on|off
+
+set_state:
+  - (set|turn|switch) (the )?(home assistant |ha )?.entity_name. .action.
+  - .action. (the )?.entity_name.

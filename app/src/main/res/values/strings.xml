@@ -246,4 +246,19 @@
     <string name="failed_to_copy">Failed to copy to clipboard</string>
     <string name="skill_translation_auto">Auto</string>
     <string name="skill_search_duckduckgo_recaptcha">DuckDuckGo did not provide results, asking for a Captcha to be solved</string>
+    <string name="skill_name_home_assistant">Home Assistant</string>
+    <string name="skill_sentence_example_home_assistant">Turn living room light on</string>
+    <string name="skill_homeassistant_entity_state">%1$s is %2$s</string>
+    <string name="skill_homeassistant_set_success">%1$s turned %2$s</string>
+    <string name="skill_homeassistant_invalid_action">Cannot %1$s a %2$s</string>
+    <string name="skill_homeassistant_entity_not_mapped">I don\'t have a mapping for %1$s</string>
+    <string name="skill_homeassistant_entity_not_found">Entity %1$s not found in Home Assistant</string>
+    <string name="skill_homeassistant_connection_failed">Could not connect to Home Assistant</string>
+    <string name="skill_homeassistant_auth_failed">Home Assistant authentication failed</string>
+    <string name="pref_homeassistant_base_url">Home Assistant URL</string>
+    <string name="pref_homeassistant_access_token">Access Token</string>
+    <string name="pref_homeassistant_entity_mappings">Entity Mappings</string>
+    <string name="pref_homeassistant_add_mapping">Add Mapping</string>
+    <string name="pref_homeassistant_friendly_name">Friendly Name</string>
+    <string name="pref_homeassistant_entity_id">Entity ID</string>
 </resources>

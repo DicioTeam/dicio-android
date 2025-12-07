@@ -123,3 +123,17 @@ skills:
             type: string
           - id: target
             type: string
+
+  - id: home_assistant
+    specificity: high
+    sentences:
+      - id: get_status
+        captures:
+          - id: entity_name
+            type: string
+      - id: set_state
+        captures:
+          - id: entity_name
+            type: string
+          - id: action
+            type: string
