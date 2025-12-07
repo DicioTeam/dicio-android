@@ -9,6 +9,19 @@ import java.net.URL
 
 object HomeAssistantApi {
     @Throws(IOException::class)
+    suspend fun getAllStates(baseUrl: String, token: String): JSONArray {
+        val connection = URL("$baseUrl/api/states").openConnection() as HttpURLConnection
+        connection.setRequestProperty("Authorization", "Bearer $token")
+        connection.setRequestProperty("Content-Type", "application/json")
+        
+        val scanner = java.util.Scanner(connection.inputStream)
+        val response = scanner.useDelimiter("\\A").next()
+        scanner.close()
+        
+        return JSONArray(response)
+    }
+
+    @Throws(IOException::class)
     suspend fun getEntityState(baseUrl: String, token: String, entityId: String): JSONObject {
         val connection = URL("$baseUrl/api/states/$entityId").openConnection() as HttpURLConnection
         connection.setRequestProperty("Authorization", "Bearer $token")
