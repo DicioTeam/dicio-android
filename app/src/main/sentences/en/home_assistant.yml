@@ -1,5 +1,6 @@
 get_status:
   - (get|what is|whats|check) (the )?status (of|for) .entity_name.
+  - (get|what is|whats|check) (the )?.entity_name.
 
 set_state_on:
   - (turn|switch) (the )?.entity_name. on
