@@ -19,12 +19,11 @@ class HomeAssistantSkill(
         android.util.Log.d("HomeAssistantSkill", "generateOutput called with inputData: $inputData")
         val settings = ctx.android.homeAssistantDataStore.data.first()
         
-        val entityName = when (inputData) {
-            is HomeAssistant.GetStatus -> inputData.entityName ?: ""
-            is HomeAssistant.SetState -> {
-                android.util.Log.d("HomeAssistantSkill", "SetState - entityName: '${inputData.entityName}', action: '${inputData.action}'")
-                inputData.entityName ?: ""
-            }
+        val (entityName, action) = when (inputData) {
+            is HomeAssistant.GetStatus -> Pair(inputData.entityName ?: "", null)
+            is HomeAssistant.SetStateOn -> Pair(inputData.entityName ?: "", "on")
+            is HomeAssistant.SetStateOff -> Pair(inputData.entityName ?: "", "off")
+            is HomeAssistant.SetStateToggle -> Pair(inputData.entityName ?: "", "toggle")
         }
         
         val mapping = findBestMatch(entityName, settings.entityMappingsList)
@@ -33,7 +32,8 @@ class HomeAssistantSkill(
         return try {
             when (inputData) {
                 is HomeAssistant.GetStatus -> handleGetStatus(settings, mapping)
-                is HomeAssistant.SetState -> handleSetState(settings, mapping, inputData.action ?: "")
+                is HomeAssistant.SetStateOn, is HomeAssistant.SetStateOff, is HomeAssistant.SetStateToggle -> 
+                    handleSetState(settings, mapping, action!!)
             }
         } catch (e: FileNotFoundException) {
             HomeAssistantOutput.EntityNotFound(mapping.entityId)

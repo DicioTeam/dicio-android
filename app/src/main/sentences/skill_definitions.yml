@@ -131,9 +131,15 @@ skills:
         captures:
           - id: entity_name
             type: string
-      - id: set_state
+      - id: set_state_on
         captures:
           - id: entity_name
             type: string
-          - id: action
+      - id: set_state_off
+        captures:
+          - id: entity_name
+            type: string
+      - id: set_state_toggle
+        captures:
+          - id: entity_name
             type: string
