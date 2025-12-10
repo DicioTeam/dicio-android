@@ -11,6 +11,7 @@ skills:
         captures:
           - id: calculation
             type: string
+            
   - id: calculator_operators
     specificity: low
     sentences:
@@ -130,4 +131,12 @@ skills:
       - id: query
         captures:
           - id: question
+            type: string
+
+  - id: grocery_list
+    specificity: high
+    sentences:
+      - id: add
+        captures:
+          - id: item
             type: string

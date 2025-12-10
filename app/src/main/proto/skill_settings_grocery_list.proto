@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+option java_package = "org.stypox.dicio.skills.grocery_list";
+option java_multiple_files = true;
+
+message SkillSettingsGroceryList {
+  string endpoint_url = 1;
+  string api_key = 2;
+}

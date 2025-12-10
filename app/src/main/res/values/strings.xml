@@ -259,4 +259,13 @@
     <string name="pref_aiquery_system_prompt_description">Customize the AI behavior</string>
     <string name="pref_aiquery_endpoint_url">API Endpoint URL</string>
     <string name="pref_aiquery_endpoint_url_description">Defaults to OpenAI\'s endpoint - Any OpenAI API provider endpoint URL is compatible (e.g. OpenRouter)</string>
+    <string name="skill_name_grocery_list">Grocery list</string>
+    <string name="skill_sentence_example_grocery_list">Add milk to my grocery list</string>
+    <string name="skill_grocery_list_added">Added %1$s to your grocery list</string>
+    <string name="skill_grocery_list_failed">Failed to add %1$s to your grocery list</string>
+    <string name="pref_grocery_list_endpoint_url">Grocery List Endpoint URL</string>
+    <string name="pref_grocery_list_endpoint_url_description">https://tylxr.com/getme/index.php</string>
+    <string name="pref_grocery_list_api_key">Grocery List API Key</string>
+    <string name="pref_grocery_list_api_key_description">Optional API key for authentication</string>
+    <string name="skill_grocery_list_not_configured">Please configure the grocery list endpoint URL in settings</string>
 </resources>

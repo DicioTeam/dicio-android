@@ -1,0 +1,6 @@
+add:
+  - (i d|would like you? to)? (add|put) .item. (on|to) to? (my|the|our)? (grocery|shopping)? list
+  - (can|could) you (please)? (add|put) .item. (on|to) to? (my|the|our)? (grocery|shopping)? list
+  - (add|put) .item. (on|to) to? (my|the|our)? (grocery|shopping)? list (please)?
+  - (i|we) need (to (add|put))? .item. (on|to) to? (my|the|our)? (grocery|shopping)? list
+  - (please)? (include|append) .item. (on|to) to? (my|the|our)? (grocery|shopping)? list

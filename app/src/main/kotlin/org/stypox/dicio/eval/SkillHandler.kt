@@ -33,6 +33,7 @@ import org.stypox.dicio.skills.translation.TranslationInfo
 import org.stypox.dicio.skills.weather.WeatherInfo
 import org.stypox.dicio.skills.joke.JokeInfo
 import org.stypox.dicio.skills.aiquery.AIQueryInfo
+import org.stypox.dicio.skills.grocery_list.GroceryListInfo
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -58,6 +59,7 @@ class SkillHandler @Inject constructor(
         ListeningInfo(dataStore),
         TranslationInfo,
         AIQueryInfo,
+        GroceryListInfo,
     )
 
     private val fallbackSkillInfoList = listOf(
