@@ -250,4 +250,601 @@
     <string name="skill_sentence_example_unit_conversion">Convert 5 kilometers to miles</string>
     <string name="skill_unit_conversion_result">%1$s %2$s is %3$s %4$s</string>
     <string name="skill_unit_conversion_error">%1$s</string>
+
+    <!-- Unit conversion - unit names -->
+    <!-- LENGTH -->
+    <string-array name="unit_millimeter_singular">
+        <item>millimeter</item>
+        <item>millimetre</item>
+    </string-array>
+    <string-array name="unit_millimeter_plural">
+        <item>millimeters</item>
+        <item>millimetres</item>
+    </string-array>
+    <string-array name="unit_centimeter_singular">
+        <item>centimeter</item>
+        <item>centimetre</item>
+    </string-array>
+    <string-array name="unit_centimeter_plural">
+        <item>centimeters</item>
+        <item>centimetres</item>
+    </string-array>
+    <string-array name="unit_meter_singular">
+        <item>meter</item>
+        <item>metre</item>
+    </string-array>
+    <string-array name="unit_meter_plural">
+        <item>meters</item>
+        <item>metres</item>
+    </string-array>
+    <string-array name="unit_kilometer_singular">
+        <item>kilometer</item>
+        <item>kilometre</item>
+    </string-array>
+    <string-array name="unit_kilometer_plural">
+        <item>kilometers</item>
+        <item>kilometres</item>
+    </string-array>
+    <string-array name="unit_inch_singular">
+        <item>inch</item>
+    </string-array>
+    <string-array name="unit_inch_plural">
+        <item>inches</item>
+    </string-array>
+    <string-array name="unit_foot_singular">
+        <item>foot</item>
+    </string-array>
+    <string-array name="unit_foot_plural">
+        <item>feet</item>
+    </string-array>
+    <string-array name="unit_yard_singular">
+        <item>yard</item>
+    </string-array>
+    <string-array name="unit_yard_plural">
+        <item>yards</item>
+    </string-array>
+    <string-array name="unit_mile_singular">
+        <item>mile</item>
+    </string-array>
+    <string-array name="unit_mile_plural">
+        <item>miles</item>
+    </string-array>
+    <string-array name="unit_nautical_mile_singular">
+        <item>nautical mile</item>
+    </string-array>
+    <string-array name="unit_nautical_mile_plural">
+        <item>nautical miles</item>
+    </string-array>
+    <string-array name="unit_light_year_singular">
+        <item>light year</item>
+        <item>lightyear</item>
+    </string-array>
+    <string-array name="unit_light_year_plural">
+        <item>light years</item>
+        <item>lightyears</item>
+    </string-array>
+    <string-array name="unit_astronomical_unit_singular">
+        <item>astronomical unit</item>
+    </string-array>
+    <string-array name="unit_astronomical_unit_plural">
+        <item>astronomical units</item>
+    </string-array>
+
+    <!-- MASS -->
+    <string-array name="unit_milligram_singular">
+        <item>milligram</item>
+        <item>milligramme</item>
+    </string-array>
+    <string-array name="unit_milligram_plural">
+        <item>milligrams</item>
+        <item>milligrammes</item>
+    </string-array>
+    <string-array name="unit_gram_singular">
+        <item>gram</item>
+        <item>gramme</item>
+    </string-array>
+    <string-array name="unit_gram_plural">
+        <item>grams</item>
+        <item>grammes</item>
+    </string-array>
+    <string-array name="unit_kilogram_singular">
+        <item>kilogram</item>
+        <item>kilogramme</item>
+    </string-array>
+    <string-array name="unit_kilogram_plural">
+        <item>kilograms</item>
+        <item>kilogrammes</item>
+    </string-array>
+    <string-array name="unit_metric_ton_singular">
+        <item>metric ton</item>
+        <item>tonne</item>
+    </string-array>
+    <string-array name="unit_metric_ton_plural">
+        <item>metric tons</item>
+        <item>tonnes</item>
+    </string-array>
+    <string-array name="unit_ounce_singular">
+        <item>ounce</item>
+    </string-array>
+    <string-array name="unit_ounce_plural">
+        <item>ounces</item>
+    </string-array>
+    <string-array name="unit_pound_singular">
+        <item>pound</item>
+    </string-array>
+    <string-array name="unit_pound_plural">
+        <item>pounds</item>
+    </string-array>
+    <string-array name="unit_stone_singular">
+        <item>stone</item>
+    </string-array>
+    <string-array name="unit_stone_plural">
+        <item>stones</item>
+    </string-array>
+    <string-array name="unit_ton_us_singular">
+        <item>ton</item>
+        <item>us ton</item>
+        <item>short ton</item>
+    </string-array>
+    <string-array name="unit_ton_us_plural">
+        <item>tons</item>
+        <item>us tons</item>
+        <item>short tons</item>
+    </string-array>
+    <string-array name="unit_troy_ounce_singular">
+        <item>troy ounce</item>
+    </string-array>
+    <string-array name="unit_troy_ounce_plural">
+        <item>troy ounces</item>
+    </string-array>
+
+    <!-- TEMPERATURE -->
+    <string-array name="unit_celsius_singular">
+        <item>celsius</item>
+        <item>degree celsius</item>
+        <item>centigrade</item>
+    </string-array>
+    <string-array name="unit_celsius_plural">
+        <item>degrees celsius</item>
+    </string-array>
+    <string-array name="unit_fahrenheit_singular">
+        <item>fahrenheit</item>
+        <item>degree fahrenheit</item>
+    </string-array>
+    <string-array name="unit_fahrenheit_plural">
+        <item>degrees fahrenheit</item>
+    </string-array>
+    <string-array name="unit_kelvin_singular">
+        <item>kelvin</item>
+    </string-array>
+    <string-array name="unit_kelvin_plural">
+        <item>kelvins</item>
+    </string-array>
+
+    <!-- VOLUME -->
+    <string-array name="unit_milliliter_singular">
+        <item>milliliter</item>
+        <item>millilitre</item>
+    </string-array>
+    <string-array name="unit_milliliter_plural">
+        <item>milliliters</item>
+        <item>millilitres</item>
+    </string-array>
+    <string-array name="unit_liter_singular">
+        <item>liter</item>
+        <item>litre</item>
+    </string-array>
+    <string-array name="unit_liter_plural">
+        <item>liters</item>
+        <item>litres</item>
+    </string-array>
+    <string-array name="unit_cubic_meter_singular">
+        <item>cubic meter</item>
+        <item>cubic metre</item>
+    </string-array>
+    <string-array name="unit_cubic_meter_plural">
+        <item>cubic meters</item>
+        <item>cubic metres</item>
+    </string-array>
+    <string-array name="unit_teaspoon_singular">
+        <item>teaspoon</item>
+    </string-array>
+    <string-array name="unit_teaspoon_plural">
+        <item>teaspoons</item>
+    </string-array>
+    <string-array name="unit_tablespoon_singular">
+        <item>tablespoon</item>
+    </string-array>
+    <string-array name="unit_tablespoon_plural">
+        <item>tablespoons</item>
+    </string-array>
+    <string-array name="unit_fluid_ounce_singular">
+        <item>fluid ounce</item>
+    </string-array>
+    <string-array name="unit_fluid_ounce_plural">
+        <item>fluid ounces</item>
+    </string-array>
+    <string-array name="unit_cup_singular">
+        <item>cup</item>
+    </string-array>
+    <string-array name="unit_cup_plural">
+        <item>cups</item>
+    </string-array>
+    <string-array name="unit_pint_singular">
+        <item>pint</item>
+    </string-array>
+    <string-array name="unit_pint_plural">
+        <item>pints</item>
+    </string-array>
+    <string-array name="unit_quart_singular">
+        <item>quart</item>
+    </string-array>
+    <string-array name="unit_quart_plural">
+        <item>quarts</item>
+    </string-array>
+    <string-array name="unit_gallon_singular">
+        <item>gallon</item>
+    </string-array>
+    <string-array name="unit_gallon_plural">
+        <item>gallons</item>
+    </string-array>
+
+    <!-- AREA -->
+    <string-array name="unit_square_meter_singular">
+        <item>square meter</item>
+        <item>square metre</item>
+    </string-array>
+    <string-array name="unit_square_meter_plural">
+        <item>square meters</item>
+        <item>square metres</item>
+    </string-array>
+    <string-array name="unit_square_kilometer_singular">
+        <item>square kilometer</item>
+        <item>square kilometre</item>
+    </string-array>
+    <string-array name="unit_square_kilometer_plural">
+        <item>square kilometers</item>
+        <item>square kilometres</item>
+    </string-array>
+    <string-array name="unit_hectare_singular">
+        <item>hectare</item>
+    </string-array>
+    <string-array name="unit_hectare_plural">
+        <item>hectares</item>
+    </string-array>
+    <string-array name="unit_square_foot_singular">
+        <item>square foot</item>
+    </string-array>
+    <string-array name="unit_square_foot_plural">
+        <item>square feet</item>
+    </string-array>
+    <string-array name="unit_square_yard_singular">
+        <item>square yard</item>
+    </string-array>
+    <string-array name="unit_square_yard_plural">
+        <item>square yards</item>
+    </string-array>
+    <string-array name="unit_acre_singular">
+        <item>acre</item>
+    </string-array>
+    <string-array name="unit_acre_plural">
+        <item>acres</item>
+    </string-array>
+    <string-array name="unit_square_mile_singular">
+        <item>square mile</item>
+    </string-array>
+    <string-array name="unit_square_mile_plural">
+        <item>square miles</item>
+    </string-array>
+
+    <!-- SPEED -->
+    <string-array name="unit_meters_per_second_singular">
+        <item>meter per second</item>
+        <item>metre per second</item>
+        <item>meter a second</item>
+        <item>metre a second</item>
+    </string-array>
+    <string-array name="unit_meters_per_second_plural">
+        <item>meters per second</item>
+        <item>metres per second</item>
+        <item>meters a second</item>
+        <item>metres a second</item>
+    </string-array>
+    <string-array name="unit_kilometers_per_hour_singular">
+        <item>kilometer per hour</item>
+        <item>kilometre per hour</item>
+        <item>kilometer an hour</item>
+        <item>kilometre an hour</item>
+    </string-array>
+    <string-array name="unit_kilometers_per_hour_plural">
+        <item>kilometers per hour</item>
+        <item>kilometres per hour</item>
+        <item>kilometers an hour</item>
+        <item>kilometres an hour</item>
+    </string-array>
+    <string-array name="unit_miles_per_hour_singular">
+        <item>mile per hour</item>
+        <item>mile an hour</item>
+    </string-array>
+    <string-array name="unit_miles_per_hour_plural">
+        <item>miles per hour</item>
+        <item>miles an hour</item>
+    </string-array>
+    <string-array name="unit_feet_per_second_singular">
+        <item>foot per second</item>
+        <item>foot a second</item>
+    </string-array>
+    <string-array name="unit_feet_per_second_plural">
+        <item>feet per second</item>
+        <item>feet a second</item>
+    </string-array>
+    <string-array name="unit_knot_singular">
+        <item>knot</item>
+    </string-array>
+    <string-array name="unit_knot_plural">
+        <item>knots</item>
+    </string-array>
+
+    <!-- TIME -->
+    <string-array name="unit_millisecond_singular">
+        <item>millisecond</item>
+    </string-array>
+    <string-array name="unit_millisecond_plural">
+        <item>milliseconds</item>
+    </string-array>
+    <string-array name="unit_second_singular">
+        <item>second</item>
+    </string-array>
+    <string-array name="unit_second_plural">
+        <item>seconds</item>
+    </string-array>
+    <string-array name="unit_minute_singular">
+        <item>minute</item>
+    </string-array>
+    <string-array name="unit_minute_plural">
+        <item>minutes</item>
+    </string-array>
+    <string-array name="unit_hour_singular">
+        <item>hour</item>
+    </string-array>
+    <string-array name="unit_hour_plural">
+        <item>hours</item>
+    </string-array>
+    <string-array name="unit_day_singular">
+        <item>day</item>
+    </string-array>
+    <string-array name="unit_day_plural">
+        <item>days</item>
+    </string-array>
+    <string-array name="unit_week_singular">
+        <item>week</item>
+    </string-array>
+    <string-array name="unit_week_plural">
+        <item>weeks</item>
+    </string-array>
+    <string-array name="unit_month_singular">
+        <item>month</item>
+    </string-array>
+    <string-array name="unit_month_plural">
+        <item>months</item>
+    </string-array>
+    <string-array name="unit_year_singular">
+        <item>year</item>
+    </string-array>
+    <string-array name="unit_year_plural">
+        <item>years</item>
+    </string-array>
+
+    <!-- DIGITAL STORAGE -->
+    <string-array name="unit_bit_singular">
+        <item>bit</item>
+    </string-array>
+    <string-array name="unit_bit_plural">
+        <item>bits</item>
+    </string-array>
+    <string-array name="unit_byte_singular">
+        <item>byte</item>
+    </string-array>
+    <string-array name="unit_byte_plural">
+        <item>bytes</item>
+    </string-array>
+    <string-array name="unit_kilobyte_singular">
+        <item>kilobyte</item>
+    </string-array>
+    <string-array name="unit_kilobyte_plural">
+        <item>kilobytes</item>
+    </string-array>
+    <string-array name="unit_megabyte_singular">
+        <item>megabyte</item>
+    </string-array>
+    <string-array name="unit_megabyte_plural">
+        <item>megabytes</item>
+    </string-array>
+    <string-array name="unit_gigabyte_singular">
+        <item>gigabyte</item>
+    </string-array>
+    <string-array name="unit_gigabyte_plural">
+        <item>gigabytes</item>
+    </string-array>
+    <string-array name="unit_terabyte_singular">
+        <item>terabyte</item>
+    </string-array>
+    <string-array name="unit_terabyte_plural">
+        <item>terabytes</item>
+    </string-array>
+    <string-array name="unit_petabyte_singular">
+        <item>petabyte</item>
+    </string-array>
+    <string-array name="unit_petabyte_plural">
+        <item>petabytes</item>
+    </string-array>
+    <string-array name="unit_kibibyte_singular">
+        <item>kibibyte</item>
+    </string-array>
+    <string-array name="unit_kibibyte_plural">
+        <item>kibibytes</item>
+    </string-array>
+    <string-array name="unit_mebibyte_singular">
+        <item>mebibyte</item>
+    </string-array>
+    <string-array name="unit_mebibyte_plural">
+        <item>mebibytes</item>
+    </string-array>
+    <string-array name="unit_gibibyte_singular">
+        <item>gibibyte</item>
+    </string-array>
+    <string-array name="unit_gibibyte_plural">
+        <item>gibibytes</item>
+    </string-array>
+    <string-array name="unit_tebibyte_singular">
+        <item>tebibyte</item>
+    </string-array>
+    <string-array name="unit_tebibyte_plural">
+        <item>tebibytes</item>
+    </string-array>
+
+    <!-- ENERGY -->
+    <string-array name="unit_joule_singular">
+        <item>joule</item>
+    </string-array>
+    <string-array name="unit_joule_plural">
+        <item>joules</item>
+    </string-array>
+    <string-array name="unit_kilojoule_singular">
+        <item>kilojoule</item>
+    </string-array>
+    <string-array name="unit_kilojoule_plural">
+        <item>kilojoules</item>
+    </string-array>
+    <string-array name="unit_calorie_singular">
+        <item>calorie</item>
+    </string-array>
+    <string-array name="unit_calorie_plural">
+        <item>calories</item>
+    </string-array>
+    <string-array name="unit_kilocalorie_singular">
+        <item>kilocalorie</item>
+        <item>food calorie</item>
+    </string-array>
+    <string-array name="unit_kilocalorie_plural">
+        <item>kilocalories</item>
+        <item>food calories</item>
+    </string-array>
+    <string-array name="unit_watt_hour_singular">
+        <item>watt hour</item>
+    </string-array>
+    <string-array name="unit_watt_hour_plural">
+        <item>watt hours</item>
+    </string-array>
+    <string-array name="unit_kilowatt_hour_singular">
+        <item>kilowatt hour</item>
+    </string-array>
+    <string-array name="unit_kilowatt_hour_plural">
+        <item>kilowatt hours</item>
+    </string-array>
+    <string-array name="unit_electronvolt_singular">
+        <item>electronvolt</item>
+        <item>electron volt</item>
+    </string-array>
+    <string-array name="unit_electronvolt_plural">
+        <item>electronvolts</item>
+        <item>electron volts</item>
+    </string-array>
+
+    <!-- POWER -->
+    <string-array name="unit_watt_singular">
+        <item>watt</item>
+    </string-array>
+    <string-array name="unit_watt_plural">
+        <item>watts</item>
+    </string-array>
+    <string-array name="unit_kilowatt_singular">
+        <item>kilowatt</item>
+    </string-array>
+    <string-array name="unit_kilowatt_plural">
+        <item>kilowatts</item>
+    </string-array>
+    <string-array name="unit_megawatt_singular">
+        <item>megawatt</item>
+    </string-array>
+    <string-array name="unit_megawatt_plural">
+        <item>megawatts</item>
+    </string-array>
+    <string-array name="unit_horsepower_singular">
+        <item>horsepower</item>
+    </string-array>
+    <string-array name="unit_horsepower_plural">
+        <item>horsepower</item>
+    </string-array>
+
+    <!-- PRESSURE -->
+    <string-array name="unit_pascal_singular">
+        <item>pascal</item>
+    </string-array>
+    <string-array name="unit_pascal_plural">
+        <item>pascals</item>
+    </string-array>
+    <string-array name="unit_kilopascal_singular">
+        <item>kilopascal</item>
+    </string-array>
+    <string-array name="unit_kilopascal_plural">
+        <item>kilopascals</item>
+    </string-array>
+    <string-array name="unit_bar_singular">
+        <item>bar</item>
+    </string-array>
+    <string-array name="unit_bar_plural">
+        <item>bars</item>
+    </string-array>
+    <string-array name="unit_atmosphere_singular">
+        <item>atmosphere</item>
+    </string-array>
+    <string-array name="unit_atmosphere_plural">
+        <item>atmospheres</item>
+    </string-array>
+    <string-array name="unit_psi_singular">
+        <item>pound per square inch</item>
+        <item>psi</item>
+    </string-array>
+    <string-array name="unit_psi_plural">
+        <item>pounds per square inch</item>
+        <item>psi</item>
+    </string-array>
+    <string-array name="unit_torr_singular">
+        <item>torr</item>
+    </string-array>
+    <string-array name="unit_torr_plural">
+        <item>torr</item>
+    </string-array>
+    <string-array name="unit_mmhg_singular">
+        <item>millimeter of mercury</item>
+        <item>millimetre of mercury</item>
+    </string-array>
+    <string-array name="unit_mmhg_plural">
+        <item>millimeters of mercury</item>
+        <item>millimetres of mercury</item>
+    </string-array>
+
+    <!-- ANGLE -->
+    <string-array name="unit_degree_singular">
+        <item>degree</item>
+    </string-array>
+    <string-array name="unit_degree_plural">
+        <item>degrees</item>
+    </string-array>
+    <string-array name="unit_radian_singular">
+        <item>radian</item>
+    </string-array>
+    <string-array name="unit_radian_plural">
+        <item>radians</item>
+    </string-array>
+    <string-array name="unit_gradian_singular">
+        <item>gradian</item>
+        <item>gon</item>
+    </string-array>
+    <string-array name="unit_gradian_plural">
+        <item>gradians</item>
+        <item>gons</item>
+    </string-array>
+
 </resources>

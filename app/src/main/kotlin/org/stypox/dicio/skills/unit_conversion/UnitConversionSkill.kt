@@ -22,7 +22,7 @@ class UnitConversionSkill(
                     return UnitConversionOutput.Error("Missing target unit")
                 }
                 
-                val targetUnit = Unit.findUnit(targetUnitText)
+                val targetUnit = Unit.findUnit(targetUnitText, ctx.android.resources)
                 if (targetUnit == null) {
                     return UnitConversionOutput.Error("Unknown target unit: $targetUnitText")
                 }
@@ -65,7 +65,7 @@ class UnitConversionSkill(
                 
                 // Extract source unit from the remaining text
                 // The mixedList contains the number and text parts, we need to find unit names
-                val sourceUnit = findUnitInText(valueWithUnitText)
+                val sourceUnit = findUnitInText(valueWithUnitText, ctx.android.resources)
                 if (sourceUnit == null) {
                     return UnitConversionOutput.Error("Could not identify source unit in: $valueWithUnitText")
                 }
@@ -92,22 +92,41 @@ class UnitConversionSkill(
         }
     }
 
-    private fun findUnitInText(text: String): Unit? {
+    private fun findUnitInText(text: String, resources: android.content.res.Resources): Unit? {
         val normalizedText = text.lowercase()
         
         // Try to find a unit by checking if any unit name or abbreviation appears in the text
         // Sort by length descending to match longer unit names first (e.g., "square meter" before "meter")
         val allUnits = Unit.values().sortedByDescending { unit ->
-            (unit.names + unit.abbreviations).maxOfOrNull { it.length } ?: 0
+            try {
+                val singularNames = resources.getStringArray(unit.singularNamesResId)
+                val pluralNames = resources.getStringArray(unit.pluralNamesResId)
+                (singularNames.toList() + pluralNames.toList() + unit.abbreviations).maxOfOrNull { it.length } ?: 0
+            } catch (e: Exception) {
+                unit.abbreviations.maxOfOrNull { it.length } ?: 0
+            }
         }
         
         for (unit in allUnits) {
-            // Check full names
-            for (name in unit.names) {
-                if (normalizedText.contains(name.lowercase())) {
-                    return unit
+            // Check localized full names (both singular and plural)
+            try {
+                val singularNames = resources.getStringArray(unit.singularNamesResId)
+                for (name in singularNames) {
+                    if (normalizedText.contains(name.lowercase())) {
+                        return unit
+                    }
                 }
+                
+                val pluralNames = resources.getStringArray(unit.pluralNamesResId)
+                for (name in pluralNames) {
+                    if (normalizedText.contains(name.lowercase())) {
+                        return unit
+                    }
+                }
+            } catch (e: Exception) {
+                // Resource not found, skip
             }
+            
             // Check abbreviations (with word boundaries)
             for (abbr in unit.abbreviations) {
                 // Match abbreviations as whole words or at the end

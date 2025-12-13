@@ -46,23 +46,18 @@ sealed interface UnitConversionOutput : SkillOutput {
             }
         }
 
-        private fun getUnitDisplayName(unit: Unit, value: Double): String {
-            // Use plural or singular form based on value
-            val usePlural = Math.abs(value) != 1.0
-            
+        private fun getUnitDisplayName(unit: Unit, value: Double, resources: android.content.res.Resources): String {
             // Prefer abbreviations for some units, full names for others
             return when (unit.type) {
                 UnitType.DIGITAL_STORAGE, UnitType.ENERGY, UnitType.POWER, UnitType.PRESSURE -> {
                     // Use abbreviations
-                    unit.abbreviations.firstOrNull() ?: unit.names.first()
+                    unit.abbreviations.firstOrNull() ?: ""
                 }
                 else -> {
-                    // Use full names
-                    if (usePlural && unit.names.size > 1) {
-                        unit.names[1] // plural form
-                    } else {
-                        unit.names[0] // singular form
-                    }
+                    // Use full names from resources - choose singular or plural array
+                    val usePlural = Math.abs(value) != 1.0
+                    val arrayResId = if (usePlural) unit.pluralNamesResId else unit.singularNamesResId
+                    resources.getStringArray(arrayResId).firstOrNull() ?: ""
                 }
             }
         }
@@ -70,8 +65,8 @@ sealed interface UnitConversionOutput : SkillOutput {
         override fun getSpeechOutput(ctx: SkillContext): String {
             val inputStr = formatNumber(inputValue)
             val resultStr = formatNumber(result)
-            val sourceUnitName = getUnitDisplayName(sourceUnit, inputValue)
-            val targetUnitName = getUnitDisplayName(targetUnit, result)
+            val sourceUnitName = getUnitDisplayName(sourceUnit, inputValue, ctx.android.resources)
+            val targetUnitName = getUnitDisplayName(targetUnit, result, ctx.android.resources)
             
             return ctx.getString(
                 R.string.skill_unit_conversion_result,
@@ -86,11 +81,11 @@ sealed interface UnitConversionOutput : SkillOutput {
         override fun GraphicalOutput(ctx: SkillContext) {
             Column {
                 Subtitle(
-                    text = "${formatNumber(inputValue)} ${getUnitDisplayName(sourceUnit, inputValue)}"
+                    text = "${formatNumber(inputValue)} ${getUnitDisplayName(sourceUnit, inputValue, ctx.android.resources)}"
                 )
                 Spacer(modifier = androidx.compose.ui.Modifier.height(8.dp))
                 Headline(
-                    text = "${formatNumber(result)} ${getUnitDisplayName(targetUnit, result)}"
+                    text = "${formatNumber(result)} ${getUnitDisplayName(targetUnit, result, ctx.android.resources)}"
                 )
             }
         }
