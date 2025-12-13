@@ -28,6 +28,7 @@
     <string name="start_listening">Start listening</string>
     <string name="downloaded">Downloaded</string>
     <string name="loaded">Loaded</string>
+    <string name="ready_to_help">Ready to help!</string>
     <string name="here_is_what_i_can_do">Here is what I can do!</string>
     <string name="all_skills_disabled_title">All skills are disabled</string>
     <string name="all_skills_disabled_description">Please enable some skills from settings, otherwise Dicio will not be able to do anything</string>

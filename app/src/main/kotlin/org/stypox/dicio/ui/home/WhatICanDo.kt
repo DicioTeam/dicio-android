@@ -1,5 +1,8 @@
 package org.stypox.dicio.ui.home
 
+import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
@@ -11,13 +14,21 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -35,28 +46,72 @@ import org.stypox.dicio.ui.util.SkillInfoPreviews
 
 @Composable
 fun WhatICanDo(skills: List<SkillInfo>) {
+    var expanded by rememberSaveable { mutableStateOf(false) }
+    
     MessageCard(containerColor = MaterialTheme.colorScheme.secondaryContainer) {
-        if (skills.isEmpty()) {
-            NoEnabledSkills()
+        Column(modifier = Modifier.animateContentSize()) {
+            if (skills.isEmpty()) {
+                NoEnabledSkills()
 
-        } else {
+            } else {
+                // Collapsible header
+                WhatICanDoHeader(
+                    expanded = expanded,
+                    toggleExpanded = { expanded = !expanded }
+                )
+
+                // Conditionally show skills list when expanded
+                if (expanded) {
+                    for (skill in skills) {
+                        SkillRow(
+                            skill = skill,
+                            modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
+                        )
+                    }
+                    Spacer(modifier = Modifier.height(8.dp))
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun WhatICanDoHeader(
+    expanded: Boolean,
+    toggleExpanded: () -> Unit,
+) {
+    val expandedAnimation by animateFloatAsState(
+        label = "what_i_can_do_expanded",
+        targetValue = if (expanded) 180f else 0f,
+    )
+
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable(onClick = toggleExpanded)
+            .padding(horizontal = 16.dp, vertical = 12.dp),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Column(modifier = Modifier.weight(1f)) {
+            Text(
+                text = stringResource(R.string.ready_to_help),
+                style = MaterialTheme.typography.headlineMedium,
+            )
             Text(
                 text = stringResource(R.string.here_is_what_i_can_do),
-                style = MaterialTheme.typography.headlineMedium,
-                textAlign = TextAlign.Center,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp),
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.7f),
             )
-
-            for (skill in skills) {
-                SkillRow(
-                    skill = skill,
-                    modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
-                )
-            }
-            Spacer(modifier = Modifier.height(8.dp))
         }
+        Icon(
+            modifier = Modifier
+                .rotate(expandedAnimation)
+                .size(24.dp),
+            imageVector = Icons.Default.ArrowDropDown,
+            contentDescription = stringResource(
+                if (expanded) R.string.reduce else R.string.expand
+            )
+        )
     }
 }
 
