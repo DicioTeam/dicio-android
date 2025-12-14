@@ -25,6 +25,8 @@ import org.stypox.dicio.settings.ui.ListSetting
 import org.stypox.dicio.settings.ui.StringSetting
 
 object WeatherInfo : SkillInfo("weather") {
+    override val categoryNameRes = R.string.category_information
+
     override fun name(context: Context) =
         context.getString(R.string.skill_name_weather)
 

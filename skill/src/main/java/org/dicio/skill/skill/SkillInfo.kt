@@ -35,6 +35,14 @@ abstract class SkillInfo(
     abstract fun icon(): Painter
 
     /**
+     * The category this skill belongs to for organizational purposes. This is used to group
+     * skills on the main screen and in settings. Override this to assign a skill to a specific
+     * category. If not overridden, skills will be placed in the "Other" category.
+     * @return the string resource ID for the skill's category name (e.g. R.string.category_productivity)
+     */
+    open val categoryNameRes: Int = 0 // Will default to R.string.category_other in app module
+
+    /**
      * Provides all of the permissions this skill needs in order to run. For example, the telephone
      * skill needs the `CALL_PHONE` and `READ_CONTACTS` permissions to run. The
      * permissions expressed here will be requested to the user when the skill is first used, or

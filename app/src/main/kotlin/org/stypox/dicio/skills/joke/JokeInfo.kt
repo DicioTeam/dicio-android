@@ -13,6 +13,8 @@ import org.stypox.dicio.sentences.Sentences
 import org.stypox.dicio.util.LocaleUtils
 
 object JokeInfo : SkillInfo("Joke") {
+    override val categoryNameRes = R.string.category_entertainment
+
     override fun name(context: Context) =
         context.getString(R.string.skill_name_joke)
 

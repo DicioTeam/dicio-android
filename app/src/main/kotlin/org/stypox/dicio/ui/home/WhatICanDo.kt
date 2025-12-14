@@ -33,11 +33,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
+import java.text.Collator
+import java.util.Locale
 import org.dicio.skill.skill.SkillInfo
 import org.stypox.dicio.R
 import org.stypox.dicio.eval.SkillHandler
@@ -46,13 +49,35 @@ import org.stypox.dicio.ui.util.SkillInfoPreviews
 
 @Composable
 fun WhatICanDo(skills: List<SkillInfo>) {
+    val context = LocalContext.current
     var expanded by rememberSaveable { mutableStateOf(false) }
+    
+    // Get current locale for proper collation
+    val locale = context.resources.configuration.locales.get(0) ?: Locale.getDefault()
+    val collator = Collator.getInstance(locale)
+    
+    // Group skills by category and sort
+    val categorizedSkills = skills
+        .groupBy { skill ->
+            val categoryRes = skill.categoryNameRes
+            if (categoryRes == 0) {
+                context.getString(R.string.category_other)
+            } else {
+                context.getString(categoryRes)
+            }
+        }
+        .mapValues { (_, skillsList) ->
+            // Sort skills alphabetically by localized name within each category
+            skillsList.sortedWith(compareBy(collator) { it.name(context) })
+        }
+        .toList()
+        // Sort categories alphabetically by localized name
+        .sortedWith(compareBy(collator) { it.first })
     
     MessageCard(containerColor = MaterialTheme.colorScheme.secondaryContainer) {
         Column(modifier = Modifier.animateContentSize()) {
             if (skills.isEmpty()) {
                 NoEnabledSkills()
-
             } else {
                 // Collapsible header
                 WhatICanDoHeader(
@@ -60,12 +85,12 @@ fun WhatICanDo(skills: List<SkillInfo>) {
                     toggleExpanded = { expanded = !expanded }
                 )
 
-                // Conditionally show skills list when expanded
+                // Conditionally show categories when expanded
                 if (expanded) {
-                    for (skill in skills) {
-                        SkillRow(
-                            skill = skill,
-                            modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
+                    for ((category, categorySkills) in categorizedSkills) {
+                        CategorySection(
+                            categoryName = category,
+                            skills = categorySkills
                         )
                     }
                     Spacer(modifier = Modifier.height(8.dp))
@@ -107,6 +132,78 @@ private fun WhatICanDoHeader(
             modifier = Modifier
                 .rotate(expandedAnimation)
                 .size(24.dp),
+            imageVector = Icons.Default.ArrowDropDown,
+            contentDescription = stringResource(
+                if (expanded) R.string.reduce else R.string.expand
+            )
+        )
+    }
+}
+
+@Composable
+private fun CategorySection(
+    categoryName: String,
+    skills: List<SkillInfo>
+) {
+    var expanded by rememberSaveable(categoryName) { mutableStateOf(false) }
+    
+    Column(modifier = Modifier.animateContentSize()) {
+        // Category header
+        CategoryHeader(
+            categoryName = categoryName,
+            skillCount = skills.size,
+            expanded = expanded,
+            toggleExpanded = { expanded = !expanded }
+        )
+
+        // Conditionally show skills list when expanded
+        if (expanded) {
+            for (skill in skills) {
+                SkillRow(
+                    skill = skill,
+                    modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun CategoryHeader(
+    categoryName: String,
+    skillCount: Int,
+    expanded: Boolean,
+    toggleExpanded: () -> Unit,
+) {
+    val expandedAnimation by animateFloatAsState(
+        label = "category_expanded_$categoryName",
+        targetValue = if (expanded) 180f else 0f,
+    )
+
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable(onClick = toggleExpanded)
+            .padding(horizontal = 16.dp, vertical = 8.dp),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Column(modifier = Modifier.weight(1f)) {
+            Text(
+                text = categoryName,
+                style = MaterialTheme.typography.titleMedium,
+                color = MaterialTheme.colorScheme.secondary,
+                fontWeight = FontWeight.Bold,
+            )
+            Text(
+                text = stringResource(R.string.skills_count, skillCount),
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.7f),
+            )
+        }
+        Icon(
+            modifier = Modifier
+                .rotate(expandedAnimation)
+                .size(20.dp),
             imageVector = Icons.Default.ArrowDropDown,
             contentDescription = stringResource(
                 if (expanded) R.string.reduce else R.string.expand
