@@ -17,7 +17,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -50,7 +49,6 @@ import org.stypox.dicio.ui.util.SkillInfoPreviews
 @Composable
 fun WhatICanDo(skills: List<SkillInfo>) {
     val context = LocalContext.current
-    var expanded by rememberSaveable { mutableStateOf(false) }
     
     // Get current locale for proper collation
     val locale = context.resources.configuration.locales.get(0) ?: Locale.getDefault()
@@ -75,67 +73,41 @@ fun WhatICanDo(skills: List<SkillInfo>) {
         .sortedWith(compareBy(collator) { it.first })
     
     MessageCard(containerColor = MaterialTheme.colorScheme.secondaryContainer) {
-        Column(modifier = Modifier.animateContentSize()) {
+        Column {
             if (skills.isEmpty()) {
                 NoEnabledSkills()
             } else {
-                // Collapsible header
-                WhatICanDoHeader(
-                    expanded = expanded,
-                    toggleExpanded = { expanded = !expanded }
-                )
+                // Header
+                WhatICanDoHeader()
 
-                // Conditionally show categories when expanded
-                if (expanded) {
-                    for ((category, categorySkills) in categorizedSkills) {
-                        CategorySection(
-                            categoryName = category,
-                            skills = categorySkills
-                        )
-                    }
-                    Spacer(modifier = Modifier.height(8.dp))
+                // Show all categories
+                for ((category, categorySkills) in categorizedSkills) {
+                    CategorySection(
+                        categoryName = category,
+                        skills = categorySkills
+                    )
                 }
+                Spacer(modifier = Modifier.height(8.dp))
             }
         }
     }
 }
 
 @Composable
-private fun WhatICanDoHeader(
-    expanded: Boolean,
-    toggleExpanded: () -> Unit,
-) {
-    val expandedAnimation by animateFloatAsState(
-        label = "what_i_can_do_expanded",
-        targetValue = if (expanded) 180f else 0f,
-    )
-
-    Row(
+private fun WhatICanDoHeader() {
+    Column(
         modifier = Modifier
             .fillMaxWidth()
-            .clickable(onClick = toggleExpanded)
-            .padding(horizontal = 16.dp, vertical = 12.dp),
-        verticalAlignment = Alignment.CenterVertically,
+            .padding(horizontal = 16.dp, vertical = 12.dp)
     ) {
-        Column(modifier = Modifier.weight(1f)) {
-            Text(
-                text = stringResource(R.string.ready_to_help),
-                style = MaterialTheme.typography.headlineMedium,
-            )
-            Text(
-                text = stringResource(R.string.here_is_what_i_can_do),
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.7f),
-            )
-        }
-        Icon(
-            modifier = Modifier
-                .rotate(expandedAnimation)
-                .size(24.dp),
-            imageVector = Icons.Default.ArrowDropDown,
-            contentDescription = stringResource(
-                if (expanded) R.string.reduce else R.string.expand
-            )
+        Text(
+            text = stringResource(R.string.ready_to_help),
+            style = MaterialTheme.typography.headlineMedium,
+        )
+        Text(
+            text = stringResource(R.string.here_is_what_i_can_do),
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.7f),
         )
     }
 }
