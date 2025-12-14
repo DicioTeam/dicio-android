@@ -1,9 +1,9 @@
 set:
-  - nastavi|začni|ustvari? (.duration.? časovnik<s?>|uro|čas|tajmer)|(časovnik<s?>|uro|čas|tajmer za|of? .duration.) (poimenovan|(z? imenom) .name.)?
+  - nastavi|začni|ustvari? (.duration.? časovnik<s?>|uro|čas|tajmer)|(časovnik<s?>|uro|čas|tajmer za|of? .duration.)
 
 cancel:
-  - ustavi|prekliči? (.name.? časovnik<s?>|uro|čas|tajmer poimenovan|(z? imenom)?)|(časovnik<s?>|uro|čas|tajmer poimenovan|(z? imenom)? .name.)
+  - ustavi|prekliči? časovnik<s?>|uro|čas|tajmer
 
 query:
-  - (kako dolg)|(koliko časa) je? lev? na? (.name.? časovnik<s?>|uro|čas|tajmer poimenovan|(z? imenom)?)|(časovnik<s?>|uro|čas|tajmer poimenovan|(z? imenom)? .name.)
-  - kdaj bo? (.name.? časovnik<s?>|uro|čas|tajmer poimenovan|(z? imenom)?)|(časovnik<s?>|uro|čas|tajmer poimenovan|(z? imenom)? .name.) bo?
+  - (kako dolg)|(koliko časa) je? lev? na? časovnik<s?>|uro|čas|tajmer
+  - kdaj bo? časovnik<s?>|uro|čas|tajmer bo

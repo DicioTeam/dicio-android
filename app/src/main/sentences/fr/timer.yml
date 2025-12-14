@@ -1,11 +1,11 @@
 set:
   - timer|(rappelle moi dans) .duration.
-  - (mettre un?)|configure|démarre|créer un? (.duration.? timer)|(timer pour|de .duration. (appelé|nommé|surnommé|(avec le nom) .name.)?)
+  - (mettre un?)|configure|démarre|créer un? (.duration.? timer)|(timer pour|de .duration.)
   - ajoute un timer (de|qui dure) .duration.
 
 cancel:
-  - annule|arrête le|stop? (.name.? timer<s?>)|(timer<s?> appelé|nommé|surnommé|(avec le nom) .name.)
+  - annule|arrête le|stop? timer<s?>
 
 query:
-  - combien de temps (est laissé?)|(reste t il)? sur le? (.name.? timer<s?>)|(timer<s?> appelé|nommé|surnommé|(avec le nom) .name.)
-  - quand est ce que le? (.name.? timer<s?>)|(timer<s?> appelé|nommé|surnommé|(avec le nom) .name.) va? expire<r?>|(se? termine<r?>)
+  - combien de temps (est laissé?)|(reste t il)? sur le? timer<s?>
+  - quand est ce que le? timer<s?> va? expire<r?>|(se? termine<r?>)

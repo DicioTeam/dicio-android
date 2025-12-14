@@ -3,7 +3,6 @@ package org.stypox.dicio.skills.timer
 import android.content.Context
 import androidx.annotation.StringRes
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LongState
 import org.dicio.numbers.ParserFormatter
 import org.dicio.skill.context.SkillContext
 import org.dicio.skill.skill.AlwaysBestScore
@@ -16,32 +15,25 @@ import org.dicio.skill.skill.Specificity
 import org.stypox.dicio.R
 import org.stypox.dicio.io.graphical.Headline
 import org.stypox.dicio.io.graphical.HeadlineSpeechSkillOutput
-import org.stypox.dicio.sentences.Sentences
-import org.stypox.dicio.util.RecognizeYesNoSkill
 import org.stypox.dicio.util.getString
-import java.text.DecimalFormatSymbols
 import java.time.Duration
 import kotlin.math.absoluteValue
 
 sealed interface TimerOutput : SkillOutput {
     class Set(
         private val milliseconds: Long,
-        private val lastTickMillis: LongState,
-        private val name: String?
     ) : TimerOutput {
-        override fun getSpeechOutput(ctx: SkillContext): String = formatStringWithName(
-            ctx, name, milliseconds, R.string.skill_timer_set, R.string.skill_timer_set_name
-        )
+        override fun getSpeechOutput(ctx: SkillContext): String =
+            ctx.getString(R.string.skill_timer_set, getFormattedDuration(ctx.parserFormatter!!, milliseconds, true))
 
         @Composable
         override fun GraphicalOutput(ctx: SkillContext) {
-            Headline(
-                text = getFormattedDuration(
-                    ctx.parserFormatter!!,
-                    lastTickMillis.longValue,
-                    false,
-                ),
+            val durationText = getFormattedDuration(
+                ctx.parserFormatter!!,
+                milliseconds,
+                false,
             )
+            Headline(text = ctx.getString(R.string.skill_timer_graphical_set, durationText))
         }
     }
 
@@ -88,44 +80,14 @@ sealed interface TimerOutput : SkillOutput {
         }
     }
 
-    class Cancel(
-        private val speechOutput: String,
-    ) : TimerOutput, HeadlineSpeechSkillOutput {
-        override fun getSpeechOutput(ctx: SkillContext): String = speechOutput
-    }
-
-    class ConfirmCancel(
-        private val onConfirm: () -> SkillOutput,
-    ) : TimerOutput, HeadlineSpeechSkillOutput {
+    class OpeningClockApp : TimerOutput, HeadlineSpeechSkillOutput {
         override fun getSpeechOutput(ctx: SkillContext): String =
-            ctx.getString(R.string.skill_timer_confirm_cancel)
-
-        override fun getInteractionPlan(ctx: SkillContext): InteractionPlan {
-            val yesNoSentences = Sentences.UtilYesNo[ctx.sentencesLanguage]!!
-            val confirmYesNoSkill = object : RecognizeYesNoSkill(TimerInfo, yesNoSentences) {
-                override suspend fun generateOutput(
-                    ctx: SkillContext,
-                    inputData: Boolean
-                ): SkillOutput {
-                    return if (inputData) {
-                        onConfirm()
-                    } else {
-                        Cancel(ctx.getString(R.string.skill_timer_none_canceled))
-                    }
-                }
-            }
-
-            return InteractionPlan.StartSubInteraction(
-                reopenMicrophone = true,
-                nextSkills = listOf(confirmYesNoSkill),
-            )
-        }
+            ctx.getString(R.string.skill_timer_opening_clock_app)
     }
 
-    class Query(
-        private val speechOutput: String,
-    ) : TimerOutput, HeadlineSpeechSkillOutput {
-        override fun getSpeechOutput(ctx: SkillContext): String = speechOutput
+    class NoClockApp : TimerOutput, HeadlineSpeechSkillOutput {
+        override fun getSpeechOutput(ctx: SkillContext): String =
+            ctx.getString(R.string.skill_timer_no_clock_app)
     }
 }
 
@@ -167,13 +129,5 @@ fun getFormattedDuration(
         .speech(speech)
         .get()
 
-    return if (speech) {
-        niceDuration // no need to speak milliseconds
-    } else {
-        (if (milliseconds < 0) "-" else "") +
-                niceDuration +
-                DecimalFormatSymbols.getInstance().decimalSeparator +
-                // show only the first decimal place, rounded to the nearest one
-                ((milliseconds.absoluteValue + 50) / 100) % 10
-    }
+    return niceDuration
 }

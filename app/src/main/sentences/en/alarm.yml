@@ -1,0 +1,9 @@
+set:
+  - (set|setup|create) an? alarm (for|at) .time.
+  - alarm (for|at) .time.
+  - wake me up (at|in) .time.
+
+show:
+  - show my? (alarm<s?>|clock)
+  - open the? (clock|alarm<s?>) app?
+  - (what|which) alarm<s?> (do i have|are set)

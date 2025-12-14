@@ -118,6 +118,7 @@
     <string name="pref_stt_play_sound_none">Do not play sound</string>
     <string name="perm_read_contacts">read your contacts</string>
     <string name="perm_call_phone">directly call phone numbers</string>
+    <string name="perm_set_alarm">set timers and alarms</string>
     <string name="settings_description_with_value">%1$s — %2$s</string>
     <string name="eval_missing_permissions">The skill \"%1$s\" needs these permissions to work: %2$s</string>
     <string name="eval_fatal_error">Could not evaluate your request</string>
@@ -150,6 +151,8 @@
     <string name="skill_sentence_example_telephone">Call Tom</string>
     <string name="skill_name_timer">Timer</string>
     <string name="skill_sentence_example_timer">Set a timer for five minutes</string>
+    <string name="skill_name_alarm">Alarm</string>
+    <string name="skill_sentence_example_alarm">Set an alarm for seven thirty AM</string>
     <string name="skill_name_current_time">Current time</string>
     <string name="skill_sentence_example_current_time">What time is it?</string>
     <string name="skill_fallback_name_text">Text message</string>
@@ -193,6 +196,17 @@
     <string name="skill_timer_query_name">Timer %1$s expires in %2$s</string>
     <string name="skill_timer_query_last">The last timer expires in %1$s</string>
     <string name="skill_timer_none_canceled">OK, no timer was canceled</string>
+    <string name="skill_timer_no_clock_app">No clock app found on your device to handle timers</string>
+    <string name="skill_timer_opening_clock_app">Opening clock app…</string>
+    <string name="skill_timer_graphical_set">Timer set for %1$s</string>
+    <string name="skill_timer_graphical_set_name">Timer "%1$s" set for %2$s</string>
+    <string name="skill_alarm_what_time">What time should the alarm be set for?</string>
+    <string name="skill_alarm_graphical_set">Alarm set for %1$s</string>
+    <string name="skill_alarm_graphical_set_name">Alarm "%1$s" set for %2$s</string>
+    <string name="skill_alarm_set">OK, the alarm is set for %1$s</string>
+    <string name="skill_alarm_set_name">OK, alarm %1$s is set for %2$s</string>
+    <string name="skill_alarm_no_clock_app">No clock app found on your device to handle alarms</string>
+    <string name="skill_alarm_opening_clock_app">Opening clock app…</string>
     <string name="stt_service_label">Dicio offline speech recognition</string>
     <string name="wake_service_label">Dicio wake word service</string>
     <string name="wake_service_foreground_notification_summary">This notification allows the Dicio

@@ -1,10 +1,10 @@
 set:
   - minutnik|budzik|zegar|alarm|dzwonek|(daj znać za)|(powiedz kiedy mi<nie|ną>) .duration.
-  - <u|na>staw|uruchom|<s|u>twórz minutnik|budzik|zegar|alarm|dzwonek na|za .duration. (nazwany|(o nazwie) .name.)?
+  - <u|na>staw|uruchom|<s|u>twórz minutnik|budzik|zegar|alarm|dzwonek na|za .duration.
 
 cancel:
-  - anuluj|zatrzymaj|przerwij|wyłącz|zakończ|wycisz|usuń minutnik|budzik|zegar|alarm|dzwonek (nazwany|(o nazwie) .name.)?
+  - anuluj|zatrzymaj|przerwij|wyłącz|zakończ|wycisz|usuń minutnik|budzik|zegar|alarm|dzwonek
 
 query:
-  - ile (czasu? zostało)|(zostało? czasu) do|na (minutnik<a|u>|budzik<a|u>|zegar<a|ze>|alarm<u|ie>|dzwon<ka|ku>)? .name.
-  - kiedy (<s|za>kończy się)|<za?>dzwoni (minutnik|budzik|zegar|alarm|dzwonek)? .name.
+  - ile (czasu? zostało)|(zostało? czasu) do|na minutnik<a|u>|budzik<a|u>|zegar<a|ze>|alarm<u|ie>|dzwon<ka|ku>
+  - kiedy (<s|za>kończy się)|<za?>dzwoni minutnik|budzik|zegar|alarm|dzwonek

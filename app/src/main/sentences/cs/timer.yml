@@ -1,9 +1,9 @@
 set:
   - časovač|(pípni za) .duration.
-  - nastav|vytvoř|zapni|pusť časovač (na? .duration. (s názvem .name.)?)|((s názvem) .name. na .duration.)
+  - nastav|vytvoř|zapni|pusť časovač na? .duration.
 
 cancel:
-  - zastav|zruš|vypni|stop (.name.|(časovač (s názvem)? .name.))
+  - zastav|zruš|vypni|stop časovač
 
 query:
-  - kdy skončí|vyprší|(bude u konce) časovac? (s názvem)? .name.
+  - kdy skončí|vyprší|(bude u konce) časovač
