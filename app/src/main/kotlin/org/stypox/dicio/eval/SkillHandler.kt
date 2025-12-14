@@ -26,6 +26,7 @@ import org.stypox.dicio.skills.media.MediaInfo
 import org.stypox.dicio.skills.navigation.NavigationInfo
 import org.stypox.dicio.skills.open.OpenInfo
 import org.stypox.dicio.skills.search.SearchInfo
+import org.stypox.dicio.skills.sms.SmsInfo
 import org.stypox.dicio.skills.telephone.TelephoneInfo
 import org.stypox.dicio.skills.timer.TimerInfo
 import org.stypox.dicio.skills.translation.TranslationInfo
@@ -49,6 +50,7 @@ class SkillHandler @Inject constructor(
         CalculatorInfo,
         NavigationInfo,
         TelephoneInfo,
+        SmsInfo,
         TimerInfo,
         CurrentTimeInfo,
         MediaInfo,

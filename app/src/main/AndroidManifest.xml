@@ -26,6 +26,9 @@
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-feature android:name="android.hardware.telephony" android:required="false" />
 
+    <!-- the sms skill needs to send text messages -->
+    <uses-permission android:name="android.permission.SEND_SMS" />
+
     <!-- allowBackup=false because of a critical nasty bug: https://medium.com/p/924c91bafcac -->
     <application
         android:name=".App"
