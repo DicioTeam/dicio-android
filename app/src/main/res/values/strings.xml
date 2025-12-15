@@ -130,6 +130,8 @@
     <string name="stt_say_something">Say something…</string>
     <string name="stt_did_not_understand">I could not understand, try again</string>
     <string name="stt_popup">Speech to text popup</string>
+    <string name="assistant_overlay">Assistant overlay</string>
+    <string name="assistant_overlay_long">Digital assistant overlay</string>
     <string name="skill_name_search">Search</string>
     <string name="skill_sentence_example_search">Search how to feed a cat</string>
     <string name="skill_name_weather">Weather</string>
@@ -205,6 +207,12 @@
     <string name="wake_service_triggered_notification">Dicio wake word triggered, tap to open</string>
     <string name="wake_service_start_notification_summary">In Android 11+ Dicio can\'t start the service without a manual interaction from the user.</string>
     <string name="wake_service_triggered_notification_summary">In Android 10+ Dicio can\'t start when a wake word is detected without showing a notification.</string>
+    <string name="assistant_overlay_service_label">Dicio assistant overlay</string>
+    <string name="assistant_overlay_notification_channel">Assistant Overlay</string>
+    <string name="assistant_overlay_notification_description">Notification for the assistant overlay service</string>
+    <string name="assistant_overlay_active">Assistant overlay is active</string>
+    <string name="overlay_permission_required">Overlay permission is required to show the assistant</string>
+    <string name="dismiss">Dismiss</string>
     <string name="wake_word_setup_title">Setup wake word</string>
     <string name="wake_word_setup_description">Dicio will wake up automatically whenever you say \"Hey Dicio\".
         This works by starting a service that always listens in the background.

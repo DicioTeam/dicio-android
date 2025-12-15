@@ -10,4 +10,15 @@
             android:targetPackage="org.stypox.dicio"
             android:targetClass="org.stypox.dicio.io.input.stt_popup.SttPopupActivity" />
     </shortcut>
+    <shortcut
+        android:shortcutId="assistant_overlay"
+        android:enabled="true"
+        android:icon="@mipmap/ic_launcher"
+        android:shortcutShortLabel="@string/assistant_overlay"
+        android:shortcutLongLabel="@string/assistant_overlay_long">
+        <intent
+            android:action="android.intent.action.ASSIST"
+            android:targetPackage="org.stypox.dicio"
+            android:targetClass="org.stypox.dicio.io.assistant.AssistantLauncherActivity" />
+    </shortcut>
 </shortcuts>

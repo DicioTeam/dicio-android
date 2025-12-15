@@ -35,6 +35,7 @@ import org.stypox.dicio.R
 import org.stypox.dicio.di.SttInputDeviceWrapper
 import org.stypox.dicio.di.WakeDeviceWrapper
 import org.stypox.dicio.eval.SkillEvaluator
+import org.stypox.dicio.io.assistant.AssistantOverlayService
 import java.time.Instant
 import java.util.concurrent.atomic.AtomicBoolean
 import java.util.concurrent.atomic.AtomicReference
@@ -224,56 +225,16 @@ class WakeService : Service() {
     private fun onWakeWordDetected() {
         Log.d(TAG, "Wake word detected")
 
-        val intent = Intent(this, MainActivity::class.java)
-        intent.setAction(ACTION_WAKE_WORD)
-        intent.setFlags(FLAG_ACTIVITY_NEW_TASK)
-
         // Start listening and pass STT events to the skill evaluator.
-        // Note that this works even if the MainActivity is opened later!
+        // Note that this works even if the overlay/MainActivity is opened later!
         sttInputDevice.tryLoad(skillEvaluator::processInputEvent)
 
         // Unload the STT after a while because it would be using RAM uselessly
         handler.removeCallbacks(releaseSttResourcesRunnable)
         handler.postDelayed(releaseSttResourcesRunnable, RELEASE_STT_RESOURCES_MILLIS)
 
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q || MainActivity.isInForeground > 0) {
-            // start the activity directly on versions prior to Android 10,
-            // or if the MainActivity is already running in the foreground
-            startActivity(intent)
-
-        } else {
-            // Android 10+ does not allow starting activities from the background,
-            // so show a full-screen notification instead, which does actually result in starting
-            // the activity from the background if the phone is off and Do Not Disturb is not active
-            // Maybe we could also use the "Display over other apps" permission?
-
-            val channel = NotificationChannel(
-                TRIGGERED_NOTIFICATION_CHANNEL_ID,
-                getString(R.string.wake_service_triggered_notification),
-                NotificationManager.IMPORTANCE_HIGH
-            )
-            channel.description = getString(R.string.wake_service_triggered_notification_summary)
-            notificationManager.createNotificationChannel(channel)
-
-            val pendingIntent = PendingIntent.getActivity(
-                this,
-                0,
-                intent,
-                PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE,
-            )
-
-            val notification = NotificationCompat.Builder(this, TRIGGERED_NOTIFICATION_CHANNEL_ID)
-                .setSmallIcon(R.drawable.ic_hearing_white)
-                .setContentTitle(getString(R.string.wake_service_triggered_notification))
-                .setStyle(NotificationCompat.BigTextStyle().bigText(
-                    getString(R.string.wake_service_triggered_notification_summary)))
-                .setPriority(NotificationCompat.PRIORITY_HIGH)
-                .setFullScreenIntent(pendingIntent, true)
-                .build()
-
-            notificationManager.cancel(TRIGGERED_NOTIFICATION_ID)
-            notificationManager.notify(TRIGGERED_NOTIFICATION_ID, notification)
-        }
+        // Launch the assistant overlay service
+        AssistantOverlayService.start(this)
     }
 
     companion object {
