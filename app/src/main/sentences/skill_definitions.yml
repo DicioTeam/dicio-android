@@ -4,6 +4,14 @@ skills:
     sentences:
       - id: query
 
+  - id: definition
+    specificity: high
+    sentences:
+      - id: query
+        captures:
+          - id: word
+            type: string
+
   - id: calculator
     specificity: medium
     sentences:
