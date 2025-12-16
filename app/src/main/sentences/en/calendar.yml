@@ -1,0 +1,7 @@
+create_event:
+  - (add|create|schedule|make) .title. (to|on|in my? calendar)? ((on|at|for)? .date_time.)? (for .duration.)?
+  - (add|create|schedule|make) (a|an)? (calendar? event) (called|named .title.) ((on|at|for)? .date_time.)? (for .duration.)?
+  - schedule .title. ((on|at|for)? .date_time.)? (for .duration.)?
+  - (put|add) .title. (on|in my? calendar) ((on|at|for)? .date_time.)? (for .duration.)?
+  - remind me (about|of .title.) ((on|at|for)? .date_time.)? (for .duration.)?
+  - (create|make) (a|an)? event .title. ((on|at|for)? .date_time.)? (for .duration.)?

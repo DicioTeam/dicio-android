@@ -148,6 +148,15 @@
     <string name="skill_sentence_example_navigation">Navigate to Vancouver international airport</string>
     <string name="skill_navigation_specify_where">Specify where you want to navigate to</string>
     <string name="skill_navigation_navigating_to">Navigating to %1$s</string>
+    <string name="skill_name_calendar">Calendar</string>
+    <string name="skill_sentence_example_calendar">Add dentist appointment tomorrow at 3pm</string>
+    <string name="skill_calendar_success">Adding %1$s to your calendar on %2$s for %3$s</string>
+    <string name="skill_calendar_event_added">Event added to calendar</string>
+    <string name="skill_calendar_no_title">Please specify an event title</string>
+    <string name="skill_calendar_no_app">No calendar app found. Please install a calendar app to add events</string>
+    <string name="skill_calendar_duration_hours">%1$d hour</string>
+    <string name="skill_calendar_duration_minutes">%1$d minutes</string>
+    <string name="skill_calendar_duration_hours_minutes">%1$d hour and %2$d minutes</string>
     <string name="skill_name_telephone">Telephone</string>
     <string name="skill_sentence_example_telephone">Call Tom</string>
     <string name="skill_name_timer">Timer</string>
