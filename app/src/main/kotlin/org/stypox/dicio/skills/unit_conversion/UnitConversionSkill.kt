@@ -164,7 +164,7 @@ class UnitConversionSkill(
                         return unit
                     }
                 }
-            } catch (e: Exception) {
+            } catch (_: Exception) {
                 // Resource not found, skip
             }
             
