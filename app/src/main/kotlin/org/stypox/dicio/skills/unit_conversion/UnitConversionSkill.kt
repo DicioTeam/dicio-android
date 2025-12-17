@@ -119,13 +119,10 @@ class UnitConversionSkill(
             // Build API URL
             val apiUrl = "https://api.frankfurter.dev/v1/latest?base=$baseCurrency&symbols=$targetCurrency"
             
-            // Fetch exchange rate from API
-            val response: JSONObject = ConnectionUtils.getPageJson(apiUrl)
-            
-            // Extract the exchange rate from the response
-            // Response format: {"amount":1.0,"base":"USD","date":"2025-12-16","rates":{"EUR":0.84918}}
-            val rates = response.getJSONObject("rates")
-            val exchangeRate = rates.getDouble(targetCurrency)
+            val exchangeRate = ConnectionUtils.getPageJson(apiUrl)
+                  .getJSONObject("rates")
+                  .getDouble(targetCurrency)
+
             
             // Calculate converted amount with 5 decimal precision
             val result = amount * exchangeRate
