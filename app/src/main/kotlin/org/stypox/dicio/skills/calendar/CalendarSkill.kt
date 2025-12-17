@@ -32,6 +32,8 @@ class CalendarSkill(
 
         val npf = ctx.parserFormatter
         var cleanTitle = title.trim()
+            .split(" ")
+            .joinToString(" ") { word -> word.replaceFirstChar { it.uppercase() } }
         var extractedDateTime: LocalDateTime? = null
 
         // First, try to parse date/time from the explicit dateTimeStr capture
