@@ -8,9 +8,14 @@ import android.widget.Toast
 import androidx.annotation.StringRes
 import org.dicio.skill.context.SpeechOutputDevice
 import org.stypox.dicio.R
+import org.stypox.dicio.io.audio.AudioFocusManager
 import java.util.Locale
 
-class AndroidTtsSpeechDevice(private var context: Context, locale: Locale) : SpeechOutputDevice {
+class AndroidTtsSpeechDevice(
+    private var context: Context,
+    locale: Locale,
+    private val audioFocusManager: AudioFocusManager
+) : SpeechOutputDevice {
     private var textToSpeech: TextToSpeech? = null
     private var initializedCorrectly = false
     private val runnablesWhenFinished: MutableList<Runnable> = ArrayList()
@@ -25,9 +30,14 @@ class AndroidTtsSpeechDevice(private var context: Context, locale: Locale) : Spe
                         initializedCorrectly = true
                         setOnUtteranceProgressListener(object :
                             UtteranceProgressListener() {
-                            override fun onStart(utteranceId: String) {}
+                            override fun onStart(utteranceId: String) {
+                                // Ensure audio focus is maintained while TTS is speaking
+                                audioFocusManager.onTtsStarted()
+                            }
                             override fun onDone(utteranceId: String) {
                                 if ("dicio_$lastUtteranceId" == utteranceId) {
+                                    // Release audio focus when the last utterance finishes
+                                    audioFocusManager.releaseFocus()
                                     // run only when the last enqueued utterance is finished
                                     for (runnable in runnablesWhenFinished) {
                                         runnable.run()
@@ -39,6 +49,8 @@ class AndroidTtsSpeechDevice(private var context: Context, locale: Locale) : Spe
                             @Suppress("OVERRIDE_DEPRECATION")
                             @Deprecated("")
                             override fun onError(utteranceId: String) {
+                                // Release audio focus on error
+                                audioFocusManager.releaseFocus()
                             }
                         })
                     } else {
@@ -67,6 +79,9 @@ class AndroidTtsSpeechDevice(private var context: Context, locale: Locale) : Spe
 
     override fun stopSpeaking() {
         textToSpeech?.stop()
+        // Don't release audio focus here - it gets called when STT starts listening
+        // to interrupt any ongoing TTS, but we want to maintain focus through the interaction.
+        // Focus will be released when TTS finishes naturally in onDone() or on cleanup()
     }
 
     override val isSpeaking: Boolean
@@ -85,6 +100,8 @@ class AndroidTtsSpeechDevice(private var context: Context, locale: Locale) : Spe
             shutdown()
             textToSpeech = null
         }
+        // Release audio focus on cleanup
+        audioFocusManager.releaseFocus()
     }
 
     private fun handleInitializationError(@StringRes errorString: Int) {

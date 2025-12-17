@@ -26,6 +26,7 @@ import kotlinx.coroutines.launch
 import org.stypox.dicio.di.SttInputDeviceWrapper
 import org.stypox.dicio.di.WakeDeviceWrapper
 import org.stypox.dicio.eval.SkillEvaluator
+import org.stypox.dicio.io.audio.AudioFocusManager
 import org.stypox.dicio.io.wake.WakeService
 import org.stypox.dicio.io.wake.WakeState.Loaded
 import org.stypox.dicio.io.wake.WakeState.Loading
@@ -45,6 +46,8 @@ class MainActivity : BaseActivity() {
     lateinit var sttInputDevice: SttInputDeviceWrapper
     @Inject
     lateinit var wakeDevice: WakeDeviceWrapper
+    @Inject
+    lateinit var audioFocusManager: AudioFocusManager
 
     private var sttPermissionJob: Job? = null
     private var wakeServiceJob: Job? = null
@@ -98,6 +101,9 @@ class MainActivity : BaseActivity() {
     override fun onStop() {
         super.onStop()
         isInForeground -= 1
+
+        // Release audio focus when the app goes to background
+        audioFocusManager.releaseFocus()
 
         // once the activity is swiped away from the lock screen (or put in the background in any
         // other way), we don't want to show it on the lock screen anymore

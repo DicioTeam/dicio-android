@@ -3,6 +3,7 @@ package org.stypox.dicio.di
 import android.content.Context
 import android.media.AudioAttributes
 import android.media.MediaPlayer
+import android.os.Build
 import androidx.datastore.core.DataStore
 import dagger.Module
 import dagger.Provides
@@ -18,6 +19,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import okhttp3.OkHttpClient
 import org.stypox.dicio.R
+import org.stypox.dicio.io.audio.AudioFocusManager
 import org.stypox.dicio.io.input.InputEvent
 import org.stypox.dicio.io.input.SttInputDevice
 import org.stypox.dicio.io.input.SttState
@@ -53,6 +55,7 @@ class SttInputDeviceWrapperImpl(
     private val localeManager: LocaleManager,
     private val okHttpClient: OkHttpClient,
     private val activityForResultManager: ActivityForResultManager,
+    private val audioFocusManager: AudioFocusManager,
 ) : SttInputDeviceWrapper {
     private val scope = CoroutineScope(Dispatchers.Default)
 
@@ -102,7 +105,7 @@ class SttInputDeviceWrapperImpl(
         return when (setting) {
             UNRECOGNIZED,
             INPUT_DEVICE_UNSET,
-            INPUT_DEVICE_VOSK -> VoskInputDevice(appContext, okHttpClient, localeManager)
+            INPUT_DEVICE_VOSK -> VoskInputDevice(appContext, okHttpClient, localeManager, audioFocusManager)
             INPUT_DEVICE_EXTERNAL_POPUP ->
                 ExternalPopupInputDevice(appContext, activityForResultManager, localeManager)
             INPUT_DEVICE_NOTHING -> null
@@ -120,8 +123,14 @@ class SttInputDeviceWrapperImpl(
                 newSttInputDevice.uiState.collect {
                     _uiState.emit(it)
                     if (it == SttState.Listening) {
+                        // Request audio focus FIRST to duck background audio immediately
+                        // This will be maintained through TTS and released by AndroidTtsSpeechDevice
+                        audioFocusManager.requestFocus()
+                        // Play the listening sound after requesting focus
                         playSound(R.raw.listening_sound)
                     }
+                    // Note: We don't release audio focus here when STT stops
+                    // The focus is maintained through TTS and released by AndroidTtsSpeechDevice
                 }
             }
         }
@@ -141,6 +150,17 @@ class SttInputDeviceWrapperImpl(
             )
             .build()
         val mediaPlayer = MediaPlayer.create(appContext, resid, attributes, 0)
+        // Disable automatic audio focus handling by MediaPlayer so it doesn't interfere
+        // with our manual audio focus management
+        mediaPlayer.setAudioAttributes(attributes)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            // On API 26+, explicitly disable MediaPlayer's automatic focus handling
+            mediaPlayer.setAudioAttributes(
+                AudioAttributes.Builder(attributes)
+                    .setFlags(AudioAttributes.FLAG_AUDIBILITY_ENFORCED)
+                    .build()
+            )
+        }
         mediaPlayer.setVolume(0.75f, 0.75f)
         mediaPlayer.start()
     }
@@ -162,9 +182,14 @@ class SttInputDeviceWrapperImpl(
 
     override fun stopListening() {
         sttInputDevice?.stopListening()
+        // Release audio focus when user manually stops listening
+        // (e.g., by clicking the mic button again while listening)
+        audioFocusManager.releaseFocus()
     }
 
     override fun onClick(eventListener: (InputEvent) -> Unit) {
+        // Audio focus is requested when state becomes Listening in restartUiStateJob()
+        // This works for both mic button clicks and hotword activation
         sttInputDevice?.onClick(wrapEventListener(eventListener))
     }
 
@@ -184,9 +209,10 @@ class SttInputDeviceWrapperModule {
         localeManager: LocaleManager,
         okHttpClient: OkHttpClient,
         activityForResultManager: ActivityForResultManager,
+        audioFocusManager: AudioFocusManager,
     ): SttInputDeviceWrapper {
         return SttInputDeviceWrapperImpl(
-            appContext, dataStore, localeManager, okHttpClient, activityForResultManager
+            appContext, dataStore, localeManager, okHttpClient, activityForResultManager, audioFocusManager
         )
     }
 }

@@ -16,6 +16,7 @@ import org.dicio.skill.skill.Permission
 import org.dicio.skill.skill.SkillOutput
 import org.stypox.dicio.di.SkillContextInternal
 import org.stypox.dicio.di.SttInputDeviceWrapper
+import org.stypox.dicio.io.audio.AudioFocusManager
 import org.stypox.dicio.io.graphical.ErrorSkillOutput
 import org.stypox.dicio.io.graphical.MissingPermissionsSkillOutput
 import org.stypox.dicio.io.input.InputEvent
@@ -37,6 +38,7 @@ class SkillEvaluatorImpl(
     private val skillContext: SkillContextInternal,
     private val skillHandler: SkillHandler,
     private val sttInputDevice: SttInputDeviceWrapper,
+    private val audioFocusManager: AudioFocusManager,
 ) : SkillEvaluator {
 
     private val scope = CoroutineScope(Dispatchers.Default)
@@ -64,6 +66,8 @@ class SkillEvaluatorImpl(
     private suspend fun suspendProcessInputEvent(event: InputEvent) {
         when (event) {
             is InputEvent.Error -> {
+                // Release audio focus on error to restore background audio
+                audioFocusManager.releaseFocus()
                 addErrorInteractionFromPending(event.throwable)
             }
             is InputEvent.Final -> {
@@ -77,6 +81,8 @@ class SkillEvaluatorImpl(
                 evaluateMatchingSkill(event.utterances.map { it.first })
             }
             InputEvent.None -> {
+                // Don't release audio focus here - it will be released by TTS when done,
+                // or by the error handler if no TTS occurs
                 _state.value = _state.value.copy(pendingQuestion = null)
             }
             is InputEvent.Partial -> {
@@ -102,6 +108,8 @@ class SkillEvaluatorImpl(
                 }
             } ?: Pair(utterances[0], skillRanker.getFallbackSkill(skillContext, utterances[0]))
         } catch (throwable: Throwable) {
+            // Release audio focus on error to restore background audio
+            audioFocusManager.releaseFocus()
             addErrorInteractionFromPending(throwable)
             return
         }
@@ -167,6 +175,8 @@ class SkillEvaluatorImpl(
             }
 
         } catch (throwable: Throwable) {
+            // Release audio focus on error to restore background audio
+            audioFocusManager.releaseFocus()
             addErrorInteractionFromPending(throwable)
             return
         }
@@ -219,7 +229,8 @@ class SkillEvaluatorModule {
         skillContext: SkillContextInternal,
         skillHandler: SkillHandler,
         sttInputDevice: SttInputDeviceWrapper,
+        audioFocusManager: AudioFocusManager,
     ): SkillEvaluator {
-        return SkillEvaluatorImpl(skillContext, skillHandler, sttInputDevice)
+        return SkillEvaluatorImpl(skillContext, skillHandler, sttInputDevice, audioFocusManager)
     }
 }

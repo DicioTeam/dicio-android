@@ -33,6 +33,7 @@ import kotlinx.coroutines.launch
 import okhttp3.OkHttpClient
 import org.stypox.dicio.BuildConfig
 import org.stypox.dicio.di.LocaleManager
+import org.stypox.dicio.io.audio.AudioFocusManager
 import org.stypox.dicio.io.input.InputEvent
 import org.stypox.dicio.io.input.SttInputDevice
 import org.stypox.dicio.io.input.SttState
@@ -68,6 +69,7 @@ class VoskInputDevice(
     @ApplicationContext appContext: Context,
     private val okHttpClient: OkHttpClient,
     localeManager: LocaleManager,
+    private val audioFocusManager: AudioFocusManager,
 ) : SttInputDevice {
 
     private val _state: MutableStateFlow<VoskState>
@@ -434,6 +436,7 @@ class VoskInputDevice(
     ) {
         _state.value = Loaded(speechService)
         speechService.stop()
+        audioFocusManager.releaseFocus()
         if (sendNoneEvent) {
             eventListener(InputEvent.None)
         }
