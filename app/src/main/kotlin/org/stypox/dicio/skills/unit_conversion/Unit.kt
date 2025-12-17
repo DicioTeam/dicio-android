@@ -324,7 +324,7 @@ enum class Unit(
                             return unit
                         }
                     }
-                } catch (e: Exception) {
+                } catch (_: Exception) {
                     // Resource not found, skip this unit
                     continue
                 }
