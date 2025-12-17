@@ -7,6 +7,8 @@ import org.dicio.skill.skill.SkillOutput
 import org.dicio.skill.standard.StandardRecognizerData
 import org.dicio.skill.standard.StandardRecognizerSkill
 import org.stypox.dicio.sentences.Sentences.UnitConversion
+import org.stypox.dicio.util.ConnectionUtils
+import org.json.JSONObject
 
 class UnitConversionSkill(
     correspondingSkillInfo: SkillInfo,
@@ -77,7 +79,14 @@ class UnitConversionSkill(
                 }
 
                 // Perform conversion
-                val result = Unit.convert(value, sourceUnit, targetUnit)
+                val result = if (sourceUnit.type == UnitType.CURRENCY) {
+                    // Currency conversion via API
+                    convertCurrency(value, sourceUnit, targetUnit)
+                } else {
+                    // Standard unit conversion
+                    Unit.convert(value, sourceUnit, targetUnit)
+                }
+                
                 if (result == null) {
                     return UnitConversionOutput.Error("Conversion failed")
                 }
@@ -89,6 +98,41 @@ class UnitConversionSkill(
                     result = result
                 )
             }
+        }
+    }
+
+    /**
+     * Convert currency using the Frankfurter API.
+     * API format: https://api.frankfurter.dev/v1/latest?base=USD&symbols=EUR
+     * Returns the converted amount with 5 decimal precision, or null if the conversion fails.
+     */
+    private fun convertCurrency(amount: Double, fromCurrency: Unit, toCurrency: Unit): Double? {
+        if (fromCurrency.type != UnitType.CURRENCY || toCurrency.type != UnitType.CURRENCY) {
+            return null
+        }
+
+        // Extract ISO codes from the unit abbreviations (first abbreviation is the ISO code)
+        val baseCurrency = fromCurrency.abbreviations.firstOrNull() ?: return null
+        val targetCurrency = toCurrency.abbreviations.firstOrNull() ?: return null
+
+        return try {
+            // Build API URL
+            val apiUrl = "https://api.frankfurter.dev/v1/latest?base=$baseCurrency&symbols=$targetCurrency"
+            
+            // Fetch exchange rate from API
+            val response: JSONObject = ConnectionUtils.getPageJson(apiUrl)
+            
+            // Extract the exchange rate from the response
+            // Response format: {"amount":1.0,"base":"USD","date":"2025-12-16","rates":{"EUR":0.84918}}
+            val rates = response.getJSONObject("rates")
+            val exchangeRate = rates.getDouble(targetCurrency)
+            
+            // Calculate converted amount with 5 decimal precision
+            val result = amount * exchangeRate
+            String.format("%.5f", result).toDouble()
+        } catch (e: Exception) {
+            // Return null on any error (network failure, API error, parsing error)
+            null
         }
     }
 

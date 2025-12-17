@@ -847,4 +847,246 @@
         <item>gons</item>
     </string-array>
 
+    <!-- CURRENCY -->
+    <string-array name="unit_usd_singular">
+        <item>united states dollar</item>
+        <item>us dollar</item>
+        <item>dollar</item>
+    </string-array>
+    <string-array name="unit_usd_plural">
+        <item>united states dollars</item>
+        <item>us dollars</item>
+        <item>dollars</item>
+    </string-array>
+    <string-array name="unit_eur_singular">
+        <item>euro</item>
+    </string-array>
+    <string-array name="unit_eur_plural">
+        <item>euros</item>
+    </string-array>
+    <string-array name="unit_gbp_singular">
+        <item>british pound</item>
+        <item>pound sterling</item>
+        <item>pound</item>
+    </string-array>
+    <string-array name="unit_gbp_plural">
+        <item>british pounds</item>
+        <item>pounds sterling</item>
+        <item>pounds</item>
+    </string-array>
+    <string-array name="unit_jpy_singular">
+        <item>japanese yen</item>
+        <item>yen</item>
+    </string-array>
+    <string-array name="unit_jpy_plural">
+        <item>japanese yen</item>
+        <item>yen</item>
+    </string-array>
+    <string-array name="unit_chf_singular">
+        <item>swiss franc</item>
+    </string-array>
+    <string-array name="unit_chf_plural">
+        <item>swiss francs</item>
+    </string-array>
+    <string-array name="unit_cad_singular">
+        <item>canadian dollar</item>
+    </string-array>
+    <string-array name="unit_cad_plural">
+        <item>canadian dollars</item>
+    </string-array>
+    <string-array name="unit_aud_singular">
+        <item>australian dollar</item>
+    </string-array>
+    <string-array name="unit_aud_plural">
+        <item>australian dollars</item>
+    </string-array>
+    <string-array name="unit_nzd_singular">
+        <item>new zealand dollar</item>
+    </string-array>
+    <string-array name="unit_nzd_plural">
+        <item>new zealand dollars</item>
+    </string-array>
+    <string-array name="unit_cny_singular">
+        <item>chinese renminbi yuan</item>
+        <item>yuan</item>
+        <item>renminbi</item>
+    </string-array>
+    <string-array name="unit_cny_plural">
+        <item>chinese renminbi yuan</item>
+        <item>yuan</item>
+        <item>renminbi</item>
+    </string-array>
+    <string-array name="unit_inr_singular">
+        <item>indian rupee</item>
+        <item>rupee</item>
+    </string-array>
+    <string-array name="unit_inr_plural">
+        <item>indian rupees</item>
+        <item>rupees</item>
+    </string-array>
+    <string-array name="unit_krw_singular">
+        <item>south korean won</item>
+        <item>won</item>
+    </string-array>
+    <string-array name="unit_krw_plural">
+        <item>south korean won</item>
+        <item>won</item>
+    </string-array>
+    <string-array name="unit_brl_singular">
+        <item>brazilian real</item>
+        <item>real</item>
+    </string-array>
+    <string-array name="unit_brl_plural">
+        <item>brazilian reais</item>
+        <item>reais</item>
+    </string-array>
+    <string-array name="unit_zar_singular">
+        <item>south african rand</item>
+        <item>rand</item>
+    </string-array>
+    <string-array name="unit_zar_plural">
+        <item>south african rand</item>
+        <item>rand</item>
+    </string-array>
+    <string-array name="unit_mxn_singular">
+        <item>mexican peso</item>
+        <item>peso</item>
+    </string-array>
+    <string-array name="unit_mxn_plural">
+        <item>mexican pesos</item>
+        <item>pesos</item>
+    </string-array>
+    <string-array name="unit_sgd_singular">
+        <item>singapore dollar</item>
+    </string-array>
+    <string-array name="unit_sgd_plural">
+        <item>singapore dollars</item>
+    </string-array>
+    <string-array name="unit_hkd_singular">
+        <item>hong kong dollar</item>
+    </string-array>
+    <string-array name="unit_hkd_plural">
+        <item>hong kong dollars</item>
+    </string-array>
+    <string-array name="unit_sek_singular">
+        <item>swedish krona</item>
+        <item>krona</item>
+    </string-array>
+    <string-array name="unit_sek_plural">
+        <item>swedish kronor</item>
+        <item>kronor</item>
+    </string-array>
+    <string-array name="unit_nok_singular">
+        <item>norwegian krone</item>
+        <item>krone</item>
+    </string-array>
+    <string-array name="unit_nok_plural">
+        <item>norwegian kroner</item>
+        <item>kroner</item>
+    </string-array>
+    <string-array name="unit_dkk_singular">
+        <item>danish krone</item>
+    </string-array>
+    <string-array name="unit_dkk_plural">
+        <item>danish kroner</item>
+    </string-array>
+    <string-array name="unit_pln_singular">
+        <item>polish złoty</item>
+        <item>złoty</item>
+        <item>zloty</item>
+    </string-array>
+    <string-array name="unit_pln_plural">
+        <item>polish złoty</item>
+        <item>złoty</item>
+        <item>zloty</item>
+    </string-array>
+    <string-array name="unit_czk_singular">
+        <item>czech koruna</item>
+        <item>koruna</item>
+    </string-array>
+    <string-array name="unit_czk_plural">
+        <item>czech koruny</item>
+        <item>koruny</item>
+    </string-array>
+    <string-array name="unit_huf_singular">
+        <item>hungarian forint</item>
+        <item>forint</item>
+    </string-array>
+    <string-array name="unit_huf_plural">
+        <item>hungarian forints</item>
+        <item>forints</item>
+    </string-array>
+    <string-array name="unit_ron_singular">
+        <item>romanian leu</item>
+        <item>leu</item>
+    </string-array>
+    <string-array name="unit_ron_plural">
+        <item>romanian lei</item>
+        <item>lei</item>
+    </string-array>
+    <string-array name="unit_bgn_singular">
+        <item>bulgarian lev</item>
+        <item>lev</item>
+    </string-array>
+    <string-array name="unit_bgn_plural">
+        <item>bulgarian leva</item>
+        <item>leva</item>
+    </string-array>
+    <string-array name="unit_try_singular">
+        <item>turkish lira</item>
+        <item>lira</item>
+    </string-array>
+    <string-array name="unit_try_plural">
+        <item>turkish liras</item>
+        <item>liras</item>
+    </string-array>
+    <string-array name="unit_ils_singular">
+        <item>israeli new shekel</item>
+        <item>shekel</item>
+    </string-array>
+    <string-array name="unit_ils_plural">
+        <item>israeli new shekels</item>
+        <item>shekels</item>
+    </string-array>
+    <string-array name="unit_thb_singular">
+        <item>thai baht</item>
+        <item>baht</item>
+    </string-array>
+    <string-array name="unit_thb_plural">
+        <item>thai baht</item>
+        <item>baht</item>
+    </string-array>
+    <string-array name="unit_idr_singular">
+        <item>indonesian rupiah</item>
+        <item>rupiah</item>
+    </string-array>
+    <string-array name="unit_idr_plural">
+        <item>indonesian rupiah</item>
+        <item>rupiah</item>
+    </string-array>
+    <string-array name="unit_myr_singular">
+        <item>malaysian ringgit</item>
+        <item>ringgit</item>
+    </string-array>
+    <string-array name="unit_myr_plural">
+        <item>malaysian ringgit</item>
+        <item>ringgit</item>
+    </string-array>
+    <string-array name="unit_php_singular">
+        <item>philippine peso</item>
+    </string-array>
+    <string-array name="unit_php_plural">
+        <item>philippine pesos</item>
+    </string-array>
+    <string-array name="unit_isk_singular">
+        <item>icelandic króna</item>
+        <item>króna</item>
+        <item>krona</item>
+    </string-array>
+    <string-array name="unit_isk_plural">
+        <item>icelandic krónur</item>
+        <item>krónur</item>
+        <item>kronur</item>
+    </string-array>
+
 </resources>
