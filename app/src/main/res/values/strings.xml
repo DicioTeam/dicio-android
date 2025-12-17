@@ -250,6 +250,14 @@
     <string name="skill_sentence_example_unit_conversion">Convert 5 kilometers to miles</string>
     <string name="skill_unit_conversion_result">%1$s %2$s is %3$s %4$s</string>
     <string name="skill_unit_conversion_error">%1$s</string>
+    <string name="skill_unit_conversion_missing_target_unit">Missing target unit</string>
+    <string name="skill_unit_conversion_unknown_target_unit">Unknown target unit: %1$s</string>
+    <string name="skill_unit_conversion_missing_value_and_source_unit">Missing value and source unit</string>
+    <string name="skill_unit_conversion_could_not_parse_value">Could not parse value</string>
+    <string name="skill_unit_conversion_could_not_parse_number_value">Could not parse the number value</string>
+    <string name="skill_unit_conversion_could_not_identify_source_unit">Could not identify source unit in: %1$s</string>
+    <string name="skill_unit_conversion_cannot_convert_between_types">Cannot convert between %1$s and %2$s</string>
+    <string name="skill_unit_conversion_conversion_failed">Conversion failed</string>
 
     <!-- Unit conversion - unit names -->
     <!-- LENGTH -->

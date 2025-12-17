@@ -309,20 +309,10 @@ enum class Unit(
             // Finally try localized full names from resources (both singular and plural)
             for (unit in values()) {
                 try {
-                    // Check singular names
-                    val singularNames = resources.getStringArray(unit.singularNamesResId)
-                    for (name in singularNames) {
-                        if (name.lowercase() == normalizedText) {
-                            return unit
-                        }
-                    }
-                    
-                    // Check plural names
-                    val pluralNames = resources.getStringArray(unit.pluralNamesResId)
-                    for (name in pluralNames) {
-                        if (name.lowercase() == normalizedText) {
-                            return unit
-                        }
+                    val allNames = resources.getStringArray(unit.singularNamesResId) + 
+                                   resources.getStringArray(unit.pluralNamesResId)
+                    if (allNames.any { it.lowercase() == normalizedText }) {
+                        return unit
                     }
                 } catch (_: Exception) {
                     // Resource not found, skip this unit

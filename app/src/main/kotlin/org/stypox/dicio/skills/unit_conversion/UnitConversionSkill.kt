@@ -21,24 +21,29 @@ class UnitConversionSkill(
                 // Extract target unit
                 val targetUnitText = inputData.targetUnit?.trim()
                 if (targetUnitText.isNullOrBlank()) {
-                    return UnitConversionOutput.Error("Missing target unit")
+                    return UnitConversionOutput.Error(ctx.android.getString(
+                        org.stypox.dicio.R.string.skill_unit_conversion_missing_target_unit))
                 }
                 
                 val targetUnit = Unit.findUnit(targetUnitText, ctx.android.resources)
                 if (targetUnit == null) {
-                    return UnitConversionOutput.Error("Unknown target unit: $targetUnitText")
+                    return UnitConversionOutput.Error(ctx.android.getString(
+                        org.stypox.dicio.R.string.skill_unit_conversion_unknown_target_unit,
+                        targetUnitText))
                 }
 
                 // Parse value and source unit from the combined string
                 val valueWithUnitText = inputData.valueWithUnit?.trim()
                 if (valueWithUnitText.isNullOrBlank()) {
-                    return UnitConversionOutput.Error("Missing value and source unit")
+                    return UnitConversionOutput.Error(ctx.android.getString(
+                        org.stypox.dicio.R.string.skill_unit_conversion_missing_value_and_source_unit))
                 }
                 
                 // Use number parser to extract the number and remaining text
                 val parsed = ctx.parserFormatter?.extractNumber(valueWithUnitText)
                 if (parsed == null) {
-                    return UnitConversionOutput.Error("Could not parse value")
+                    return UnitConversionOutput.Error(ctx.android.getString(
+                        org.stypox.dicio.R.string.skill_unit_conversion_could_not_parse_value))
                 }
                 
                 // Find the number in the mixed list
@@ -61,7 +66,8 @@ class UnitConversionSkill(
                     if (normalized.startsWith("a ") || normalized.startsWith("an ")) {
                         value = 1.0
                     } else {
-                        return UnitConversionOutput.Error("Could not parse the number value")
+                        return UnitConversionOutput.Error(ctx.android.getString(
+                            org.stypox.dicio.R.string.skill_unit_conversion_could_not_parse_number_value))
                     }
                 }
                 
@@ -69,26 +75,30 @@ class UnitConversionSkill(
                 // The mixedList contains the number and text parts, we need to find unit names
                 val sourceUnit = findUnitInText(valueWithUnitText, ctx.android.resources)
                 if (sourceUnit == null) {
-                    return UnitConversionOutput.Error("Could not identify source unit in: $valueWithUnitText")
+                    return UnitConversionOutput.Error(ctx.android.getString(
+                        org.stypox.dicio.R.string.skill_unit_conversion_could_not_identify_source_unit,
+                        valueWithUnitText))
                 }
 
                 if (sourceUnit.type != targetUnit.type) {
                     return UnitConversionOutput.Error(
-                        "Cannot convert between ${sourceUnit.type.name.lowercase()} and ${targetUnit.type.name.lowercase()}"
+                        ctx.android.getString(
+                            org.stypox.dicio.R.string.skill_unit_conversion_cannot_convert_between_types,
+                            sourceUnit.type.name.lowercase(),
+                            targetUnit.type.name.lowercase())
                     )
                 }
 
                 // Perform conversion
                 val result = if (sourceUnit.type == UnitType.CURRENCY) {
-                    // Currency conversion via API
                     convertCurrency(value, sourceUnit, targetUnit)
                 } else {
-                    // Standard unit conversion
                     Unit.convert(value, sourceUnit, targetUnit)
                 }
                 
                 if (result == null) {
-                    return UnitConversionOutput.Error("Conversion failed")
+                    return UnitConversionOutput.Error(ctx.android.getString(
+                        org.stypox.dicio.R.string.skill_unit_conversion_conversion_failed))
                 }
 
                 return UnitConversionOutput.Success(
@@ -127,8 +137,7 @@ class UnitConversionSkill(
             // Calculate converted amount with 5 decimal precision
             val result = amount * exchangeRate
             String.format("%.5f", result).toDouble()
-        } catch (e: Exception) {
-            // Return null on any error (network failure, API error, parsing error)
+        } catch (_: Exception) {
             null
         }
     }
@@ -151,18 +160,10 @@ class UnitConversionSkill(
         for (unit in allUnits) {
             // Check localized full names (both singular and plural)
             try {
-                val singularNames = resources.getStringArray(unit.singularNamesResId)
-                for (name in singularNames) {
-                    if (normalizedText.contains(name.lowercase())) {
-                        return unit
-                    }
-                }
-                
-                val pluralNames = resources.getStringArray(unit.pluralNamesResId)
-                for (name in pluralNames) {
-                    if (normalizedText.contains(name.lowercase())) {
-                        return unit
-                    }
+                val allNames = resources.getStringArray(unit.singularNamesResId) + 
+                               resources.getStringArray(unit.pluralNamesResId)
+                if (allNames.any { normalizedText.contains(it.lowercase()) }) {
+                    return unit
                 }
             } catch (_: Exception) {
                 // Resource not found, skip
@@ -198,10 +199,6 @@ class UnitConversionSkill(
         }
 
         // Fallback: try to parse directly as a numeric string
-        return try {
-            text.trim().toDoubleOrNull()
-        } catch (e: Exception) {
-            null
-        }
+        return text.trim().toDoubleOrNull()
     }
 }
