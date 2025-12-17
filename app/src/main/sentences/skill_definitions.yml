@@ -146,3 +146,7 @@ skills:
             type: string
           - id: duration
             type: duration
+      - id: query_events
+        captures:
+          - id: date_time
+            type: string

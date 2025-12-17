@@ -5,3 +5,11 @@ create_event:
   - remind me (about|of|to)? .title. ((on|at|for|starting)? .date_time.)? ((for|lasting)? .duration.)?
   - (on|for) .date_time. (add|create|schedule|make) .title. (to|on)? calendar?
   - (block|hold|reserve) .duration. (for)? .title. ((on|at|starting)? .date_time.)?
+
+query_events:
+  - what (events|appointments|meetings|plans) (do i have|are (on|in) my? calendar|are scheduled) (today|tomorrow|.date_time.)?
+  - (what s|whats) on my? calendar (today|tomorrow|(for|on)? .date_time.)?
+  - (do i have|show me|list) (any|my)? (events|appointments|meetings|plans) (today|tomorrow|(for|on)? .date_time.)?
+  - (show|tell me|read) (me)? my? (calendar|schedule|agenda) ((for|on)? (today|tomorrow|.date_time.))?
+  - (am i|are we) (busy|free) (today|tomorrow|on .date_time.)?
+  - (what|anything) (is|s) (happening|scheduled|planned) (today|tomorrow|on .date_time.)?

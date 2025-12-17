@@ -120,6 +120,7 @@
     <string name="pref_stt_play_sound_none">Do not play sound</string>
     <string name="perm_read_contacts">read your contacts</string>
     <string name="perm_call_phone">directly call phone numbers</string>
+    <string name="perm_read_calendar">read your calendar</string>
     <string name="settings_description_with_value">%1$s — %2$s</string>
     <string name="eval_missing_permissions">The skill \"%1$s\" needs these permissions to work: %2$s</string>
     <string name="eval_fatal_error">Could not evaluate your request</string>
@@ -157,6 +158,19 @@
     <string name="skill_calendar_duration_hours">%1$d hour</string>
     <string name="skill_calendar_duration_minutes">%1$d minutes</string>
     <string name="skill_calendar_duration_hours_minutes">%1$d hour and %2$d minutes</string>
+    <string name="skill_calendar_events_found">%1$d events found</string>
+    <string name="skill_calendar_one_event_found">1 event found</string>
+    <string name="skill_calendar_events_list">You have %2$d events on %1$s: %3$s</string>
+    <string name="skill_calendar_no_events">No events found on %1$s</string>
+    <string name="skill_calendar_no_events_simple">No events found</string>
+    <string name="skill_calendar_all_day">all day</string>
+    <string name="skill_calendar_all_day_capitalized">All day</string>
+    <string name="skill_calendar_event_at">at</string>
+    <string name="skill_calendar_on_date_you_have_count">On %1$s, you have %2$d events</string>
+    <string name="skill_calendar_on_date_you_have_one_event">On %1$s, you have 1 event</string>
+    <string name="skill_calendar_here_are_first">Here are the first %1$d</string>
+    <string name="skill_calendar_event">event</string>
+    <string name="skill_calendar_events">events</string>
     <string name="skill_name_telephone">Telephone</string>
     <string name="skill_sentence_example_telephone">Call Tom</string>
     <string name="skill_name_timer">Timer</string>
