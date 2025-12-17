@@ -143,7 +143,7 @@ class UnitConversionSkill(
                 val singularNames = resources.getStringArray(unit.singularNamesResId)
                 val pluralNames = resources.getStringArray(unit.pluralNamesResId)
                 (singularNames.toList() + pluralNames.toList() + unit.abbreviations).maxOfOrNull { it.length } ?: 0
-            } catch (e: Exception) {
+            } catch (_: Exception) {
                 unit.abbreviations.maxOfOrNull { it.length } ?: 0
             }
         }
