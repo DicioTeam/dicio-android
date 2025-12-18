@@ -34,7 +34,8 @@ Currently Dicio answers questions about:
 - **open**: opens an app on your device - _Open NewPipe_
 - **calculator**: evaluates basic calculations - _What is four thousand and two times three minus a million divided by three hundred?_
 - **telephone**: view and call contacts - _Call Tom_
-- **timer**: set, query and cancel timers - _Set a timer for five minutes_
+- **timer**: set timers - _Set a timer for eleven minutes_
+- **alarm**: set alarms - _Set an alarm for 6pm_
 - **current time**: query current time - _What time is it?_
 - **navigation**: opens the navigation app at the requested position - _Take me to New York, fifteenth avenue_
 - **jokes**: tells you a joke - _Tell me a joke_
