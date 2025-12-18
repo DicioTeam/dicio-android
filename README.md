@@ -41,6 +41,7 @@ Currently Dicio answers questions about:
 - **media**: play, pause, previous, next song
 - **translation**: translate from/to any language with **Lingva** - _How do I say Football in German?_
 - **wake word control**: turn on/off the wakeword - _Stop listening_
+- **definitions**: get word definitions - _Define serendipity_
 
 ## Speech to text
 
