@@ -135,3 +135,8 @@ skills:
         captures:
           - id: item
             type: string
+      - id: query_shopping_list
+      - id: check_shopping_list
+        captures:
+          - id: item
+            type: string

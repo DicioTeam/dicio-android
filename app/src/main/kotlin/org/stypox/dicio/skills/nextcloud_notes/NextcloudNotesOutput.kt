@@ -1,11 +1,15 @@
 package org.stypox.dicio.skills.nextcloud_notes
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import org.dicio.skill.context.SkillContext
 import org.dicio.skill.skill.SkillOutput
 import org.stypox.dicio.R
@@ -45,6 +49,78 @@ sealed interface NextcloudNotesOutput : SkillOutput {
         }
     }
 
+    data class QueryShoppingListSuccess(
+        val noteName: String,
+        val items: List<String>
+    ) : NextcloudNotesOutput, HeadlineSpeechSkillOutput {
+        override fun getSpeechOutput(ctx: SkillContext): String {
+            return if (items.isEmpty()) {
+                ctx.getString(R.string.skill_nextcloud_notes_shopping_list_empty)
+            } else {
+                val itemsText = items.joinToString(", ")
+                ctx.getString(R.string.skill_nextcloud_notes_shopping_list_items, items.size, itemsText)
+            }
+        }
+
+        @Composable
+        override fun GraphicalOutput(ctx: SkillContext) {
+            Column {
+                Text(
+                    text = if (items.isEmpty()) {
+                        stringResource(R.string.skill_nextcloud_notes_shopping_list_empty)
+                    } else {
+                        stringResource(R.string.skill_nextcloud_notes_shopping_list_num_of_items, items.size)
+                    },
+                    style = MaterialTheme.typography.titleMedium,
+                    modifier = Modifier.testTag("nextcloud_notes_shopping_list_title")
+                )
+                if (items.isNotEmpty()) {
+                    Spacer(modifier = Modifier.height(8.dp))
+                    items.forEachIndexed { index, item ->
+                        Text(
+                            text = "- $item",
+                            style = MaterialTheme.typography.bodyLarge,
+                            modifier = Modifier.testTag("nextcloud_notes_shopping_item_$index")
+                        )
+                    }
+                }
+                Text(
+                    text = stringResource(R.string.skill_nextcloud_notes_saved_to, noteName),
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            }
+        }
+    }
+
+    data class ItemFound(
+        val item: String,
+        val found: Boolean
+    ) : NextcloudNotesOutput, HeadlineSpeechSkillOutput {
+        override fun getSpeechOutput(ctx: SkillContext): String {
+            return if (found) {
+                ctx.getString(R.string.skill_nextcloud_notes_item_found, item)
+            } else {
+                ctx.getString(R.string.skill_nextcloud_notes_item_not_found, item)
+            }
+        }
+
+        @Composable
+        override fun GraphicalOutput(ctx: SkillContext) {
+            Column {
+                Text(
+                    text = if (found) {
+                        stringResource(R.string.skill_nextcloud_notes_item_found, item)
+                    } else {
+                        stringResource(R.string.skill_nextcloud_notes_item_not_found, item)
+                    },
+                    style = MaterialTheme.typography.bodyLarge,
+                    modifier = Modifier.testTag("nextcloud_notes_item_check")
+                )
+            }
+        }
+    }
+
     data class Failed(
         val reason: FailureReason,
         val errorMessage: String? = null
@@ -56,7 +132,7 @@ sealed interface NextcloudNotesOutput : SkillOutput {
             FailureReason.CONTENT_EMPTY -> ctx.getString(R.string.skill_nextcloud_notes_content_empty)
             FailureReason.CONNECTION_ERROR -> ctx.getString(
                 R.string.skill_nextcloud_notes_connection_error,
-                errorMessage ?: "Unknown error"
+                errorMessage ?: ctx.getString(R.string.skill_nextcloud_notes_unknown_error)
             )
         }
     }

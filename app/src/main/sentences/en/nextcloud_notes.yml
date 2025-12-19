@@ -2,18 +2,26 @@ add_note:
   - (could|can|would) you? please? (add|take|make|create|write) a note .content.
   - (i d|would) like you? to? (add|take|make|write) a note .content.
   - please? (add|take|make|create|write) a note .content.
-  - note .content.
   - (please? take|make) a note (of|that|about)? .content.
-  - (please? remind|remember) me .content.
-  - (i|we)? need to remember .content.
-  - (write|jot) (down|that down)? .content.
 
 add_to_shopping_list:
   - (could|can|would) you? please? (add|put) .item. (to|on|in) (my|our|the)? (shopping|grocery) list
   - (i d|would) like you? to? (add|put) .item. (to|on) (my|our|the)? (shopping|grocery) list
-  - please? (add|put|write) .item. (to|on|in) (my|our|the)? (shopping|grocery) list
   - (shopping|grocery) list add .item.
   - (i|we) need to (get|buy|pick up|purchase) .item.
   - (i|we) need .item. (from the store|on the list)?
-  - add .item. to my? (shopping|grocery|groceries|shop)
-  - put .item. on (my|our|the) (shopping|grocery) list
+  - please? (add|put|write) .item. (on|to|in) (my|our|the)? (shopping|grocery|groceries)? list?
+
+query_shopping_list:
+  - (what|what s|what item? is|what items? (do|are)) (written|noted|I have|we have)? on (my|our|the)? (shopping|grocery) list
+  - (what do|what did) (i|we) need (to (get|buy|pick up|purchase))?
+  - read (my|our|the)? (shopping|grocery) list
+  - (show|tell) me (my|our|the)? (shopping|grocery) list
+  - (shopping|grocery) list
+
+check_shopping_list:
+  - (do|did) (i|we) (add|put|need) .item. (to|on) (my|our|the)? (shopping|grocery) list
+  - (do|did) (i|we) (need|have) .item. (on the list)?
+  - is .item. on (my|our|the)? (shopping|grocery) list
+  - is .item. (already)? (there|on there)
+  - check (for|if) .item. (is)? (on|in) (my|our|the)? (shopping|grocery)? list
