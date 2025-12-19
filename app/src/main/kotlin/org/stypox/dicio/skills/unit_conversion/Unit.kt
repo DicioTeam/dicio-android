@@ -190,11 +190,6 @@ enum class Unit(val type: UnitType) {
                 return convertTemperature(value, from, to)
             }
             
-            // Handle fuel consumption conversions specially (inverse relationship)
-            if (from.type == UnitType.CONSUMPTION) {
-                return convertConsumption(value, from, to)
-            }
-            
             // Get conversion factors to base units
             val fromFactor = getConversionFactor(from) ?: return null
             val toFactor = getConversionFactor(to) ?: return null

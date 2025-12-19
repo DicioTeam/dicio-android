@@ -133,3 +133,11 @@ skills:
             type: string
           - id: target_unit
             type: string
+
+  - id: crypto_price
+    specificity: high
+    sentences:
+      - id: price
+        captures:
+          - id: crypto
+            type: string

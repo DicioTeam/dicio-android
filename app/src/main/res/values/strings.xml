@@ -258,4 +258,10 @@
     <string name="skill_unit_conversion_could_not_identify_source_unit">Could not identify source unit in: %1$s</string>
     <string name="skill_unit_conversion_cannot_convert_between_types">Cannot convert between %1$s and %2$s</string>
     <string name="skill_unit_conversion_conversion_failed">Conversion failed</string>
+    <string name="skill_name_crypto_price">Crypto price</string>
+    <string name="skill_sentence_example_crypto_price">What is the price of Bitcoin?</string>
+    <string name="skill_crypto_price_result">%1$s is currently %2$s dollars</string>
+    <string name="skill_crypto_price_unknown_crypto">Unknown cryptocurrency: %1$s</string>
+    <string name="skill_crypto_price_network_error">Could not connect to the crypto price service. Please check your internet connection.</string>
+    <string name="skill_crypto_price_invalid_response">Failed to get valid price data from the service.</string>
 </resources>

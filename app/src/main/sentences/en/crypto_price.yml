@@ -1,0 +1,6 @@
+price:
+  - (what is|whats|what s) the (price|cost|value) of .crypto.
+  - (what is|whats|what s|how much is) .crypto. (price|cost|value|worth)
+  - .crypto. price
+  - price of .crypto.
+  - (check|get) .crypto. price
