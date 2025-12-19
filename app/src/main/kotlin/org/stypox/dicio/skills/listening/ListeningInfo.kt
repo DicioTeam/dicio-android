@@ -16,7 +16,7 @@ import org.stypox.dicio.settings.datastore.UserSettings
 class ListeningInfo(
     val dataStore: DataStore<UserSettings>,
 ) : SkillInfo("listening") {
-    override val categoryNameRes = R.string.category_other
+    override val categoryNameRes = R.string.category_utilities
 
     override fun name(context: Context) =
         context.getString(R.string.skill_name_listening)

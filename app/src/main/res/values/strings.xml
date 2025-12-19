@@ -66,6 +66,7 @@
     <string name="category_media">Media</string>
     <string name="category_other">Other</string>
     <string name="category_productivity">Productivity</string>
+    <string name="category_utilities">Utilities</string>
     <!-- settings_header -->
     <string name="pref_io">Input and output methods</string>
     <string name="pref_general">General</string>

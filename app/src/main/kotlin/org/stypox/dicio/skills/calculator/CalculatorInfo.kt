@@ -12,7 +12,7 @@ import org.stypox.dicio.R
 import org.stypox.dicio.sentences.Sentences
 
 object CalculatorInfo : SkillInfo("calculator") {
-    override val categoryNameRes = R.string.category_productivity
+    override val categoryNameRes = R.string.category_utilities
 
     override fun name(context: Context) =
         context.getString(R.string.skill_name_calculator)
