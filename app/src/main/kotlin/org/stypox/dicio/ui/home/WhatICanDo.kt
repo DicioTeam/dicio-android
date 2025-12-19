@@ -120,7 +120,6 @@ private fun CategorySection(
     var expanded by rememberSaveable(categoryName) { mutableStateOf(false) }
     
     Column(modifier = Modifier.animateContentSize()) {
-        // Category header
         CategoryHeader(
             categoryName = categoryName,
             skillCount = skills.size,
@@ -128,7 +127,6 @@ private fun CategorySection(
             toggleExpanded = { expanded = !expanded }
         )
 
-        // Conditionally show skills list when expanded
         if (expanded) {
             for (skill in skills) {
                 SkillRow(
