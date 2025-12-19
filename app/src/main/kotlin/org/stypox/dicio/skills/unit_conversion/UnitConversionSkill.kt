@@ -72,8 +72,7 @@ class UnitConversionSkill(
                 }
                 
                 // Extract source unit from the remaining text
-                // The mixedList contains the number and text parts, we need to find unit names
-                val sourceUnit = findUnitInText(valueWithUnitText, ctx.android.resources)
+                val sourceUnit = Unit.findUnit(valueWithUnitText, ctx.android.resources)
                 if (sourceUnit == null) {
                     return UnitConversionOutput.Error(ctx.android.getString(
                         org.stypox.dicio.R.string.skill_unit_conversion_could_not_identify_source_unit,
@@ -117,88 +116,19 @@ class UnitConversionSkill(
      * Returns the converted amount with 5 decimal precision, or null if the conversion fails.
      */
     private fun convertCurrency(amount: Double, fromCurrency: Unit, toCurrency: Unit): Double? {
-        if (fromCurrency.type != UnitType.CURRENCY || toCurrency.type != UnitType.CURRENCY) {
-            return null
-        }
-
-        // Extract ISO codes from the unit abbreviations (first abbreviation is the ISO code)
-        val baseCurrency = fromCurrency.abbreviations.firstOrNull() ?: return null
-        val targetCurrency = toCurrency.abbreviations.firstOrNull() ?: return null
+        val baseCurrency = fromCurrency.currencyCode ?: return null
+        val targetCurrency = toCurrency.currencyCode ?: return null
 
         return try {
-            // Build API URL
             val apiUrl = "https://api.frankfurter.dev/v1/latest?base=$baseCurrency&symbols=$targetCurrency"
-            
             val exchangeRate = ConnectionUtils.getPageJson(apiUrl)
-                  .getJSONObject("rates")
-                  .getDouble(targetCurrency)
-
+                .getJSONObject("rates")
+                .getDouble(targetCurrency)
             
-            // Calculate converted amount with 5 decimal precision
             val result = amount * exchangeRate
             String.format("%.5f", result).toDouble()
         } catch (_: Exception) {
             null
         }
-    }
-
-    private fun findUnitInText(text: String, resources: android.content.res.Resources): Unit? {
-        val normalizedText = text.lowercase()
-        
-        // Try to find a unit by checking if any unit name or abbreviation appears in the text
-        // Sort by length descending to match longer unit names first (e.g., "square meter" before "meter")
-        val allUnits = Unit.values().sortedByDescending { unit ->
-            try {
-                val singularNames = resources.getStringArray(unit.singularNamesResId)
-                val pluralNames = resources.getStringArray(unit.pluralNamesResId)
-                (singularNames.toList() + pluralNames.toList() + unit.abbreviations).maxOfOrNull { it.length } ?: 0
-            } catch (_: Exception) {
-                unit.abbreviations.maxOfOrNull { it.length } ?: 0
-            }
-        }
-        
-        for (unit in allUnits) {
-            // Check localized full names (both singular and plural)
-            try {
-                val allNames = resources.getStringArray(unit.singularNamesResId) + 
-                               resources.getStringArray(unit.pluralNamesResId)
-                if (allNames.any { normalizedText.contains(it.lowercase()) }) {
-                    return unit
-                }
-            } catch (_: Exception) {
-                // Resource not found, skip
-            }
-            
-            // Check abbreviations (with word boundaries)
-            for (abbr in unit.abbreviations) {
-                // Match abbreviations as whole words or at the end
-                val regex = "\\b${Regex.escape(abbr.lowercase())}\\b".toRegex()
-                if (regex.containsMatchIn(normalizedText)) {
-                    return unit
-                }
-            }
-        }
-        
-        return null
-    }
-
-    private fun extractNumber(ctx: SkillContext, text: String): Double? {
-        // Try to parse as a number using the parser formatter
-        val parsed = ctx.parserFormatter?.extractNumber(text)?.mixedWithText
-        if (!parsed.isNullOrEmpty()) {
-            // Find the first Number object in the mixed list
-            for (item in parsed) {
-                if (item is Number) {
-                    return if (item.isDecimal) {
-                        item.decimalValue()
-                    } else {
-                        item.integerValue().toDouble()
-                    }
-                }
-            }
-        }
-
-        // Fallback: try to parse directly as a numeric string
-        return text.trim().toDoubleOrNull()
     }
 }

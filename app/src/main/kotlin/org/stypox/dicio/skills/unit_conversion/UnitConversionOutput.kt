@@ -1,5 +1,8 @@
 package org.stypox.dicio.skills.unit_conversion
 
+import android.icu.text.MeasureFormat
+import android.icu.util.Measure
+import android.icu.util.ULocale
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
@@ -13,6 +16,8 @@ import org.stypox.dicio.io.graphical.Subtitle
 import org.stypox.dicio.util.getString
 import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
+import java.util.Currency
+import java.util.Locale
 
 sealed interface UnitConversionOutput : SkillOutput {
     data class Success(
@@ -46,27 +51,38 @@ sealed interface UnitConversionOutput : SkillOutput {
             }
         }
 
-        private fun getUnitDisplayName(unit: Unit, value: Double, resources: android.content.res.Resources): String {
-            // Prefer abbreviations for some units, full names for others
-            return when (unit.type) {
-                UnitType.DIGITAL_STORAGE, UnitType.ENERGY, UnitType.POWER, UnitType.PRESSURE -> {
-                    // Use abbreviations
-                    unit.abbreviations.firstOrNull() ?: ""
+        private fun getUnitDisplayName(unit: Unit, resources: android.content.res.Resources): String {
+            val locale = ULocale.forLocale(resources.configuration.locales[0])
+            
+            // Use MeasureFormat for non-currency units
+            unit.measureUnit?.let { measureUnit ->
+                val formatWidth = when (unit.type) {
+                    UnitType.DIGITAL_STORAGE, UnitType.ENERGY, UnitType.POWER, UnitType.PRESSURE -> {
+                        MeasureFormat.FormatWidth.NARROW
+                    }
+                    else -> {
+                        MeasureFormat.FormatWidth.WIDE
+                    }
                 }
-                else -> {
-                    // Use full names from resources - choose singular or plural array
-                    val usePlural = Math.abs(value) != 1.0
-                    val arrayResId = if (usePlural) unit.pluralNamesResId else unit.singularNamesResId
-                    resources.getStringArray(arrayResId).firstOrNull() ?: ""
-                }
+                return MeasureFormat.getInstance(locale, formatWidth).getUnitDisplayName(measureUnit)
             }
+            
+            // Use Currency API for currency units
+            unit.currencyCode?.let { code ->
+                return runCatching {
+                    val javaLocale = Locale.forLanguageTag(locale.toLanguageTag())
+                    Currency.getInstance(code).getDisplayName(javaLocale)
+                }.getOrDefault(code)
+            }
+            
+            return ""
         }
 
         override fun getSpeechOutput(ctx: SkillContext): String {
             val inputStr = formatNumber(inputValue)
             val resultStr = formatNumber(result)
-            val sourceUnitName = getUnitDisplayName(sourceUnit, inputValue, ctx.android.resources)
-            val targetUnitName = getUnitDisplayName(targetUnit, result, ctx.android.resources)
+            val sourceUnitName = getUnitDisplayName(sourceUnit, ctx.android.resources)
+            val targetUnitName = getUnitDisplayName(targetUnit, ctx.android.resources)
             
             return ctx.getString(
                 R.string.skill_unit_conversion_result,
@@ -81,11 +97,11 @@ sealed interface UnitConversionOutput : SkillOutput {
         override fun GraphicalOutput(ctx: SkillContext) {
             Column {
                 Subtitle(
-                    text = "${formatNumber(inputValue)} ${getUnitDisplayName(sourceUnit, inputValue, ctx.android.resources)}"
+                    text = "${formatNumber(inputValue)} ${getUnitDisplayName(sourceUnit, ctx.android.resources)}"
                 )
                 Spacer(modifier = androidx.compose.ui.Modifier.height(8.dp))
-                Headline(
-                    text = "${formatNumber(result)} ${getUnitDisplayName(targetUnit, result, ctx.android.resources)}"
+Headline(
+                    text = "${formatNumber(result)} ${getUnitDisplayName(targetUnit, ctx.android.resources)}"
                 )
             }
         }

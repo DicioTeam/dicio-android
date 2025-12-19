@@ -1,334 +1,379 @@
 package org.stypox.dicio.skills.unit_conversion
 
 import android.content.res.Resources
-import org.stypox.dicio.R
+import android.icu.text.MeasureFormat
+import android.icu.util.Measure
+import android.icu.util.MeasureUnit
+import android.icu.util.ULocale
+import java.util.Currency
+import java.util.Locale
 
 enum class UnitType {
-    LENGTH,
-    MASS,
-    TEMPERATURE,
-    VOLUME,
-    AREA,
-    SPEED,
-    TIME,
-    DIGITAL_STORAGE,
-    ENERGY,
-    POWER,
-    PRESSURE,
-    ANGLE,
-    CURRENCY
+    LENGTH, MASS, TEMPERATURE, VOLUME, AREA, SPEED, TIME, 
+    DIGITAL_STORAGE, ENERGY, POWER, PRESSURE, ANGLE, CURRENCY,
+    FREQUENCY, ACCELERATION, CONSUMPTION, DURATION
 }
 
-enum class Unit(
-    val type: UnitType,
-    val singularNamesResId: Int,  // Resource ID for string-array of singular localized names
-    val pluralNamesResId: Int,    // Resource ID for string-array of plural localized names
-    val abbreviations: List<String>,  // Keep abbreviations hardcoded (mostly international)
-    val toBaseUnit: (Double) -> Double,
-    val fromBaseUnit: (Double) -> Double
-) {
-    // LENGTH (base: meter)
-    MILLIMETER(UnitType.LENGTH, R.array.unit_millimeter_singular, R.array.unit_millimeter_plural, listOf("mm"),
-        { it / 1000.0 }, { it * 1000.0 }),
-    CENTIMETER(UnitType.LENGTH, R.array.unit_centimeter_singular, R.array.unit_centimeter_plural, listOf("cm"),
-        { it / 100.0 }, { it * 100.0 }),
-    METER(UnitType.LENGTH, R.array.unit_meter_singular, R.array.unit_meter_plural, listOf("m"),
-        { it }, { it }),
-    KILOMETER(UnitType.LENGTH, R.array.unit_kilometer_singular, R.array.unit_kilometer_plural, listOf("km"),
-        { it * 1000.0 }, { it / 1000.0 }),
-    INCH(UnitType.LENGTH, R.array.unit_inch_singular, R.array.unit_inch_plural, listOf("in"),
-        { it * 0.0254 }, { it / 0.0254 }),
-    FOOT(UnitType.LENGTH, R.array.unit_foot_singular, R.array.unit_foot_plural, listOf("ft"),
-        { it * 0.3048 }, { it / 0.3048 }),
-    YARD(UnitType.LENGTH, R.array.unit_yard_singular, R.array.unit_yard_plural, listOf("yd"),
-        { it * 0.9144 }, { it / 0.9144 }),
-    MILE(UnitType.LENGTH, R.array.unit_mile_singular, R.array.unit_mile_plural, listOf("mi"),
-        { it * 1609.344 }, { it / 1609.344 }),
-    NAUTICAL_MILE(UnitType.LENGTH, R.array.unit_nautical_mile_singular, R.array.unit_nautical_mile_plural, listOf("nmi", "nm"),
-        { it * 1852.0 }, { it / 1852.0 }),
-    LIGHT_YEAR(UnitType.LENGTH, R.array.unit_light_year_singular, R.array.unit_light_year_plural, listOf("ly"),
-        { it * 9.460730472580800e15 }, { it / 9.460730472580800e15 }),
-    ASTRONOMICAL_UNIT(UnitType.LENGTH, R.array.unit_astronomical_unit_singular, R.array.unit_astronomical_unit_plural, listOf("au", "ua"),
-        { it * 1.495978707e11 }, { it / 1.495978707e11 }),
+enum class Unit(val type: UnitType) {
+    // LENGTH
+    PICOMETER(UnitType.LENGTH), NANOMETER(UnitType.LENGTH), MICROMETER(UnitType.LENGTH),
+    MILLIMETER(UnitType.LENGTH), CENTIMETER(UnitType.LENGTH), DECIMETER(UnitType.LENGTH),
+    METER(UnitType.LENGTH), KILOMETER(UnitType.LENGTH), 
+    INCH(UnitType.LENGTH), FOOT(UnitType.LENGTH), YARD(UnitType.LENGTH), 
+    FATHOM(UnitType.LENGTH), FURLONG(UnitType.LENGTH), MILE(UnitType.LENGTH), 
+    MILE_SCANDINAVIAN(UnitType.LENGTH), NAUTICAL_MILE(UnitType.LENGTH),
+    LIGHT_YEAR(UnitType.LENGTH), ASTRONOMICAL_UNIT(UnitType.LENGTH), PARSEC(UnitType.LENGTH),
 
-    // MASS (base: kilogram)
-    MILLIGRAM(UnitType.MASS, R.array.unit_milligram_singular, R.array.unit_milligram_plural, listOf("mg"),
-        { it / 1000000.0 }, { it * 1000000.0 }),
-    GRAM(UnitType.MASS, R.array.unit_gram_singular, R.array.unit_gram_plural, listOf("g"),
-        { it / 1000.0 }, { it * 1000.0 }),
-    KILOGRAM(UnitType.MASS, R.array.unit_kilogram_singular, R.array.unit_kilogram_plural, listOf("kg"),
-        { it }, { it }),
-    METRIC_TON(UnitType.MASS, R.array.unit_metric_ton_singular, R.array.unit_metric_ton_plural, listOf("t"),
-        { it * 1000.0 }, { it / 1000.0 }),
-    OUNCE(UnitType.MASS, R.array.unit_ounce_singular, R.array.unit_ounce_plural, listOf("oz"),
-        { it * 0.028349523125 }, { it / 0.028349523125 }),
-    POUND(UnitType.MASS, R.array.unit_pound_singular, R.array.unit_pound_plural, listOf("lb", "lbs"),
-        { it * 0.45359237 }, { it / 0.45359237 }),
-    STONE(UnitType.MASS, R.array.unit_stone_singular, R.array.unit_stone_plural, listOf("st"),
-        { it * 6.35029318 }, { it / 6.35029318 }),
-    TON_US(UnitType.MASS, R.array.unit_ton_us_singular, R.array.unit_ton_us_plural, listOf("ton"),
-        { it * 907.18474 }, { it / 907.18474 }),
-    TROY_OUNCE(UnitType.MASS, R.array.unit_troy_ounce_singular, R.array.unit_troy_ounce_plural, listOf("oz t", "ozt"),
-        { it * 0.0311034768 }, { it / 0.0311034768 }),
+    // MASS
+    MICROGRAM(UnitType.MASS), MILLIGRAM(UnitType.MASS), GRAM(UnitType.MASS), 
+    KILOGRAM(UnitType.MASS), METRIC_TON(UnitType.MASS), TONNE(UnitType.MASS),
+    OUNCE(UnitType.MASS), POUND(UnitType.MASS), STONE(UnitType.MASS), 
+    TON(UnitType.MASS), OUNCE_TROY(UnitType.MASS), CARAT(UnitType.MASS),
 
-    // TEMPERATURE (base: Celsius)
-    CELSIUS(UnitType.TEMPERATURE, R.array.unit_celsius_singular, R.array.unit_celsius_plural, listOf("c", "°c"),
-        { it }, { it }),
-    FAHRENHEIT(UnitType.TEMPERATURE, R.array.unit_fahrenheit_singular, R.array.unit_fahrenheit_plural, listOf("f", "°f"),
-        { (it - 32.0) * 5.0 / 9.0 }, { it * 9.0 / 5.0 + 32.0 }),
-    KELVIN(UnitType.TEMPERATURE, R.array.unit_kelvin_singular, R.array.unit_kelvin_plural, listOf("k"),
-        { it - 273.15 }, { it + 273.15 }),
+    // TEMPERATURE
+    CELSIUS(UnitType.TEMPERATURE), FAHRENHEIT(UnitType.TEMPERATURE), KELVIN(UnitType.TEMPERATURE),
 
-    // VOLUME (base: liter)
-    MILLILITER(UnitType.VOLUME, R.array.unit_milliliter_singular, R.array.unit_milliliter_plural, listOf("ml"),
-        { it / 1000.0 }, { it * 1000.0 }),
-    LITER(UnitType.VOLUME, R.array.unit_liter_singular, R.array.unit_liter_plural, listOf("l"),
-        { it }, { it }),
-    CUBIC_METER(UnitType.VOLUME, R.array.unit_cubic_meter_singular, R.array.unit_cubic_meter_plural, listOf("m3", "m³"),
-        { it * 1000.0 }, { it / 1000.0 }),
-    TEASPOON(UnitType.VOLUME, R.array.unit_teaspoon_singular, R.array.unit_teaspoon_plural, listOf("tsp"),
-        { it * 0.00492892 }, { it / 0.00492892 }),
-    TABLESPOON(UnitType.VOLUME, R.array.unit_tablespoon_singular, R.array.unit_tablespoon_plural, listOf("tbsp"),
-        { it * 0.01478676 }, { it / 0.01478676 }),
-    FLUID_OUNCE(UnitType.VOLUME, R.array.unit_fluid_ounce_singular, R.array.unit_fluid_ounce_plural, listOf("fl oz"),
-        { it * 0.02957353 }, { it / 0.02957353 }),
-    CUP(UnitType.VOLUME, R.array.unit_cup_singular, R.array.unit_cup_plural, listOf("cup"),
-        { it * 0.23658824 }, { it / 0.23658824 }),
-    PINT(UnitType.VOLUME, R.array.unit_pint_singular, R.array.unit_pint_plural, listOf("pt"),
-        { it * 0.47317647 }, { it / 0.47317647 }),
-    QUART(UnitType.VOLUME, R.array.unit_quart_singular, R.array.unit_quart_plural, listOf("qt"),
-        { it * 0.94635295 }, { it / 0.94635295 }),
-    GALLON(UnitType.VOLUME, R.array.unit_gallon_singular, R.array.unit_gallon_plural, listOf("gal"),
-        { it * 3.78541178 }, { it / 3.78541178 }),
+    // VOLUME
+    MILLILITER(UnitType.VOLUME), CENTILITER(UnitType.VOLUME), DECILITER(UnitType.VOLUME),
+    LITER(UnitType.VOLUME), HECTOLITER(UnitType.VOLUME), MEGALITER(UnitType.VOLUME),
+    CUBIC_CENTIMETER(UnitType.VOLUME), CUBIC_METER(UnitType.VOLUME), CUBIC_KILOMETER(UnitType.VOLUME),
+    CUBIC_INCH(UnitType.VOLUME), CUBIC_FOOT(UnitType.VOLUME), CUBIC_YARD(UnitType.VOLUME), CUBIC_MILE(UnitType.VOLUME),
+    TEASPOON(UnitType.VOLUME), TABLESPOON(UnitType.VOLUME), FLUID_OUNCE(UnitType.VOLUME),
+    CUP(UnitType.VOLUME), CUP_METRIC(UnitType.VOLUME), 
+    PINT(UnitType.VOLUME), PINT_METRIC(UnitType.VOLUME), 
+    QUART(UnitType.VOLUME), GALLON(UnitType.VOLUME), GALLON_IMPERIAL(UnitType.VOLUME),
+    BUSHEL(UnitType.VOLUME), ACRE_FOOT(UnitType.VOLUME),
 
-    // AREA (base: square meter)
-    SQUARE_METER(UnitType.AREA, R.array.unit_square_meter_singular, R.array.unit_square_meter_plural, listOf("m2", "m²", "sq m"),
-        { it }, { it }),
-    SQUARE_KILOMETER(UnitType.AREA, R.array.unit_square_kilometer_singular, R.array.unit_square_kilometer_plural, listOf("km2", "km²", "sq km"),
-        { it * 1000000.0 }, { it / 1000000.0 }),
-    HECTARE(UnitType.AREA, R.array.unit_hectare_singular, R.array.unit_hectare_plural, listOf("ha"),
-        { it * 10000.0 }, { it / 10000.0 }),
-    SQUARE_FOOT(UnitType.AREA, R.array.unit_square_foot_singular, R.array.unit_square_foot_plural, listOf("ft2", "ft²", "sq ft"),
-        { it * 0.09290304 }, { it / 0.09290304 }),
-    SQUARE_YARD(UnitType.AREA, R.array.unit_square_yard_singular, R.array.unit_square_yard_plural, listOf("yd2", "yd²", "sq yd"),
-        { it * 0.83612736 }, { it / 0.83612736 }),
-    ACRE(UnitType.AREA, R.array.unit_acre_singular, R.array.unit_acre_plural, listOf("ac"),
-        { it * 4046.8564224 }, { it / 4046.8564224 }),
-    SQUARE_MILE(UnitType.AREA, R.array.unit_square_mile_singular, R.array.unit_square_mile_plural, listOf("mi2", "mi²", "sq mi"),
-        { it * 2589988.110336 }, { it / 2589988.110336 }),
+    // AREA
+    SQUARE_CENTIMETER(UnitType.AREA), SQUARE_METER(UnitType.AREA), SQUARE_KILOMETER(UnitType.AREA), 
+    HECTARE(UnitType.AREA), SQUARE_INCH(UnitType.AREA), SQUARE_FOOT(UnitType.AREA), 
+    SQUARE_YARD(UnitType.AREA), ACRE(UnitType.AREA), SQUARE_MILE(UnitType.AREA),
 
-    // SPEED (base: meters per second)
-    METERS_PER_SECOND(UnitType.SPEED, R.array.unit_meters_per_second_singular, R.array.unit_meters_per_second_plural, listOf("m/s", "mps"),
-        { it }, { it }),
-    KILOMETERS_PER_HOUR(UnitType.SPEED, R.array.unit_kilometers_per_hour_singular, R.array.unit_kilometers_per_hour_plural, listOf("km/h", "kmph", "kph"),
-        { it / 3.6 }, { it * 3.6 }),
-    MILES_PER_HOUR(UnitType.SPEED, R.array.unit_miles_per_hour_singular, R.array.unit_miles_per_hour_plural, listOf("mph", "mi/h"),
-        { it * 0.44704 }, { it / 0.44704 }),
-    FEET_PER_SECOND(UnitType.SPEED, R.array.unit_feet_per_second_singular, R.array.unit_feet_per_second_plural, listOf("ft/s", "fps"),
-        { it * 0.3048 }, { it / 0.3048 }),
-    KNOT(UnitType.SPEED, R.array.unit_knot_singular, R.array.unit_knot_plural, listOf("kn", "kt"),
-        { it * 0.514444 }, { it / 0.514444 }),
+    // SPEED
+    METER_PER_SECOND(UnitType.SPEED), KILOMETER_PER_HOUR(UnitType.SPEED),
+    MILE_PER_HOUR(UnitType.SPEED), KNOT(UnitType.SPEED),
 
-    // TIME (base: second)
-    MILLISECOND(UnitType.TIME, R.array.unit_millisecond_singular, R.array.unit_millisecond_plural, listOf("ms"),
-        { it / 1000.0 }, { it * 1000.0 }),
-    SECOND(UnitType.TIME, R.array.unit_second_singular, R.array.unit_second_plural, listOf("s", "sec"),
-        { it }, { it }),
-    MINUTE(UnitType.TIME, R.array.unit_minute_singular, R.array.unit_minute_plural, listOf("min"),
-        { it * 60.0 }, { it / 60.0 }),
-    HOUR(UnitType.TIME, R.array.unit_hour_singular, R.array.unit_hour_plural, listOf("h", "hr"),
-        { it * 3600.0 }, { it / 3600.0 }),
-    DAY(UnitType.TIME, R.array.unit_day_singular, R.array.unit_day_plural, listOf("d"),
-        { it * 86400.0 }, { it / 86400.0 }),
-    WEEK(UnitType.TIME, R.array.unit_week_singular, R.array.unit_week_plural, listOf("wk"),
-        { it * 604800.0 }, { it / 604800.0 }),
-    MONTH(UnitType.TIME, R.array.unit_month_singular, R.array.unit_month_plural, listOf("mo"),
-        { it * 2629800.0 }, { it / 2629800.0 }), // average month (30.4375 days)
-    YEAR(UnitType.TIME, R.array.unit_year_singular, R.array.unit_year_plural, listOf("y", "yr"),
-        { it * 31557600.0 }, { it / 31557600.0 }), // average year (365.25 days)
+    // TIME
+    NANOSECOND(UnitType.TIME), MICROSECOND(UnitType.TIME), MILLISECOND(UnitType.TIME), 
+    SECOND(UnitType.TIME), MINUTE(UnitType.TIME), HOUR(UnitType.TIME), 
+    DAY(UnitType.TIME), WEEK(UnitType.TIME), MONTH(UnitType.TIME), 
+    YEAR(UnitType.TIME), DECADE(UnitType.TIME), CENTURY(UnitType.TIME),
 
-    // DIGITAL STORAGE (base: byte)
-    BIT(UnitType.DIGITAL_STORAGE, R.array.unit_bit_singular, R.array.unit_bit_plural, listOf("b"),
-        { it / 8.0 }, { it * 8.0 }),
-    BYTE(UnitType.DIGITAL_STORAGE, R.array.unit_byte_singular, R.array.unit_byte_plural, listOf("B"),
-        { it }, { it }),
-    KILOBYTE(UnitType.DIGITAL_STORAGE, R.array.unit_kilobyte_singular, R.array.unit_kilobyte_plural, listOf("kB", "kb"),
-        { it * 1000.0 }, { it / 1000.0 }),
-    MEGABYTE(UnitType.DIGITAL_STORAGE, R.array.unit_megabyte_singular, R.array.unit_megabyte_plural, listOf("MB", "mb"),
-        { it * 1000000.0 }, { it / 1000000.0 }),
-    GIGABYTE(UnitType.DIGITAL_STORAGE, R.array.unit_gigabyte_singular, R.array.unit_gigabyte_plural, listOf("GB", "gb"),
-        { it * 1000000000.0 }, { it / 1000000000.0 }),
-    TERABYTE(UnitType.DIGITAL_STORAGE, R.array.unit_terabyte_singular, R.array.unit_terabyte_plural, listOf("TB", "tb"),
-        { it * 1000000000000.0 }, { it / 1000000000000.0 }),
-    PETABYTE(UnitType.DIGITAL_STORAGE, R.array.unit_petabyte_singular, R.array.unit_petabyte_plural, listOf("PB", "pb"),
-        { it * 1000000000000000.0 }, { it / 1000000000000000.0 }),
-    KIBIBYTE(UnitType.DIGITAL_STORAGE, R.array.unit_kibibyte_singular, R.array.unit_kibibyte_plural, listOf("KiB", "kib"),
-        { it * 1024.0 }, { it / 1024.0 }),
-    MEBIBYTE(UnitType.DIGITAL_STORAGE, R.array.unit_mebibyte_singular, R.array.unit_mebibyte_plural, listOf("MiB", "mib"),
-        { it * 1048576.0 }, { it / 1048576.0 }),
-    GIBIBYTE(UnitType.DIGITAL_STORAGE, R.array.unit_gibibyte_singular, R.array.unit_gibibyte_plural, listOf("GiB", "gib"),
-        { it * 1073741824.0 }, { it / 1073741824.0 }),
-    TEBIBYTE(UnitType.DIGITAL_STORAGE, R.array.unit_tebibyte_singular, R.array.unit_tebibyte_plural, listOf("TiB", "tib"),
-        { it * 1099511627776.0 }, { it / 1099511627776.0 }),
+    // DIGITAL STORAGE
+    BIT(UnitType.DIGITAL_STORAGE), BYTE(UnitType.DIGITAL_STORAGE), 
+    KILOBIT(UnitType.DIGITAL_STORAGE), KILOBYTE(UnitType.DIGITAL_STORAGE),
+    MEGABIT(UnitType.DIGITAL_STORAGE), MEGABYTE(UnitType.DIGITAL_STORAGE),
+    GIGABIT(UnitType.DIGITAL_STORAGE), GIGABYTE(UnitType.DIGITAL_STORAGE),
+    TERABIT(UnitType.DIGITAL_STORAGE), TERABYTE(UnitType.DIGITAL_STORAGE),
+    PETABYTE(UnitType.DIGITAL_STORAGE),
 
-    // ENERGY (base: joule)
-    JOULE(UnitType.ENERGY, R.array.unit_joule_singular, R.array.unit_joule_plural, listOf("j", "J"),
-        { it }, { it }),
-    KILOJOULE(UnitType.ENERGY, R.array.unit_kilojoule_singular, R.array.unit_kilojoule_plural, listOf("kj", "kJ"),
-        { it * 1000.0 }, { it / 1000.0 }),
-    CALORIE(UnitType.ENERGY, R.array.unit_calorie_singular, R.array.unit_calorie_plural, listOf("cal"),
-        { it * 4.184 }, { it / 4.184 }),
-    KILOCALORIE(UnitType.ENERGY, R.array.unit_kilocalorie_singular, R.array.unit_kilocalorie_plural, listOf("kcal", "Cal"),
-        { it * 4184.0 }, { it / 4184.0 }),
-    WATT_HOUR(UnitType.ENERGY, R.array.unit_watt_hour_singular, R.array.unit_watt_hour_plural, listOf("wh", "Wh"),
-        { it * 3600.0 }, { it / 3600.0 }),
-    KILOWATT_HOUR(UnitType.ENERGY, R.array.unit_kilowatt_hour_singular, R.array.unit_kilowatt_hour_plural, listOf("kwh", "kWh"),
-        { it * 3600000.0 }, { it / 3600000.0 }),
-    ELECTRONVOLT(UnitType.ENERGY, R.array.unit_electronvolt_singular, R.array.unit_electronvolt_plural, listOf("ev", "eV"),
-        { it * 1.602176634e-19 }, { it / 1.602176634e-19 }),
+    // ENERGY
+    JOULE(UnitType.ENERGY), KILOJOULE(UnitType.ENERGY), 
+    CALORIE(UnitType.ENERGY), KILOCALORIE(UnitType.ENERGY), FOODCALORIE(UnitType.ENERGY),
+    KILOWATT_HOUR(UnitType.ENERGY),
 
-    // POWER (base: watt)
-    WATT(UnitType.POWER, R.array.unit_watt_singular, R.array.unit_watt_plural, listOf("W", "w"),
-        { it }, { it }),
-    KILOWATT(UnitType.POWER, R.array.unit_kilowatt_singular, R.array.unit_kilowatt_plural, listOf("kW", "kw"),
-        { it * 1000.0 }, { it / 1000.0 }),
-    MEGAWATT(UnitType.POWER, R.array.unit_megawatt_singular, R.array.unit_megawatt_plural, listOf("MW", "mw"),
-        { it * 1000000.0 }, { it / 1000000.0 }),
-    HORSEPOWER(UnitType.POWER, R.array.unit_horsepower_singular, R.array.unit_horsepower_plural, listOf("hp"),
-        { it * 745.699872 }, { it / 745.699872 }), // This might be a little bit contentious. This is mechanical/imperial horsepower.
+    // POWER
+    MILLIWATT(UnitType.POWER), WATT(UnitType.POWER), KILOWATT(UnitType.POWER), 
+    MEGAWATT(UnitType.POWER), GIGAWATT(UnitType.POWER), HORSEPOWER(UnitType.POWER),
 
-    // PRESSURE (base: pascal)
-    PASCAL(UnitType.PRESSURE, R.array.unit_pascal_singular, R.array.unit_pascal_plural, listOf("pa", "Pa"),
-        { it }, { it }),
-    KILOPASCAL(UnitType.PRESSURE, R.array.unit_kilopascal_singular, R.array.unit_kilopascal_plural, listOf("kpa", "kPa"),
-        { it * 1000.0 }, { it / 1000.0 }),
-    BAR(UnitType.PRESSURE, R.array.unit_bar_singular, R.array.unit_bar_plural, listOf("bar"),
-        { it * 100000.0 }, { it / 100000.0 }),
-    ATMOSPHERE(UnitType.PRESSURE, R.array.unit_atmosphere_singular, R.array.unit_atmosphere_plural, listOf("atm"),
-        { it * 101325.0 }, { it / 101325.0 }),
-    PSI(UnitType.PRESSURE, R.array.unit_psi_singular, R.array.unit_psi_plural, listOf("psi"),
-        { it * 6894.75729 }, { it / 6894.75729 }),
-    TORR(UnitType.PRESSURE, R.array.unit_torr_singular, R.array.unit_torr_plural, listOf("torr"),
-        { it * 133.322368 }, { it / 133.322368 }),
-    MMHG(UnitType.PRESSURE, R.array.unit_mmhg_singular, R.array.unit_mmhg_plural, listOf("mmhg", "mmHg"),
-        { it * 133.322 }, { it / 133.322 }),
+    // PRESSURE
+    HECTOPASCAL(UnitType.PRESSURE), MILLIBAR(UnitType.PRESSURE),
+    ATMOSPHERE(UnitType.PRESSURE), POUND_PER_SQUARE_INCH(UnitType.PRESSURE),
+    INCH_HG(UnitType.PRESSURE), MILLIMETER_OF_MERCURY(UnitType.PRESSURE),
 
-    // ANGLE (base: degree)
-    DEGREE(UnitType.ANGLE, R.array.unit_degree_singular, R.array.unit_degree_plural, listOf("deg", "°"),
-        { it }, { it }),
-    RADIAN(UnitType.ANGLE, R.array.unit_radian_singular, R.array.unit_radian_plural, listOf("rad"),
-        { it * 180.0 / Math.PI }, { it * Math.PI / 180.0 }),
-    GRADIAN(UnitType.ANGLE, R.array.unit_gradian_singular, R.array.unit_gradian_plural, listOf("grad"),
-        { it * 0.9 }, { it / 0.9 }),
+    // ANGLE
+    ARC_SECOND(UnitType.ANGLE), ARC_MINUTE(UnitType.ANGLE), 
+    DEGREE(UnitType.ANGLE), RADIAN(UnitType.ANGLE), REVOLUTION_ANGLE(UnitType.ANGLE),
 
-    // CURRENCY (no base unit - conversions are done via API)
-    // Using dummy conversion functions since actual conversion is done via API
-    USD(UnitType.CURRENCY, R.array.unit_usd_singular, R.array.unit_usd_plural, listOf("USD", "$"),
-        { it }, { it }),
-    EUR(UnitType.CURRENCY, R.array.unit_eur_singular, R.array.unit_eur_plural, listOf("EUR", "€"),
-        { it }, { it }),
-    GBP(UnitType.CURRENCY, R.array.unit_gbp_singular, R.array.unit_gbp_plural, listOf("GBP", "£"),
-        { it }, { it }),
-    JPY(UnitType.CURRENCY, R.array.unit_jpy_singular, R.array.unit_jpy_plural, listOf("JPY", "¥"),
-        { it }, { it }),
-    CHF(UnitType.CURRENCY, R.array.unit_chf_singular, R.array.unit_chf_plural, listOf("CHF"),
-        { it }, { it }),
-    CAD(UnitType.CURRENCY, R.array.unit_cad_singular, R.array.unit_cad_plural, listOf("CAD"),
-        { it }, { it }),
-    AUD(UnitType.CURRENCY, R.array.unit_aud_singular, R.array.unit_aud_plural, listOf("AUD"),
-        { it }, { it }),
-    NZD(UnitType.CURRENCY, R.array.unit_nzd_singular, R.array.unit_nzd_plural, listOf("NZD"),
-        { it }, { it }),
-    CNY(UnitType.CURRENCY, R.array.unit_cny_singular, R.array.unit_cny_plural, listOf("CNY"),
-        { it }, { it }),
-    INR(UnitType.CURRENCY, R.array.unit_inr_singular, R.array.unit_inr_plural, listOf("INR"),
-        { it }, { it }),
-    KRW(UnitType.CURRENCY, R.array.unit_krw_singular, R.array.unit_krw_plural, listOf("KRW", "₩"),
-        { it }, { it }),
-    BRL(UnitType.CURRENCY, R.array.unit_brl_singular, R.array.unit_brl_plural, listOf("BRL"),
-        { it }, { it }),
-    ZAR(UnitType.CURRENCY, R.array.unit_zar_singular, R.array.unit_zar_plural, listOf("ZAR"),
-        { it }, { it }),
-    MXN(UnitType.CURRENCY, R.array.unit_mxn_singular, R.array.unit_mxn_plural, listOf("MXN"),
-        { it }, { it }),
-    SGD(UnitType.CURRENCY, R.array.unit_sgd_singular, R.array.unit_sgd_plural, listOf("SGD"),
-        { it }, { it }),
-    HKD(UnitType.CURRENCY, R.array.unit_hkd_singular, R.array.unit_hkd_plural, listOf("HKD"),
-        { it }, { it }),
-    SEK(UnitType.CURRENCY, R.array.unit_sek_singular, R.array.unit_sek_plural, listOf("SEK"),
-        { it }, { it }),
-    NOK(UnitType.CURRENCY, R.array.unit_nok_singular, R.array.unit_nok_plural, listOf("NOK"),
-        { it }, { it }),
-    DKK(UnitType.CURRENCY, R.array.unit_dkk_singular, R.array.unit_dkk_plural, listOf("DKK"),
-        { it }, { it }),
-    PLN(UnitType.CURRENCY, R.array.unit_pln_singular, R.array.unit_pln_plural, listOf("PLN"),
-        { it }, { it }),
-    CZK(UnitType.CURRENCY, R.array.unit_czk_singular, R.array.unit_czk_plural, listOf("CZK"),
-        { it }, { it }),
-    HUF(UnitType.CURRENCY, R.array.unit_huf_singular, R.array.unit_huf_plural, listOf("HUF"),
-        { it }, { it }),
-    RON(UnitType.CURRENCY, R.array.unit_ron_singular, R.array.unit_ron_plural, listOf("RON"),
-        { it }, { it }),
-    BGN(UnitType.CURRENCY, R.array.unit_bgn_singular, R.array.unit_bgn_plural, listOf("BGN"),
-        { it }, { it }),
-    TRY(UnitType.CURRENCY, R.array.unit_try_singular, R.array.unit_try_plural, listOf("TRY"),
-        { it }, { it }),
-    ILS(UnitType.CURRENCY, R.array.unit_ils_singular, R.array.unit_ils_plural, listOf("ILS", "₪"),
-        { it }, { it }),
-    THB(UnitType.CURRENCY, R.array.unit_thb_singular, R.array.unit_thb_plural, listOf("THB", "฿"),
-        { it }, { it }),
-    IDR(UnitType.CURRENCY, R.array.unit_idr_singular, R.array.unit_idr_plural, listOf("IDR"),
-        { it }, { it }),
-    MYR(UnitType.CURRENCY, R.array.unit_myr_singular, R.array.unit_myr_plural, listOf("MYR"),
-        { it }, { it }),
-    PHP(UnitType.CURRENCY, R.array.unit_php_singular, R.array.unit_php_plural, listOf("PHP"),
-        { it }, { it }),
-    ISK(UnitType.CURRENCY, R.array.unit_isk_singular, R.array.unit_isk_plural, listOf("ISK"),
-        { it }, { it });
+    // FREQUENCY
+    HERTZ(UnitType.FREQUENCY), KILOHERTZ(UnitType.FREQUENCY), 
+    MEGAHERTZ(UnitType.FREQUENCY), GIGAHERTZ(UnitType.FREQUENCY),
+
+    // ACCELERATION
+    METER_PER_SECOND_SQUARED(UnitType.ACCELERATION), G_FORCE(UnitType.ACCELERATION),
+
+    // CURRENCY
+    USD(UnitType.CURRENCY), EUR(UnitType.CURRENCY), GBP(UnitType.CURRENCY),
+    JPY(UnitType.CURRENCY), CHF(UnitType.CURRENCY), CAD(UnitType.CURRENCY),
+    AUD(UnitType.CURRENCY), NZD(UnitType.CURRENCY), CNY(UnitType.CURRENCY),
+    INR(UnitType.CURRENCY), KRW(UnitType.CURRENCY), BRL(UnitType.CURRENCY),
+    ZAR(UnitType.CURRENCY), MXN(UnitType.CURRENCY), SGD(UnitType.CURRENCY),
+    HKD(UnitType.CURRENCY), SEK(UnitType.CURRENCY), NOK(UnitType.CURRENCY),
+    DKK(UnitType.CURRENCY), PLN(UnitType.CURRENCY), CZK(UnitType.CURRENCY),
+    HUF(UnitType.CURRENCY), RON(UnitType.CURRENCY), BGN(UnitType.CURRENCY),
+    TRY(UnitType.CURRENCY), ILS(UnitType.CURRENCY), THB(UnitType.CURRENCY),
+    IDR(UnitType.CURRENCY), MYR(UnitType.CURRENCY), PHP(UnitType.CURRENCY),
+    ISK(UnitType.CURRENCY);
+
+    /** Returns ISO 4217 currency code or null for non-currency units. */
+    val currencyCode: String? get() = if (type == UnitType.CURRENCY) name else null
+
+    /** Returns corresponding MeasureUnit or null for currency units. */
+    val measureUnit: MeasureUnit? get() = if (type == UnitType.CURRENCY) null else try {
+        MeasureUnit::class.java.getField(name).get(null) as? MeasureUnit
+    } catch (e: Exception) { null }
 
     companion object {
         fun findUnit(text: String, resources: Resources): Unit? {
             val normalizedText = text.lowercase().trim()
+            val locale = ULocale.forLocale(resources.configuration.locales[0])
             
-            // First try exact match with abbreviations (case-sensitive for some units like B vs b)
-            for (unit in values()) {
-                if (unit.abbreviations.contains(text.trim())) {
-                    return unit
-                }
-            }
-            
-            // Then try case-insensitive abbreviations
-            for (unit in values()) {
-                for (abbr in unit.abbreviations) {
-                    if (abbr.equals(normalizedText, ignoreCase = true)) {
-                        return unit
+            return values().firstOrNull { unit ->
+                // Try MeasureUnit matching (non-currency)
+                unit.measureUnit?.let { measureUnit ->
+                    listOf(
+                        MeasureFormat.FormatWidth.SHORT,
+                        MeasureFormat.FormatWidth.NARROW,
+                        MeasureFormat.FormatWidth.WIDE
+                    ).any { width ->
+                        val format = MeasureFormat.getInstance(locale, width)
+                        val unitName = format.getUnitDisplayName(measureUnit).lowercase()
+                        
+                        // Try exact match first
+                        if (unitName == normalizedText) {
+                            return@any true
+                        }
+                        
+                        // Check if unit name appears as a word in the text
+                        val regex = "\\b${Regex.escape(unitName)}\\b".toRegex()
+                        if (regex.containsMatchIn(normalizedText)) {
+                            return@any true
+                        }
+                        
+                        // Also check formatted measures for singular and plural forms
+                        val singularForm = format.format(Measure(1.0, measureUnit)).lowercase()
+                        val pluralForm = format.format(Measure(2.0, measureUnit)).lowercase()
+                        
+                        // Extract just the unit part (remove the number)
+                        val singularUnit = singularForm.replace(Regex("^[\\d.,\\s]+"), "").trim()
+                        val pluralUnit = pluralForm.replace(Regex("^[\\d.,\\s]+"), "").trim()
+                        
+                        listOf(singularUnit, pluralUnit).any { formattedUnit ->
+                            if (formattedUnit.isNotEmpty()) {
+                                val formRegex = "\\b${Regex.escape(formattedUnit)}\\b".toRegex()
+                                formRegex.containsMatchIn(normalizedText)
+                            } else false
+                        }
                     }
-                }
+                } ?: 
+                // Try Currency matching
+                unit.currencyCode?.let { code ->
+                    runCatching {
+                        val currency = Currency.getInstance(code)
+                        val javaLocale = Locale.forLanguageTag(locale.toLanguageTag())
+                        val displayName = currency.getDisplayName(javaLocale).lowercase()
+                        val symbol = currency.symbol.lowercase()
+                        val currencyCode = currency.currencyCode.lowercase()
+                        
+                        // Check exact match or word boundary match for display name, symbol, and code
+                        val namesToCheck = mutableListOf(displayName, symbol, currencyCode)
+                        
+                        // Add common plural forms
+                        if (displayName.isNotEmpty()) {
+                            namesToCheck.add(displayName + "s")  // e.g., "euro" -> "euros"
+                        }
+                        
+                        namesToCheck.any { name ->
+                            name == normalizedText || 
+                            "\\b${Regex.escape(name)}\\b".toRegex().containsMatchIn(normalizedText)
+                        }
+                    }.getOrDefault(false)
+                } ?: false
             }
-            
-            // Finally try localized full names from resources (both singular and plural)
-            for (unit in values()) {
-                try {
-                    val allNames = resources.getStringArray(unit.singularNamesResId) + 
-                                   resources.getStringArray(unit.pluralNamesResId)
-                    if (allNames.any { it.lowercase() == normalizedText }) {
-                        return unit
-                    }
-                } catch (_: Exception) {
-                    // Resource not found, skip this unit
-                    continue
-                }
-            }
-            
-            return null
         }
 
         fun convert(value: Double, from: Unit, to: Unit): Double? {
-            if (from.type != to.type) {
-                return null // Cannot convert between different types
+            if (from.type != to.type) return null
+            
+            // Handle temperature conversions specially (non-linear)
+            if (from.type == UnitType.TEMPERATURE) {
+                return convertTemperature(value, from, to)
             }
-            val baseValue = from.toBaseUnit(value)
-            return to.fromBaseUnit(baseValue)
+            
+            // Handle fuel consumption conversions specially (inverse relationship)
+            if (from.type == UnitType.CONSUMPTION) {
+                return convertConsumption(value, from, to)
+            }
+            
+            // Get conversion factors to base units
+            val fromFactor = getConversionFactor(from) ?: return null
+            val toFactor = getConversionFactor(to) ?: return null
+            
+            // Convert: value * (from factor / to factor)
+            return value * fromFactor / toFactor
+        }
+        
+        private fun convertTemperature(value: Double, from: Unit, to: Unit): Double? {
+            // Convert to Kelvin first
+            val kelvin = when (from) {
+                CELSIUS -> value + 273.15
+                FAHRENHEIT -> (value - 32.0) * 5.0 / 9.0 + 273.15
+                KELVIN -> value
+                else -> return null
+            }
+            
+            // Convert from Kelvin to target
+            return when (to) {
+                CELSIUS -> kelvin - 273.15
+                FAHRENHEIT -> (kelvin - 273.15) * 9.0 / 5.0 + 32.0
+                KELVIN -> kelvin
+                else -> null
+            }
+        }
+        
+        private fun getConversionFactor(unit: Unit): Double? = when (unit) {
+            // LENGTH - base: METER
+            PICOMETER -> 1e-12
+            NANOMETER -> 1e-9
+            MICROMETER -> 1e-6
+            MILLIMETER -> 0.001
+            CENTIMETER -> 0.01
+            DECIMETER -> 0.1
+            METER -> 1.0
+            KILOMETER -> 1000.0
+            INCH -> 0.0254
+            FOOT -> 0.3048
+            YARD -> 0.9144
+            FATHOM -> 1.8288
+            FURLONG -> 201.168
+            MILE -> 1609.344
+            MILE_SCANDINAVIAN -> 10000.0
+            NAUTICAL_MILE -> 1852.0
+            LIGHT_YEAR -> 9.4607304725808e15
+            ASTRONOMICAL_UNIT -> 1.495978707e11
+            PARSEC -> 3.0856776e16
+            
+            // MASS - base: KILOGRAM
+            MICROGRAM -> 1e-9
+            MILLIGRAM -> 1e-6
+            GRAM -> 0.001
+            KILOGRAM -> 1.0
+            METRIC_TON -> 1000.0
+            TONNE -> 1000.0
+            OUNCE -> 0.028349523125
+            POUND -> 0.45359237
+            STONE -> 6.35029318
+            TON -> 907.18474
+            OUNCE_TROY -> 0.0311034768
+            CARAT -> 0.0002
+            
+            // TEMPERATURE - special case handled separately
+            CELSIUS, FAHRENHEIT, KELVIN -> null
+            
+            // VOLUME - base: LITER
+            MILLILITER -> 0.001
+            CENTILITER -> 0.01
+            DECILITER -> 0.1
+            LITER -> 1.0
+            HECTOLITER -> 100.0
+            MEGALITER -> 1000000.0
+            CUBIC_CENTIMETER -> 0.001
+            CUBIC_METER -> 1000.0
+            CUBIC_KILOMETER -> 1e12
+            CUBIC_INCH -> 0.016387064
+            CUBIC_FOOT -> 28.316846592
+            CUBIC_YARD -> 764.554857984
+            CUBIC_MILE -> 4.16818182544e12
+            TEASPOON -> 0.00492892
+            TABLESPOON -> 0.0147868
+            FLUID_OUNCE -> 0.0295735
+            CUP -> 0.2365882365
+            CUP_METRIC -> 0.25
+            PINT -> 0.473176
+            PINT_METRIC -> 0.5
+            QUART -> 0.946353
+            GALLON -> 3.78541
+            GALLON_IMPERIAL -> 4.54609
+            BUSHEL -> 35.2391
+            ACRE_FOOT -> 1233481.84
+            
+            // AREA - base: SQUARE_METER
+            SQUARE_CENTIMETER -> 0.0001
+            SQUARE_METER -> 1.0
+            SQUARE_KILOMETER -> 1000000.0
+            HECTARE -> 10000.0
+            SQUARE_INCH -> 0.00064516
+            SQUARE_FOOT -> 0.092903
+            SQUARE_YARD -> 0.836127
+            ACRE -> 4046.86
+            SQUARE_MILE -> 2589988.110336
+            
+            // SPEED - base: METER_PER_SECOND
+            METER_PER_SECOND -> 1.0
+            KILOMETER_PER_HOUR -> 0.277778
+            MILE_PER_HOUR -> 0.44704
+            KNOT -> 0.514444
+            
+            // TIME - base: SECOND
+            NANOSECOND -> 1e-9
+            MICROSECOND -> 1e-6
+            MILLISECOND -> 0.001
+            SECOND -> 1.0
+            MINUTE -> 60.0
+            HOUR -> 3600.0
+            DAY -> 86400.0
+            WEEK -> 604800.0
+            MONTH -> 2629800.0  // 30.4375 days average
+            YEAR -> 31557600.0  // 365.25 days
+            DECADE -> 315576000.0
+            CENTURY -> 3155760000.0
+            
+            // DIGITAL STORAGE - base: BYTE
+            BIT -> 0.125
+            BYTE -> 1.0
+            KILOBIT -> 125.0
+            KILOBYTE -> 1000.0
+            MEGABIT -> 125000.0
+            MEGABYTE -> 1000000.0
+            GIGABIT -> 125000000.0
+            GIGABYTE -> 1000000000.0
+            TERABIT -> 125000000000.0
+            TERABYTE -> 1000000000000.0
+            PETABYTE -> 1000000000000000.0
+            
+            // ENERGY - base: JOULE
+            JOULE -> 1.0
+            KILOJOULE -> 1000.0
+            CALORIE -> 4.184
+            KILOCALORIE -> 4184.0
+            FOODCALORIE -> 4184.0
+            KILOWATT_HOUR -> 3600000.0
+            
+            // POWER - base: WATT
+            MILLIWATT -> 0.001
+            WATT -> 1.0
+            KILOWATT -> 1000.0
+            MEGAWATT -> 1000000.0
+            GIGAWATT -> 1000000000.0
+            HORSEPOWER -> 745.7
+            
+            // PRESSURE - base: PASCAL
+            HECTOPASCAL -> 100.0
+            MILLIBAR -> 100.0
+            ATMOSPHERE -> 101325.0
+            POUND_PER_SQUARE_INCH -> 6894.76
+            INCH_HG -> 3386.39
+            MILLIMETER_OF_MERCURY -> 133.322
+            
+            // ANGLE - base: RADIAN
+            ARC_SECOND -> 4.84814e-6
+            ARC_MINUTE -> 0.000290888
+            DEGREE -> 0.0174533
+            RADIAN -> 1.0
+            REVOLUTION_ANGLE -> 6.28319
+            
+            // FREQUENCY - base: HERTZ
+            HERTZ -> 1.0
+            KILOHERTZ -> 1000.0
+            MEGAHERTZ -> 1000000.0
+            GIGAHERTZ -> 1000000000.0
+            
+            // ACCELERATION - base: METER_PER_SECOND_SQUARED
+            METER_PER_SECOND_SQUARED -> 1.0
+            G_FORCE -> 9.80665
+            
+            // CURRENCY - handled separately
+            else -> null
         }
     }
 }
