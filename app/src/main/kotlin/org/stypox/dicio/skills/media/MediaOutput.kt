@@ -15,5 +15,9 @@ class MediaOutput(
         is Media.Pause -> ctx.getString(R.string.skill_media_pausing)
         is Media.Previous -> ctx.getString(R.string.skill_media_previous)
         is Media.Next -> ctx.getString(R.string.skill_media_next)
+        is Media.VolumeUp -> ctx.getString(R.string.skill_media_volume_up)
+        is Media.VolumeDown -> ctx.getString(R.string.skill_media_volume_down)
+        is Media.VolumeUpTimes -> ctx.getString(R.string.skill_media_volume_up)
+        is Media.VolumeDownTimes -> ctx.getString(R.string.skill_media_volume_down)
     }
 }

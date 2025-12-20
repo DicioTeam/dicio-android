@@ -14,3 +14,23 @@ previous:
 next:
   - skip the|a|one? song|media|track|music|audio|video|movie|stream|film
   - play|(go|switch|skip|jump|(move forward) to)? the? next|following song|media|track|music|audio|video|movie|stream|film? (in the queue)?
+
+volume_up:
+  - (increase|raise|turn) up? the? (volume|sound) up?
+  - volume up
+  - (make it)? louder
+
+volume_down:
+  - (decrease|lower|turn) down? the? (volume|sound) down?
+  - volume down
+  - (make it)? quieter
+
+volume_up_times:
+  - (increase|raise|turn) (it|the? volume|sound)? up .times. (times|clicks|steps|notches)?
+  - .times. times|clicks|steps|notches? louder
+  - make it .times. times|clicks|steps|notches? louder
+
+volume_down_times:
+  - (decrease|lower|turn) (it|the? volume|sound)? down .times. (times|clicks|steps|notches)?
+  - .times. times|clicks|steps|notches? quieter
+  - make it .times. times|clicks|steps|notches? quieter

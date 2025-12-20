@@ -17,3 +17,23 @@ next:
   - reproducir|sonar|saltar el|la? cancion|<multi?>media|pista|musica|audio|video|film|peli<cula?>|stream|transmision siguiente|posterior<a?>|sucesor<a?> (de|en la cola|fila)?
   - reproducir|sonar|saltar el|la? siguiente|posterior<a?>|sucesor<a?> cancion|<multi?>media|pista|musica|audio|video|film|peli<cula?>|stream|transmision (de|en la cola|fila)?
   - ir|saltar|omitir (a el)|al|la siguiente|sucesor<a?>
+
+volume_up:
+  - subir|aumentar (el? volumen|sonido)
+  - volumen arriba
+  - mas alto
+  - mas fuerte
+
+volume_down:
+  - bajar|disminuir (el? volumen|sonido)
+  - volumen abajo
+  - mas bajo
+  - mas suave
+
+volume_up_times:
+  - subir|aumentar (el? volumen|sonido)? .times. veces|pasos?
+  - .times. veces|pasos? mas alto|fuerte
+
+volume_down_times:
+  - bajar|disminuir (el? volumen|sonido)? .times. veces|pasos?
+  - .times. veces|pasos? mas bajo|suave

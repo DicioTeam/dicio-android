@@ -12,3 +12,23 @@ previous:
 
 next:
   - (joue|jouer|jouez|mais|mets|mettez|mettre|(passe à)|(passer à)|(passez à))? la|le? chanson|média|piste|musique|audio|film|stream suivant<e?>
+
+volume_up:
+  - augmente|augmenter|augmentez|monte|monter|montez (le? volume|son)
+  - volume plus haut
+  - plus fort
+  - plus haut
+
+volume_down:
+  - baisse|baisser|baissez|diminue|diminuer|diminuez (le? volume|son)
+  - volume plus bas
+  - plus bas
+  - moins fort
+
+volume_up_times:
+  - augmente|augmenter|augmentez|monte|monter|montez (le? volume|son)? (de)? .times. fois|crans?
+  - .times. fois|crans? plus fort|haut
+
+volume_down_times:
+  - baisse|baisser|baissez|diminue|diminuer|diminuez (le? volume|son)? (de)? .times. fois|crans?
+  - .times. fois|crans? plus bas|moins fort

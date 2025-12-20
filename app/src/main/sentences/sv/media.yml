@@ -12,3 +12,23 @@ previous:
 next:
   - skippa|(hoppa över?) en|nästa? sång<en?>|media|låt<en?>|musik<en?>|audio|video<n?>|film<en?>|stream<en?>
   - spela|(byt|hoppa|växla till) nästa|följande sång<en?>|media|låt<en?>|musik<en?>|audio|video<n?>|film<en?>|stream<en?> (i kön)?
+
+volume_up:
+  - höj|öka volym<en?>|ljud<et?>
+  - volym upp
+  - högre
+  - gör det högre
+
+volume_down:
+  - sänk|minska volym<en?>|ljud<et?>
+  - volym ner
+  - lägre
+  - gör det lägre
+
+volume_up_times:
+  - höj|öka volym<en?>|ljud<et?>|det? .times. gånger|steg?
+  - .times. gånger|steg? högre
+
+volume_down_times:
+  - sänk|minska volym<en?>|ljud<et?>|det? .times. gånger|steg?
+  - .times. gånger|steg? lägre

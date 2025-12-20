@@ -15,3 +15,23 @@ next:
   - skip (dit|deze)? (lied<je?>|nummer|song|muziek<je?>|audio|video|film<pje?>|stream|clip)?
   - speel|start|begin|(skip naar)|(ga (verder met)|naar) (de|het)? volgende lied<je?>|nummer|song|muziek<je?>|audio|video|film<pje?>|stream|clip afspelen?
   - volgende (lied<je?>|nummer|song|muziek<je?>|audio|video|film<pje?>|stream|clip)?
+
+volume_up:
+  - verhoog|verhogen|harder zetten (de|het? volume|geluid)
+  - volume omhoog
+  - harder
+  - luider
+
+volume_down:
+  - verlaag|verlagen|zachter zetten (de|het? volume|geluid)
+  - volume omlaag
+  - zachter
+  - stiller
+
+volume_up_times:
+  - verhoog|verhogen (de|het? volume|geluid|het)? .times. keer|stappen?
+  - .times. keer|stappen? harder|luider
+
+volume_down_times:
+  - verlaag|verlagen (de|het? volume|geluid|het)? .times. keer|stappen?
+  - .times. keer|stappen? zachter|stiller
