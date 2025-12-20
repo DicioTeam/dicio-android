@@ -26,11 +26,11 @@ volume_down:
   - (make it)? quieter
 
 volume_up_times:
-  - (increase|raise|turn) (it|the? volume|sound)? up .times. (times|clicks|steps|notches)?
+  - (increase|raise|turn) up? the? (it|volume|sound)? up? .times. (times|clicks|steps|notches)?
   - .times. times|clicks|steps|notches? louder
   - make it .times. times|clicks|steps|notches? louder
 
 volume_down_times:
-  - (decrease|lower|turn) (it|the? volume|sound)? down .times. (times|clicks|steps|notches)?
+  - (decrease|lower|turn) down? the? (it|volume|sound)? down? .times. (times|clicks|steps|notches)?
   - .times. times|clicks|steps|notches? quieter
   - make it .times. times|clicks|steps|notches? quieter

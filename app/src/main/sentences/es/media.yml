@@ -37,3 +37,4 @@ volume_up_times:
 volume_down_times:
   - bajar|disminuir (el? volumen|sonido)? .times. veces|pasos?
   - .times. veces|pasos? mas bajo|suave
+  
