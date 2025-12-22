@@ -4,12 +4,17 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.app.Service
+import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.graphics.PixelFormat
 import android.net.Uri
 import android.os.Build
+import android.os.Handler
 import android.os.IBinder
+import android.os.Looper
+import android.os.PowerManager
 import android.provider.Settings
 import android.util.Log
 import android.view.Gravity
@@ -57,10 +62,41 @@ class AssistantOverlayService : Service(), LifecycleOwner, ViewModelStoreOwner, 
 
     private lateinit var windowManager: WindowManager
     private var overlayView: ComposeView? = null
+    private lateinit var powerManager: PowerManager
 
     private val lifecycleRegistry = LifecycleRegistry(this)
     private val store = ViewModelStore()
     private val savedStateRegistryController = SavedStateRegistryController.create(this)
+    
+    // Screen state monitoring
+    private val handler = Handler(Looper.getMainLooper())
+    private var screenOffTimeoutRunnable: Runnable? = null
+    private var screenReceiver: BroadcastReceiver? = null
+    
+    companion object {
+        private val TAG = AssistantOverlayService::class.simpleName
+        private const val NOTIFICATION_CHANNEL_ID = "org.stypox.dicio.io.assistant.OVERLAY"
+        private const val NOTIFICATION_ID = 87654321
+        private const val ACTION_SHOW_OVERLAY = "org.stypox.dicio.io.assistant.SHOW_OVERLAY"
+        private const val ACTION_HIDE_OVERLAY = "org.stypox.dicio.io.assistant.HIDE_OVERLAY"
+        private const val SCREEN_OFF_TIMEOUT_MS = 60_000L // 1 minute
+        
+        fun start(context: Context) {
+            val intent = Intent(context, AssistantOverlayService::class.java)
+            intent.action = ACTION_SHOW_OVERLAY
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                context.startForegroundService(intent)
+            } else {
+                context.startService(intent)
+            }
+        }
+
+        fun stop(context: Context) {
+            val intent = Intent(context, AssistantOverlayService::class.java)
+            intent.action = ACTION_HIDE_OVERLAY
+            context.startService(intent)
+        }
+    }
     
     // Create a custom ActivityResultRegistry for the service
     private val customActivityResultRegistry = object : ActivityResultRegistry() {
@@ -97,9 +133,10 @@ class AssistantOverlayService : Service(), LifecycleOwner, ViewModelStoreOwner, 
         lifecycleRegistry.currentState = Lifecycle.State.CREATED
 
         windowManager = getSystemService(Context.WINDOW_SERVICE) as WindowManager
+        powerManager = getSystemService(Context.POWER_SERVICE) as PowerManager
 
-        // Create foreground notification
         createForegroundNotification()
+        registerScreenStateReceiver()
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
@@ -132,6 +169,8 @@ class AssistantOverlayService : Service(), LifecycleOwner, ViewModelStoreOwner, 
 
     override fun onDestroy() {
         hideOverlay()
+        unregisterScreenStateReceiver()
+        cancelScreenOffTimeout()
         lifecycleRegistry.currentState = Lifecycle.State.DESTROYED
         super.onDestroy()
     }
@@ -207,6 +246,7 @@ class AssistantOverlayService : Service(), LifecycleOwner, ViewModelStoreOwner, 
             
             // Start listening immediately
             sttInputDevice.tryLoad(skillEvaluator::processInputEvent)
+            checkScreenStateAndScheduleTimeout()
         } catch (e: Exception) {
             Log.e(TAG, "Failed to add overlay view", e)
             Toast.makeText(this, "Failed to show assistant overlay", Toast.LENGTH_SHORT).show()
@@ -226,6 +266,84 @@ class AssistantOverlayService : Service(), LifecycleOwner, ViewModelStoreOwner, 
         
         // Stop listening when overlay is hidden
         sttInputDevice.stopListening()
+        cancelScreenOffTimeout()
+    }
+    
+    private fun registerScreenStateReceiver() {
+        val filter = IntentFilter().apply {
+            addAction(Intent.ACTION_SCREEN_ON)
+            addAction(Intent.ACTION_SCREEN_OFF)
+        }
+        
+        screenReceiver = object : BroadcastReceiver() {
+            override fun onReceive(context: Context?, intent: Intent?) {
+                when (intent?.action) {
+                    Intent.ACTION_SCREEN_OFF -> {
+                        Log.d(TAG, "Screen turned off, scheduling timeout")
+                        scheduleScreenOffTimeout()
+                    }
+                    Intent.ACTION_SCREEN_ON -> {
+                        Log.d(TAG, "Screen turned on, canceling timeout")
+                        cancelScreenOffTimeout()
+                    }
+                }
+            }
+        }
+        
+        registerReceiver(screenReceiver, filter)
+    }
+    
+    private fun unregisterScreenStateReceiver() {
+        screenReceiver?.let {
+            try {
+                unregisterReceiver(it)
+            } catch (e: Exception) {
+                Log.e(TAG, "Failed to unregister screen receiver", e)
+            }
+            screenReceiver = null
+        }
+    }
+    
+    private fun checkScreenStateAndScheduleTimeout() {
+        if (!isScreenOn()) {
+            Log.d(TAG, "Overlay shown with screen off, scheduling timeout")
+            scheduleScreenOffTimeout()
+        }
+    }
+    
+    private fun isScreenOn(): Boolean {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT_WATCH) {
+            powerManager.isInteractive
+        } else {
+            @Suppress("DEPRECATION")
+            powerManager.isScreenOn
+        }
+    }
+    
+    private fun scheduleScreenOffTimeout() {
+        cancelScreenOffTimeout()
+        
+        // Only schedule if overlay is visible
+        if (overlayView == null) {
+            return
+        }
+        
+        screenOffTimeoutRunnable = Runnable {
+            Log.d(TAG, "Screen off timeout reached, dismissing overlay")
+            hideOverlay()
+            stopSelf()
+        }
+        
+        handler.postDelayed(screenOffTimeoutRunnable!!, SCREEN_OFF_TIMEOUT_MS)
+        Log.d(TAG, "Scheduled screen off timeout for ${SCREEN_OFF_TIMEOUT_MS}ms")
+    }
+    
+    private fun cancelScreenOffTimeout() {
+        screenOffTimeoutRunnable?.let {
+            handler.removeCallbacks(it)
+            screenOffTimeoutRunnable = null
+            Log.d(TAG, "Canceled screen off timeout")
+        }
     }
 
     @Composable
@@ -287,30 +405,6 @@ class AssistantOverlayService : Service(), LifecycleOwner, ViewModelStoreOwner, 
             startForeground(NOTIFICATION_ID, notification, android.content.pm.ServiceInfo.FOREGROUND_SERVICE_TYPE_SPECIAL_USE)
         } else {
             startForeground(NOTIFICATION_ID, notification)
-        }
-    }
-
-    companion object {
-        private val TAG = AssistantOverlayService::class.simpleName
-        private const val NOTIFICATION_CHANNEL_ID = "org.stypox.dicio.io.assistant.OVERLAY"
-        private const val NOTIFICATION_ID = 87654321
-        private const val ACTION_SHOW_OVERLAY = "org.stypox.dicio.io.assistant.SHOW_OVERLAY"
-        private const val ACTION_HIDE_OVERLAY = "org.stypox.dicio.io.assistant.HIDE_OVERLAY"
-
-        fun start(context: Context) {
-            val intent = Intent(context, AssistantOverlayService::class.java)
-            intent.action = ACTION_SHOW_OVERLAY
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                context.startForegroundService(intent)
-            } else {
-                context.startService(intent)
-            }
-        }
-
-        fun stop(context: Context) {
-            val intent = Intent(context, AssistantOverlayService::class.java)
-            intent.action = ACTION_HIDE_OVERLAY
-            context.startService(intent)
         }
     }
 }
