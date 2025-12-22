@@ -11,11 +11,7 @@ import androidx.activity.ComponentActivity
 class AssistantLauncherActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        
-        // Launch the overlay service
         AssistantOverlayService.start(this)
-        
-        // Finish this activity immediately
         finish()
     }
 }

@@ -134,7 +134,7 @@ private fun CompactInteractionList(
     val interactions = interactionLog.interactions
     val pendingQuestion = interactionLog.pendingQuestion
     
-    // Simple approach: continuously scroll to bottom while there's a pending question
+    // Continuously scroll to bottom while there's a pending question
     LaunchedEffect(pendingQuestion, interactions) {
         if (pendingQuestion != null) {
             // Keep scrolling while the question is pending
@@ -163,16 +163,13 @@ private fun CompactInteractionList(
         state = listState,
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        // Show recent interactions
         interactions.forEach { interaction ->
             items(interaction.questionsAnswers) { qa ->
                 Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                    // User question
                     if (qa.question != null) {
                         CompactQuestionBubble(text = qa.question)
                     }
                     
-                    // Assistant answer
                     CompactAnswerBubble {
                         qa.answer.GraphicalOutput(ctx = skillContext)
                     }
@@ -180,7 +177,6 @@ private fun CompactInteractionList(
             }
         }
 
-        // Pending question
         if (pendingQuestion != null) {
             item {
                 CompactQuestionBubble(
@@ -190,7 +186,6 @@ private fun CompactInteractionList(
             }
         }
 
-        // Add some bottom padding
         item {
             Spacer(modifier = Modifier.height(4.dp))
         }

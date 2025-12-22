@@ -98,7 +98,6 @@ class AssistantOverlayService : Service(), LifecycleOwner, ViewModelStoreOwner, 
         }
     }
     
-    // Create a custom ActivityResultRegistry for the service
     private val customActivityResultRegistry = object : ActivityResultRegistry() {
         override fun <I : Any?, O : Any?> onLaunch(
             requestCode: Int,
@@ -106,7 +105,6 @@ class AssistantOverlayService : Service(), LifecycleOwner, ViewModelStoreOwner, 
             input: I,
             options: ActivityOptionsCompat?
         ) {
-            // Launch the intent from the service context
             val intent = contract.createIntent(this@AssistantOverlayService, input)
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(intent)
@@ -196,7 +194,6 @@ class AssistantOverlayService : Service(), LifecycleOwner, ViewModelStoreOwner, 
 
     private fun showOverlay() {
         if (overlayView != null) {
-            // Already showing
             return
         }
 
@@ -219,7 +216,7 @@ class AssistantOverlayService : Service(), LifecycleOwner, ViewModelStoreOwner, 
         )
 
         params.gravity = Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL
-        params.y = 100 // Offset from bottom
+        params.y = 100
 
         overlayView = ComposeView(this).apply {
             setViewTreeLifecycleOwner(this@AssistantOverlayService)
