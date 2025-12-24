@@ -123,3 +123,20 @@ skills:
             type: string
           - id: target
             type: string
+
+  - id: rng
+    specificity: high
+    sentences:
+      - id: coin_flip
+      - id: dice_roll
+        captures:
+          - id: sides
+            type: string
+          - id: amount
+            type: string
+      - id: random_number
+        captures:
+          - id: min
+            type: string
+          - id: max
+            type: string
