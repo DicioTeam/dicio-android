@@ -14,6 +14,7 @@ Dicio answers questions about:
 <li><b>jokes</b>: tells you a joke - <i>Tell me a joke</i></li>
 <li><b>media</b>: play, pause, previous, next song - <i>Next Song</i></li>
 <li><b>translation</b>: translate from/to any language with <b>Lingva</b> - <i>How do I say Football in German?</i></li>
+<li><b>rng</b>: Ask for a random number, flip a coin, or roll dice - <i>Pick a number between 1 and 100</i></li>
 </ul>
 
 Dicio can receive input through a text box or through <a href="https://github.com/alphacep/vosk-api/">Vosk</a> <i>speech to text</i>, and can talk using toasts or the Android <i>speech synthesis</i> engine. <b>Interactive graphical output</b> is provided by skills when they answer a question.
