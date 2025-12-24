@@ -1,0 +1,10 @@
+query:
+  - спроси chatgpt .question.
+  - chatgpt .question.
+  - спроси ai .question.
+  - спроси у ai .question.
+  - (можешь ли ты|мог бы ты|можешь|можете) спросить chatgpt .question.
+  - chatgpt что такое .question.
+  - chatgpt как .question.
+  - chatgpt (почему|когда|где|кто) .question.
+  - спроси чат .question.
