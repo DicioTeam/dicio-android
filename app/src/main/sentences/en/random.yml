@@ -1,0 +1,25 @@
+coin_flip:
+  - flip (a|the) coin<s?>
+  - heads or tails
+
+dice_roll:
+  # Simple dice roll (defaults to 6 sides)
+  - roll (a|the|some)? (die|dice)
+  - throw (a|the|some)? (die|dice)
+  
+  # Dice with specific sides
+  - (roll|throw) (a|an)? .sides. sided? (die|dice)
+  - (roll|throw) a? d .sides.
+  
+  # RPG notation: "roll 1 d 20", "roll 4 d 10", etc
+  - (roll|throw) .amount. d .sides.
+
+random_number:
+  # Generic random number (no range specified)
+  - (give me|pick|choose|select|generate|get) (a|any)? random? number
+  - random number
+  
+  # Random number with specific range
+  - pick (a|any)? number (from|between)? .min. (to|and|through) .max.
+  - random number (from|between)? .min. (to|and|through) .max.
+  - (choose|select|give me|generate|get) (a|any)? random? number (from|between)? .min. (to|and|through) .max.

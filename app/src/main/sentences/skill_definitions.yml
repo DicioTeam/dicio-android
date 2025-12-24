@@ -124,7 +124,7 @@ skills:
           - id: target
             type: string
 
-  - id: rng
+  - id: random
     specificity: high
     sentences:
       - id: coin_flip

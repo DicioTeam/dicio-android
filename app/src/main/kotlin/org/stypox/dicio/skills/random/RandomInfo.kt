@@ -1,4 +1,4 @@
-package org.stypox.dicio.skills.rng
+package org.stypox.dicio.skills.random
 
 import android.content.Context
 import androidx.compose.material.icons.Icons
@@ -11,22 +11,22 @@ import org.dicio.skill.skill.SkillInfo
 import org.stypox.dicio.R
 import org.stypox.dicio.sentences.Sentences
 
-object RngInfo : SkillInfo("rng") {
+object RandomInfo : SkillInfo("random") {
     override fun name(context: Context) =
-        context.getString(R.string.skill_name_rng)
+        context.getString(R.string.skill_name_random)
 
     override fun sentenceExample(context: Context) =
-        context.getString(R.string.skill_sentence_example_rng)
+        context.getString(R.string.skill_sentence_example_random)
 
     @Composable
     override fun icon() =
         rememberVectorPainter(Icons.Default.Casino)
 
     override fun isAvailable(ctx: SkillContext): Boolean {
-        return Sentences.Rng[ctx.sentencesLanguage] != null
+        return Sentences.Random[ctx.sentencesLanguage] != null
     }
 
     override fun build(ctx: SkillContext): Skill<*> {
-        return RngSkill(RngInfo, Sentences.Rng[ctx.sentencesLanguage]!!)
+        return RandomSkill(RandomInfo, Sentences.Random[ctx.sentencesLanguage]!!)
     }
 }

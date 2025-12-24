@@ -25,7 +25,7 @@ import org.stypox.dicio.skills.lyrics.LyricsInfo
 import org.stypox.dicio.skills.media.MediaInfo
 import org.stypox.dicio.skills.navigation.NavigationInfo
 import org.stypox.dicio.skills.open.OpenInfo
-import org.stypox.dicio.skills.rng.RngInfo
+import org.stypox.dicio.skills.random.RandomInfo
 import org.stypox.dicio.skills.search.SearchInfo
 import org.stypox.dicio.skills.telephone.TelephoneInfo
 import org.stypox.dicio.skills.timer.TimerInfo
@@ -54,7 +54,7 @@ class SkillHandler @Inject constructor(
         CurrentTimeInfo,
         MediaInfo,
         JokeInfo,
-        RngInfo,
+        RandomInfo,
         ListeningInfo(dataStore),
         TranslationInfo,
     )

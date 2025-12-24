@@ -1,4 +1,4 @@
-package org.stypox.dicio.skills.rng
+package org.stypox.dicio.skills.random
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -12,11 +12,11 @@ import org.stypox.dicio.io.graphical.Headline
 import org.stypox.dicio.io.graphical.Subtitle
 import org.stypox.dicio.util.getString
 
-sealed interface RngOutput : SkillOutput {
+sealed interface RandomOutput : SkillOutput {
     
-    data class CoinFlip(private val result: String) : RngOutput {
+    data class CoinFlip(private val result: String) : RandomOutput {
         override fun getSpeechOutput(ctx: SkillContext): String =
-            ctx.getString(R.string.skill_rng_coin_flip, result)
+            ctx.getString(R.string.skill_random_coin_flip, result)
 
         @Composable
         override fun GraphicalOutput(ctx: SkillContext) {
@@ -24,13 +24,13 @@ sealed interface RngOutput : SkillOutput {
         }
     }
 
-    data class DiceRoll(private val results: List<Int>, private val sides: Int) : RngOutput {
+    data class DiceRoll(private val results: List<Int>, private val sides: Int) : RandomOutput {
         override fun getSpeechOutput(ctx: SkillContext): String {
             val total = results.sum()
             return if (results.size == 1) {
-                ctx.getString(R.string.skill_rng_dice_roll, results[0], sides)
+                ctx.getString(R.string.skill_random_dice_roll, results[0], sides)
             } else {
-                ctx.getString(R.string.skill_rng_dice_roll_multiple, total, results.size, sides)
+                ctx.getString(R.string.skill_random_dice_roll_multiple, total, results.size, sides)
             }
         }
 
@@ -41,9 +41,9 @@ sealed interface RngOutput : SkillOutput {
                     text = if (results.size == 1) results[0].toString() else results.sum().toString()
                 )
                 if (results.size == 1) {
-                    Subtitle(text = ctx.getString(R.string.skill_rng_dice_sides, sides))
+                    Subtitle(text = ctx.getString(R.string.skill_random_dice_sides, sides))
                 } else {
-                    Subtitle(text = ctx.getString(R.string.skill_rng_dice_sides, sides))
+                    Subtitle(text = ctx.getString(R.string.skill_random_dice_sides, sides))
                     Body(text = results.joinToString(" + ") + " = ${results.sum()}")
                 }
             }
@@ -54,26 +54,26 @@ sealed interface RngOutput : SkillOutput {
         private val result: Int,
         private val min: Int,
         private val max: Int
-    ) : RngOutput {
+    ) : RandomOutput {
         override fun getSpeechOutput(ctx: SkillContext): String =
-            ctx.getString(R.string.skill_rng_random_number, result, min, max)
+            ctx.getString(R.string.skill_random_random_number, result, min, max)
 
         @Composable
         override fun GraphicalOutput(ctx: SkillContext) {
             Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 Headline(text = result.toString())
-                Subtitle(text = ctx.getString(R.string.skill_rng_range, min, max))
+                Subtitle(text = ctx.getString(R.string.skill_random_range, min, max))
             }
         }
     }
 
-    data object InvalidRange : RngOutput {
+    data object InvalidRange : RandomOutput {
         override fun getSpeechOutput(ctx: SkillContext): String =
-            ctx.getString(R.string.skill_rng_invalid_range)
+            ctx.getString(R.string.skill_random_invalid_range)
 
         @Composable
         override fun GraphicalOutput(ctx: SkillContext) {
-            Headline(text = ctx.getString(R.string.skill_rng_invalid_range))
+            Headline(text = ctx.getString(R.string.skill_random_invalid_range))
         }
     }
 }
