@@ -51,7 +51,9 @@ object AIQueryInfo : SkillInfo("aiquery") {
     }
 
     override fun build(ctx: SkillContext): Skill<*> {
-        return AIQuerySkill(this, Sentences.Aiquery[ctx.sentencesLanguage]!!)
+        // Fallback to English sentences if the desired language is not available
+        // Prevents crashes for users of unsupported languages when using AIQuery as a fallback skill
+        return AIQuerySkill(this, Sentences.Aiquery[ctx.sentencesLanguage] ?: Sentences.Aiquery["en"]!!)
     }
 
     internal val Context.aiqueryDataStore by dataStore(
