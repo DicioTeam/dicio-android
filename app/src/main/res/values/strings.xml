@@ -261,4 +261,6 @@
     <string name="pref_homeassistant_add_mapping">Add Mapping</string>
     <string name="pref_homeassistant_friendly_name">Friendly Name</string>
     <string name="pref_homeassistant_entity_id">Entity ID</string>
+    <string name="pref_homeassistant_export_yaml">Export YAML</string>
+    <string name="pref_homeassistant_import_yaml">Import YAML</string>
 </resources>

@@ -1,6 +1,10 @@
 package org.stypox.dicio.skills.homeassistant
 
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -13,6 +17,8 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.FileDownload
+import androidx.compose.material.icons.filled.FileUpload
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
@@ -133,6 +139,40 @@ object HomeAssistantInfo : SkillInfo("home_assistant") {
                             it.toBuilder().clearEntityMappings().addAllEntityMappings(mappings).build()
                         }
                     }
+                },
+                onExport = { baseUrl, accessToken, mappings ->
+                    scope.launch {
+                        try {
+                            val intent = Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
+                                addCategory(Intent.CATEGORY_OPENABLE)
+                                type = "text/yaml"
+                                putExtra(Intent.EXTRA_TITLE, "home_assistant_config.yaml")
+                            }
+                            // Note: In a real implementation, you'd need to handle the file creation
+                            // through an activity result launcher
+                        } catch (e: Exception) {
+                            e.printStackTrace()
+                        }
+                    }
+                },
+                onImport = { config ->
+                    scope.launch {
+                        dataStore.updateData { currentData ->
+                            val newMappings = config.entityMappings.map { yamlMapping ->
+                                EntityMapping.newBuilder()
+                                    .setFriendlyName(yamlMapping.friendlyName)
+                                    .setEntityId(yamlMapping.entityId)
+                                    .build()
+                            }
+                            
+                            currentData.toBuilder()
+                                .setBaseUrl(config.baseUrl)
+                                .setAccessToken(config.accessToken)
+                                .clearEntityMappings()
+                                .addAllEntityMappings(newMappings)
+                                .build()
+                        }
+                    }
                 }
             )
         }
@@ -144,10 +184,42 @@ fun EntityMappingsEditor(
     mappings: List<EntityMapping>,
     baseUrl: String,
     accessToken: String,
-    onMappingsChange: (List<EntityMapping>) -> Unit
+    onMappingsChange: (List<EntityMapping>) -> Unit,
+    onExport: (String, String, List<EntityMapping>) -> Unit,
+    onImport: (HomeAssistantYamlUtils.YamlHomeAssistantConfig) -> Unit
 ) {
     var showDialog by remember { mutableStateOf(false) }
     var editIndex by remember { mutableStateOf(-1) }
+    val context = LocalContext.current
+    
+    val exportLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.CreateDocument("text/yaml")
+    ) { uri ->
+        uri?.let { 
+            try {
+                context.contentResolver.openOutputStream(it)?.use { outputStream ->
+                    HomeAssistantYamlUtils.exportToYaml(baseUrl, accessToken, mappings, outputStream)
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
+    
+    val importLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.OpenDocument()
+    ) { uri ->
+        uri?.let {
+            try {
+                context.contentResolver.openInputStream(it)?.use { inputStream ->
+                    val config = HomeAssistantYamlUtils.importFromYaml(inputStream)
+                    onImport(config)
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
 
     Column(modifier = Modifier.fillMaxWidth()) {
         Row(
@@ -159,11 +231,23 @@ fun EntityMappingsEditor(
                 text = stringResource(R.string.pref_homeassistant_entity_mappings),
                 style = MaterialTheme.typography.titleMedium
             )
-            IconButton(onClick = {
-                editIndex = -1
-                showDialog = true
-            }) {
-                Icon(Icons.Default.Add, contentDescription = stringResource(R.string.pref_homeassistant_add_mapping))
+            Row {
+                IconButton(onClick = {
+                    importLauncher.launch(arrayOf("text/yaml", "text/plain", "*/*"))
+                }) {
+                    Icon(Icons.Default.FileUpload, contentDescription = "Import YAML")
+                }
+                IconButton(onClick = {
+                    exportLauncher.launch("home_assistant_config.yaml")
+                }) {
+                    Icon(Icons.Default.FileDownload, contentDescription = "Export YAML")
+                }
+                IconButton(onClick = {
+                    editIndex = -1
+                    showDialog = true
+                }) {
+                    Icon(Icons.Default.Add, contentDescription = stringResource(R.string.pref_homeassistant_add_mapping))
+                }
             }
         }
 
