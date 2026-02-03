@@ -40,6 +40,7 @@ fun languageSetting() = ListSetting(
     description = stringResource(R.string.pref_language_summary),
     possibleValues = listOf(
         ListSetting.Value(Language.LANGUAGE_SYSTEM, stringResource(R.string.pref_language_system)),
+        ListSetting.Value(Language.LANGUAGE_AR, "العربية"),
         ListSetting.Value(Language.LANGUAGE_CS, "Čeština"),
         ListSetting.Value(Language.LANGUAGE_DE, "Deutsch"),
         ListSetting.Value(Language.LANGUAGE_EN, "English"),

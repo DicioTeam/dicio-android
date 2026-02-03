@@ -1,0 +1,5 @@
+translate:
+  - ترجم|ترجمة .query. (من .source.)? (الى|ل .target.)?
+  - كيف اقول .query. ب|في .target.
+  - شو|ايش معنى .query. ب|في .target.
+  - .query. ب .target.
