@@ -6,6 +6,14 @@ This feature extends the existing Home Assistant skill to support media player s
 1. Match user command pattern and extract entity/source names
 2. Fetch available sources from the media player and fuzzy match the requested source
 
+## Related Documentation
+
+- **[API Research](./api-research.md)** - Home Assistant media_player API documentation and validation
+- **[Fuzzy Matching Tests](./fuzzy-match-tests.md)** - Test cases with real source data from kitchen_radio_2
+- **[Entity Mapping Configuration](./entity-mapping-config.md)** - Entity mapping setup and requirements
+- **[UI Design](./ui-design.md)** - Jetpack Compose UI specifications for outputs
+- **[Unknowns Summary](./unknowns-summary.md)** - Investigation findings and resolutions
+
 ## Component Design
 
 ### 1. Sentence Recognition
@@ -318,6 +326,10 @@ Dicio -> User: "Playing BBC Radio 2 on kitchen radio"
 
 ## Fuzzy Matching Strategy
 
+### Fuzzy Matching Strategy
+
+See **[fuzzy-match-tests.md](./fuzzy-match-tests.md)** for comprehensive test cases with real source data.
+
 ### Algorithm
 
 The fuzzy matching uses a three-tier approach:
@@ -343,6 +355,8 @@ The fuzzy matching uses a three-tier approach:
 - Keep source names intact (articles may be significant)
 
 ## Testing Considerations
+
+See **[fuzzy-match-tests.md](./fuzzy-match-tests.md)** for detailed test cases based on real source data from kitchen_radio_2.
 
 ### Unit Tests
 
@@ -849,6 +863,18 @@ class MockHomeAssistantApi {
     }
 }
 ```
+
+## Entity Mapping Configuration
+
+See **[entity-mapping-config.md](./entity-mapping-config.md)** for complete configuration requirements and user setup instructions.
+
+The select source feature reuses the existing entity mapping infrastructure. No additional configuration is needed beyond the standard entity mappings already used by other Home Assistant skill features.
+
+## UI Design
+
+See **[ui-design.md](./ui-design.md)** for complete Jetpack Compose UI specifications.
+
+All output types follow the existing Home Assistant skill UI patterns with simple Column layouts displaying entity name as headline and confirmation/error messages as body text.
 
 ## Testing Considerations
 
