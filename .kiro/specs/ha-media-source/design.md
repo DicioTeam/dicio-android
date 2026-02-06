@@ -110,11 +110,13 @@ private suspend fun handleSelectSource(
         )
     
     // 5. Call select_source service
-    HomeAssistantApi.callSelectSource(
+    HomeAssistantApi.callService(
         settings.baseUrl,
         settings.accessToken,
+        "media_player",
+        "select_source",
         mapping.entityId,
-        matchedSource
+        mapOf("source" to matchedSource)
     )
     
     return HomeAssistantOutput.SelectSourceSuccess(
@@ -160,28 +162,29 @@ private fun calculateSimilarity(s1: String, s2: String): Double {
 
 #### 3.2 HomeAssistantApi.kt
 
-Add new API method:
+Extend existing `callService()` method to support additional parameters:
 
 ```kotlin
 @Throws(IOException::class)
-suspend fun callSelectSource(
+suspend fun callService(
     baseUrl: String,
     token: String,
+    domain: String,
+    service: String,
     entityId: String,
-    source: String
+    extraParams: Map<String, String> = emptyMap()
 ): JSONArray {
-    val connection = URL("$baseUrl/api/services/media_player/select_source")
+    val connection = URL("$baseUrl/api/services/$domain/$service")
         .openConnection() as HttpURLConnection
     connection.requestMethod = "POST"
     connection.setRequestProperty("Authorization", "Bearer $token")
     connection.setRequestProperty("Content-Type", "application/json")
     connection.doOutput = true
     
-    val body = JSONObject()
-        .put("entity_id", entityId)
-        .put("source", source)
-        .toString()
-    connection.outputStream.write(body.toByteArray())
+    val body = JSONObject().put("entity_id", entityId)
+    extraParams.forEach { (key, value) -> body.put(key, value) }
+    
+    connection.outputStream.write(body.toString().toByteArray())
     
     val scanner = java.util.Scanner(connection.inputStream)
     val response = scanner.useDelimiter("\\A").next()
@@ -190,6 +193,8 @@ suspend fun callSelectSource(
     return JSONArray(response)
 }
 ```
+
+**Note:** This extends the existing method signature with an optional `extraParams` parameter, maintaining backward compatibility.
 
 #### 3.3 HomeAssistantOutput.kt
 
@@ -272,7 +277,7 @@ HomeAssistant -> HomeAssistantApi: {state: "playing", attributes: {source_list: 
 HomeAssistantApi -> HomeAssistantSkill: JSONObject
 HomeAssistantSkill -> HomeAssistantSkill: Extract source_list
 HomeAssistantSkill -> HomeAssistantSkill: findBestSourceMatch("BBC Radio 2", ["BBC Radio 2", "BBC Radio 4", ...])
-HomeAssistantSkill -> HomeAssistantApi: callSelectSource(baseUrl, token, entityId, "BBC Radio 2")
+HomeAssistantSkill -> HomeAssistantApi: callService(baseUrl, token, "media_player", "select_source", entityId, {"source": "BBC Radio 2"})
 HomeAssistantApi -> HomeAssistant: POST /api/services/media_player/select_source {entity_id: "...", source: "BBC Radio 2"}
 HomeAssistant -> HomeAssistantApi: Success response
 HomeAssistantApi -> HomeAssistantSkill: JSONArray
@@ -380,7 +385,7 @@ The fuzzy matching uses a three-tier approach:
 
 - Add one new sentence type
 - Add one new handler method
-- Add one new API method
+- Extend existing `callService()` API method with optional parameters
 - Add three new output types
 - Add three new string resources
 
