@@ -21,7 +21,12 @@ Enable voice control of Home Assistant media players to select from available so
 **I want to** say "BBC Radio Two" when the preset is named "BBC Radio 2"  
 **So that** minor pronunciation or transcription differences don't prevent the command from working
 
-### Story 4: Error Feedback
+### Story 4: Number Homophone Handling
+**As a** user  
+**I want to** say "BBC Radio too" or "BBC Radio to" and have it match "BBC Radio 2"  
+**So that** speech recognition errors with number homophones don't prevent the command from working
+
+### Story 5: Error Feedback
 **As a** user  
 **I want to** receive clear feedback when a media player or source is not found  
 **So that** I understand what went wrong and can correct my command
@@ -53,33 +58,41 @@ Enable voice control of Home Assistant media players to select from available so
 **WHEN** the entity name is successfully matched  
 **THE SYSTEM SHALL** query Home Assistant for the `source_list` attribute of the media player entity
 
-### FR-5: Fuzzy Source Matching
-**WHEN** the source list is retrieved  
-**THE SYSTEM SHALL** perform fuzzy matching between the user's requested source and available sources to find the best match
+### FR-5: Number Variation Generation
+**WHEN** fuzzy matching is performed  
+**THE SYSTEM SHALL** generate multiple variations of the requested source by replacing number words and homophones with their digit equivalents
 
-### FR-6: Source Selection Service Call
+**Examples:**
+- "BBC Radio two" generates: "BBC Radio two", "BBC Radio 2", "BBC Radio to", "BBC Radio too"
+- "Radio for" generates: "Radio for", "Radio 4", "Radio fore"
+
+### FR-6: Fuzzy Source Matching with Variations
+**WHEN** the source list is retrieved  
+**THE SYSTEM SHALL** perform fuzzy matching between each generated variation and available sources, selecting the variation with the highest similarity score
+
+### FR-7: Source Selection Service Call
 **WHEN** a matching source is found  
 **THE SYSTEM SHALL** call the Home Assistant `media_player.select_source` service with:
 - `entity_id`: The media player entity
 - `source`: The matched source name from the source_list
 
-### FR-7: Success Feedback
+### FR-8: Success Feedback
 **WHEN** the source is successfully selected  
 **THE SYSTEM SHALL** provide speech feedback confirming the action (e.g., "Playing BBC Radio 2 on kitchen radio")
 
-### FR-8: Error Handling - Entity Not Found
+### FR-9: Error Handling - Entity Not Found
 **WHEN** the specified entity does not exist in Home Assistant  
 **THE SYSTEM SHALL** provide speech feedback indicating the entity was not found
 
-### FR-9: Error Handling - No Source List
+### FR-10: Error Handling - No Source List
 **WHEN** the media player entity has no source_list attribute or it is empty  
 **THE SYSTEM SHALL** provide speech feedback indicating no sources are available for that player
 
-### FR-10: Error Handling - No Matching Source
-**WHEN** the requested source does not fuzzy match any available source  
+### FR-11: Error Handling - No Matching Source
+**WHEN** none of the generated variations match any available source above the threshold  
 **THE SYSTEM SHALL** provide speech feedback indicating the source was not found
 
-### FR-11: Error Handling - Service Call Failure
+### FR-12: Error Handling - Service Call Failure
 **WHEN** the Home Assistant service call fails  
 **THE SYSTEM SHALL** provide speech feedback indicating the operation failed
 

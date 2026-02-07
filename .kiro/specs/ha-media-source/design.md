@@ -139,27 +139,67 @@ Add fuzzy matching helper:
 
 ```kotlin
 private fun findBestSourceMatch(requested: String, available: List<String>): String? {
-    val normalized = requested.lowercase().trim()
+    val variations = generateNumberVariations(requested)
     
-    // Exact match
-    available.firstOrNull { it.lowercase() == normalized }?.let { return it }
+    // Try each variation and score against all available sources
+    val allMatches = variations.flatMap { variation ->
+        val normalized = variation.lowercase().trim()
+        
+        // Exact match (highest priority)
+        available.firstOrNull { it.lowercase() == normalized }?.let { 
+            return it 
+        }
+        
+        // Contains match (medium priority)
+        available.firstOrNull { 
+            it.lowercase().contains(normalized) || 
+            normalized.contains(it.lowercase())
+        }?.let { 
+            return it 
+        }
+        
+        // Fuzzy match with scoring (lowest priority)
+        available.map { source ->
+            Triple(source, variation, calculateSimilarity(normalized, source.lowercase()))
+        }
+    }
     
-    // Contains match
-    available.firstOrNull { 
-        it.lowercase().contains(normalized) || 
-        normalized.contains(it.lowercase())
-    }?.let { return it }
+    // Return best fuzzy match above threshold
+    return allMatches
+        .filter { it.third > 0.5 }
+        .maxByOrNull { it.third }
+        ?.first
+}
+
+private fun generateNumberVariations(input: String): List<String> {
+    val numberWords = mapOf(
+        "one" to listOf("1", "won"),
+        "two" to listOf("2", "to", "too"),
+        "three" to listOf("3"),
+        "four" to listOf("4", "for", "fore"),
+        "five" to listOf("5"),
+        "six" to listOf("6"),
+        "seven" to listOf("7"),
+        "eight" to listOf("8", "ate"),
+        "nine" to listOf("9"),
+        "ten" to listOf("10")
+    )
     
-    // Fuzzy match with scoring
-    val scored = available.map { source ->
-        source to calculateSimilarity(normalized, source.lowercase())
-    }.filter { it.second > 0.6 } // Threshold
+    val variations = mutableListOf(input)
     
-    return scored.maxByOrNull { it.second }?.first
+    for ((word, replacements) in numberWords) {
+        val regex = Regex("\\b$word\\b", RegexOption.IGNORE_CASE)
+        if (regex.containsMatchIn(input)) {
+            for (replacement in replacements) {
+                variations.add(regex.replace(input, replacement))
+            }
+        }
+    }
+    
+    return variations.distinct()
 }
 
 private fun calculateSimilarity(s1: String, s2: String): Double {
-    // Simple word-based similarity
     val words1 = s1.split(Regex("\\s+")).toSet()
     val words2 = s2.split(Regex("\\s+")).toSet()
     val intersection = words1.intersect(words2).size
@@ -943,8 +983,58 @@ See comprehensive test specifications above including:
 ## Performance
 
 - **API calls:** 2 per request (getEntityState + callSelectSource)
-- **Fuzzy matching:** O(n) where n = number of sources (typically < 20)
+- **Fuzzy matching:** O(n*m) where n = number of sources, m = number of variations (typically < 20 * 5)
 - **Response time:** < 2 seconds typical (network dependent)
+
+## Unit Testing Strategy
+
+### Number Variation Generation Tests
+
+Test `generateNumberVariations()` with various inputs:
+
+1. **Single number word**: "BBC Radio two" → ["BBC Radio two", "BBC Radio 2", "BBC Radio to", "BBC Radio too"]
+2. **Multiple number words**: "one two three" → all combinations
+3. **No number words**: "BBC Radio" → ["BBC Radio"]
+4. **Number at start**: "two BBC Radio" → variations
+5. **Number at end**: "BBC Radio two" → variations
+6. **Mixed case**: "BBC Radio Two" → case-insensitive variations
+7. **All number words**: one through ten
+8. **Homophones**: "two" → ["2", "to", "too"], "four" → ["4", "for", "fore"], "eight" → ["8", "ate"]
+
+### Fuzzy Matching with Variations Tests
+
+Test `findBestSourceMatch()` with speech-to-text scenarios:
+
+1. **Exact match with digit**: "BBC Radio 2" finds "BBC Radio 2"
+2. **Homophone "too"**: "BBC Radio too" finds "BBC Radio 2" (not "BBC Radio 4")
+3. **Homophone "to"**: "BBC Radio to" finds "BBC Radio 2"
+4. **Homophone "for"**: "BBC Radio for" finds "BBC Radio 4"
+5. **Homophone "ate"**: "Radio ate" finds "Radio 8"
+6. **Multiple matches**: Prefer higher similarity score
+7. **Tie-breaking**: When scores equal, prefer shorter match
+8. **Below threshold**: "xyz" finds nothing (< 0.5 similarity)
+9. **Partial match**: "Radio 2" finds "BBC Radio 2"
+10. **Case insensitive**: "bbc radio 2" finds "BBC Radio 2"
+
+### Integration Tests
+
+Test end-to-end scenarios:
+
+1. **Success with digit**: "turn kitchen radio to BBC Radio 2" → SelectSourceSuccess
+2. **Success with homophone**: "turn kitchen radio to BBC Radio too" → SelectSourceSuccess (finds "BBC Radio 2")
+3. **Entity not found**: "turn nonexistent to BBC Radio 2" → EntityNotFound
+4. **No source list**: Entity with no sources → NoSourceList
+5. **Source not found**: "turn kitchen radio to xyz" → SourceNotFound
+6. **Service call failure**: Mock API failure → ServiceCallFailed
+
+### Edge Cases
+
+1. **Empty source list**: [] → NoSourceList
+2. **Empty requested source**: "" → SourceNotFound
+3. **Whitespace only**: "   " → SourceNotFound
+4. **Special characters**: "BBC Radio 2 (UK)" → matches correctly
+5. **Very long source name**: 100+ characters → handles gracefully
+6. **Unicode characters**: "Rádio 2" → matches correctly
 
 ## Future Enhancements (Out of Scope)
 
