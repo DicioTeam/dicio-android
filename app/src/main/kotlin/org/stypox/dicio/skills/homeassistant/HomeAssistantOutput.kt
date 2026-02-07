@@ -160,8 +160,8 @@ sealed interface HomeAssistantOutput : SkillOutput {
                     text = ctx.getString(
                         R.string.skill_homeassistant_select_source_success,
                         sourceName,
-                        ""
-                    ).trim(),
+                        friendlyName
+                    ),
                     style = MaterialTheme.typography.bodyLarge,
                     textAlign = TextAlign.Center,
                     modifier = Modifier.fillMaxWidth()
