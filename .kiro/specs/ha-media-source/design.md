@@ -1012,7 +1012,7 @@ Test `findBestSourceMatch()` with speech-to-text scenarios:
 5. **Homophone "ate"**: "Radio ate" finds "Radio 8"
 6. **Multiple matches**: Prefer higher similarity score
 7. **Tie-breaking**: When scores equal, prefer shorter match
-8. **Below threshold**: "xyz" finds nothing (< 0.5 similarity)
+8. **Below threshold**: "xyz" finds nothing (< 0.4 similarity)
 9. **Partial match**: "Radio 2" finds "BBC Radio 2"
 10. **Case insensitive**: "bbc radio 2" finds "BBC Radio 2"
 

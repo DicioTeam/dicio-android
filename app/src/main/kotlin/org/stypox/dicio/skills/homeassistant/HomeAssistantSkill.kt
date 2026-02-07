@@ -187,27 +187,68 @@ class HomeAssistantSkill(
         )
     }
 
+    private fun generateNumberVariations(input: String): List<String> {
+        // Map number words to their digit and homophone variations
+        val numberMappings = mapOf(
+            "one" to listOf("1", "won"),
+            "two" to listOf("2", "to", "too"),
+            "three" to listOf("3"),
+            "four" to listOf("4", "for", "fore"),
+            "five" to listOf("5"),
+            "six" to listOf("6"),
+            "seven" to listOf("7"),
+            "eight" to listOf("8", "ate"),
+            "nine" to listOf("9"),
+            "ten" to listOf("10")
+        )
+        
+        // Build reverse map: homophone -> (number word, all variations)
+        val reverseMap = mutableMapOf<String, Pair<String, List<String>>>()
+        for ((word, variations) in numberMappings) {
+            reverseMap[word] = word to (listOf(word) + variations)
+            for (variation in variations) {
+                reverseMap[variation] = word to (listOf(word) + variations)
+            }
+        }
+        
+        val variations = mutableListOf(input)
+        
+        // Find all number words or homophones in input
+        for ((trigger, pair) in reverseMap) {
+            val regex = Regex("\\b$trigger\\b", RegexOption.IGNORE_CASE)
+            if (regex.containsMatchIn(input)) {
+                val (_, allVariations) = pair
+                for (replacement in allVariations) {
+                    if (replacement.lowercase() != trigger.lowercase()) {
+                        variations.add(regex.replace(input, replacement))
+                    }
+                }
+            }
+        }
+        
+        return variations.distinct()
+    }
+
     private fun findBestSourceMatch(requested: String, available: List<String>): String? {
-        val normalized = requested.lowercase().trim()
+        val variations = generateNumberVariations(requested)
         
-        // 1. Exact match (case insensitive)
-        available.firstOrNull { it.lowercase() == normalized }?.let { return it }
+        // 1. Try exact match with each variation
+        for (variation in variations) {
+            val normalized = variation.lowercase().trim()
+            available.firstOrNull { it.lowercase() == normalized }?.let { return it }
+        }
         
-        // 2. Contains match (either direction)
-        available.firstOrNull {
-            it.lowercase().contains(normalized) ||
-            normalized.contains(it.lowercase())
-        }?.let { return it }
+        // 2. Fuzzy match with all variations (skip contains - too greedy for short words)
+        val allMatches = variations.flatMap { variation ->
+            val normalized = variation.lowercase().trim()
+            available.mapIndexed { index, source ->
+                Triple(source, calculateSimilarity(normalized, source.lowercase()), index)
+            }
+        }
         
-        // 3. Word-based similarity with tie-breaking
-        val scored = available.mapIndexed { index, source ->
-            Triple(source, calculateSimilarity(normalized, source.lowercase()), index)
-        }.filter { it.second >= 0.5 }
+        val scored = allMatches.filter { it.second >= 0.4 }
         
-        // When multiple sources have same score:
-        // 1. Prefer higher similarity
-        // 2. Then prefer shorter match
-        // 3. Then prefer earlier in list (original order)
+        // Prefer higher similarity, then shorter match, then earlier in list
         return scored.maxWithOrNull(
             compareBy({ it.second }, { -it.first.length }, { -it.third })
         )?.first

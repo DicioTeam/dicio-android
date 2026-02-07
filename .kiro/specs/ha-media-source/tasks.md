@@ -72,29 +72,39 @@ Implementation tasks for adding media player source selection to the Home Assist
 
 ### Phase 4: Core Logic
 
-- [ ] **Task 4.1: Add findBestSourceMatch() method**
+- [ ] **Task 4.1: Add generateNumberVariations() method**
   - File: `app/src/main/kotlin/org/stypox/dicio/skills/homeassistant/HomeAssistantSkill.kt`
-  - Implement fuzzy matching algorithm (3 steps: exact, contains, similarity)
+  - Implement number word to digit/homophone mapping
+  - Support: one→[1,won], two→[2,to,too], four→[4,for,fore], eight→[8,ate], etc.
+  - Return list of all variations including original
   - Add as private method
-  - Expected outcome: Fuzzy matching method implemented
+  - Expected outcome: Number variation generation implemented
 
-- [ ] **Task 4.2: Add calculateSimilarity() method**
+- [ ] **Task 4.2: Add findBestSourceMatch() method**
+  - File: `app/src/main/kotlin/org/stypox/dicio/skills/homeassistant/HomeAssistantSkill.kt`
+  - Generate variations using generateNumberVariations()
+  - For each variation: try exact match, contains match, fuzzy match
+  - Return best match above 0.4 threshold
+  - Add as private method
+  - Expected outcome: Fuzzy matching with variations implemented
+
+- [ ] **Task 4.3: Add calculateSimilarity() method**
   - File: `app/src/main/kotlin/org/stypox/dicio/skills/homeassistant/HomeAssistantSkill.kt`
   - Implement word-based Jaccard similarity
   - Add as private method
   - Expected outcome: Similarity calculation method implemented
 
-- [ ] **Task 4.3: Add handleSelectSource() method**
+- [ ] **Task 4.4: Add handleSelectSource() method**
   - File: `app/src/main/kotlin/org/stypox/dicio/skills/homeassistant/HomeAssistantSkill.kt`
   - Implement two-stage process:
     1. Get entity state and extract source_list
-    2. Fuzzy match requested source
+    2. Fuzzy match requested source (with variations)
     3. Call select_source service
   - Handle all error cases
   - Add as private suspend method
   - Expected outcome: Main handler method implemented
 
-- [ ] **Task 4.4: Add SelectSource case to generateOutput()**
+- [ ] **Task 4.5: Add SelectSource case to generateOutput()**
   - File: `app/src/main/kotlin/org/stypox/dicio/skills/homeassistant/HomeAssistantSkill.kt`
   - Add `is HomeAssistant.SelectSource ->` branch in when statement
   - Extract entityName and sourceName
@@ -104,39 +114,61 @@ Implementation tasks for adding media player source selection to the Home Assist
 
 ### Phase 5: Unit Tests
 
-- [ ] **Task 5.1: Test findBestSourceMatch() - exact matches**
-  - File: `app/src/test/kotlin/org/stypox/dicio/skills/homeassistant/HomeAssistantSkillTest.kt`
+- [ ] **Task 5.1: Test generateNumberVariations()**
+  - File: `app/src/test/kotlin/org/stypox/dicio/skills/homeassistant/NumberVariationsTest.kt`
+  - Test single number word: "BBC Radio two" → includes "BBC Radio 2", "BBC Radio to", "BBC Radio too"
+  - Test multiple numbers: "one two three" → all combinations
+  - Test no numbers: "BBC Radio" → ["BBC Radio"]
+  - Test all number words: one through ten
+  - Test homophones: two→[2,to,too], four→[4,for,fore], eight→[8,ate]
+  - Test case insensitivity
+  - Expected outcome: 8+ test cases passing
+
+- [ ] **Task 5.2: Test findBestSourceMatch() - exact matches**
+  - File: `app/src/test/kotlin/org/stypox/dicio/skills/homeassistant/FuzzyMatchingTest.kt`
+  - Test exact match with digit: "BBC Radio 2" finds "BBC Radio 2"
   - Test exact match (case insensitive)
   - Test with real source data
   - Expected outcome: 3+ test cases passing
 
-- [ ] **Task 5.2: Test findBestSourceMatch() - partial matches**
-  - File: `app/src/test/kotlin/org/stypox/dicio/skills/homeassistant/HomeAssistantSkillTest.kt`
-  - Test contains matches (both directions)
-  - Test with real source data
-  - Expected outcome: 5+ test cases passing
+- [ ] **Task 5.3: Test findBestSourceMatch() - homophone variations**
+  - File: `app/src/test/kotlin/org/stypox/dicio/skills/homeassistant/FuzzyMatchingTest.kt`
+  - Test "BBC Radio too" finds "BBC Radio 2" (not "BBC Radio 4")
+  - Test "BBC Radio to" finds "BBC Radio 2"
+  - Test "BBC Radio for" finds "BBC Radio 4"
+  - Test "Radio ate" finds "Radio 8"
+  - Expected outcome: 4+ test cases passing
 
-- [ ] **Task 5.3: Test findBestSourceMatch() - fuzzy matches**
-  - File: `app/src/test/kotlin/org/stypox/dicio/skills/homeassistant/HomeAssistantSkillTest.kt`
-  - Test word-based similarity
-  - Test threshold behavior (0.5)
+- [ ] **Task 5.4: Test findBestSourceMatch() - partial matches**
+  - File: `app/src/test/kotlin/org/stypox/dicio/skills/homeassistant/FuzzyMatchingTest.kt`
+  - Test contains matches (both directions)
+  - Test "Radio 2" finds "BBC Radio 2"
+  - Test with real source data
   - Expected outcome: 3+ test cases passing
 
-- [ ] **Task 5.4: Test findBestSourceMatch() - no match**
-  - File: `app/src/test/kotlin/org/stypox/dicio/skills/homeassistant/HomeAssistantSkillTest.kt`
+- [ ] **Task 5.5: Test findBestSourceMatch() - fuzzy matches**
+  - File: `app/src/test/kotlin/org/stypox/dicio/skills/homeassistant/FuzzyMatchingTest.kt`
+  - Test word-based similarity
+  - Test threshold behavior (0.4)
+  - Test tie-breaking (prefer higher score, then shorter)
+  - Expected outcome: 3+ test cases passing
+
+- [ ] **Task 5.6: Test findBestSourceMatch() - no match**
+  - File: `app/src/test/kotlin/org/stypox/dicio/skills/homeassistant/FuzzyMatchingTest.kt`
   - Test with non-matching sources
   - Test empty source list
+  - Test below threshold
   - Expected outcome: 3+ test cases passing
 
-- [ ] **Task 5.5: Test calculateSimilarity()**
-  - File: `app/src/test/kotlin/org/stypox/dicio/skills/homeassistant/HomeAssistantSkillTest.kt`
+- [ ] **Task 5.7: Test calculateSimilarity()**
+  - File: `app/src/test/kotlin/org/stypox/dicio/skills/homeassistant/FuzzyMatchingTest.kt`
   - Test identical strings (1.0)
   - Test no common words (0.0)
   - Test partial overlap
   - Expected outcome: 4+ test cases passing
 
-- [ ] **Task 5.6: Test source list extraction**
-  - File: `app/src/test/kotlin/org/stypox/dicio/skills/homeassistant/HomeAssistantSkillTest.kt`
+- [ ] **Task 5.8: Test source list extraction**
+  - File: `app/src/test/kotlin/org/stypox/dicio/skills/homeassistant/SelectSourceIntegrationTest.kt`
   - Test valid source_list
   - Test empty source_list
   - Test missing source_list attribute
@@ -145,29 +177,36 @@ Implementation tasks for adding media player source selection to the Home Assist
 
 ### Phase 6: Integration Tests
 
-- [ ] **Task 6.1: Test end-to-end flow - exact match**
-  - File: `app/src/test/kotlin/org/stypox/dicio/skills/homeassistant/HomeAssistantSkillTest.kt`
+- [ ] **Task 6.1: Test end-to-end flow - exact match with digit**
+  - File: `app/src/test/kotlin/org/stypox/dicio/skills/homeassistant/SelectSourceIntegrationTest.kt`
   - Mock API responses
-  - Test full flow from SelectSource to SelectSourceSuccess
+  - Test "turn kitchen radio to BBC Radio 2" → SelectSourceSuccess
   - Verify correct service call
   - Expected outcome: Integration test passing
 
-- [ ] **Task 6.2: Test end-to-end flow - fuzzy match**
-  - File: `app/src/test/kotlin/org/stypox/dicio/skills/homeassistant/HomeAssistantSkillTest.kt`
+- [ ] **Task 6.2: Test end-to-end flow - homophone variation**
+  - File: `app/src/test/kotlin/org/stypox/dicio/skills/homeassistant/SelectSourceIntegrationTest.kt`
   - Mock API responses
-  - Test with non-exact source name
+  - Test "turn kitchen radio to BBC Radio too" → SelectSourceSuccess (finds "BBC Radio 2")
   - Verify correct source is matched and called
   - Expected outcome: Integration test passing
 
-- [ ] **Task 6.3: Test error scenarios**
-  - File: `app/src/test/kotlin/org/stypox/dicio/skills/homeassistant/HomeAssistantSkillTest.kt`
+- [ ] **Task 6.3: Test end-to-end flow - fuzzy match**
+  - File: `app/src/test/kotlin/org/stypox/dicio/skills/homeassistant/SelectSourceIntegrationTest.kt`
+  - Mock API responses
+  - Test with partial source name
+  - Verify correct source is matched and called
+  - Expected outcome: Integration test passing
+
+- [ ] **Task 6.4: Test error scenarios**
+  - File: `app/src/test/kotlin/org/stypox/dicio/skills/homeassistant/SelectSourceIntegrationTest.kt`
   - Test EntityNotMapped
   - Test NoSourceList
   - Test SourceNotFound
   - Test API failures
   - Expected outcome: 4+ error test cases passing
 
-- [ ] **Task 6.4: Test sentence recognition**
+- [ ] **Task 6.5: Test sentence recognition**
   - File: `app/src/test/kotlin/org/stypox/dicio/skills/homeassistant/HomeAssistantSkillTest.kt`
   - Test "turn [entity] to [source]" pattern
   - Test "set [entity] on [source]" pattern
@@ -190,9 +229,10 @@ Implementation tasks for adding media player source selection to the Home Assist
 
 - [ ] **Task 7.3: Test voice commands**
   - Test "turn kitchen radio to BBC Radio 2"
+  - Test "turn kitchen radio to BBC Radio too" (should find "BBC Radio 2")
   - Test "set kitchen radio on Virgin Radio"
   - Test with various source names
-  - Expected outcome: Commands work, sources change
+  - Expected outcome: Commands work, sources change correctly
 
 - [ ] **Task 7.4: Test error cases**
   - Test with unmapped entity
@@ -247,9 +287,10 @@ Phase 8 (Documentation) ← ← ← ← ← ← ← ← ← ← ← ← ← ← 
 
 ## Success Criteria
 
-- [ ] All unit tests pass (20+ tests)
-- [ ] All integration tests pass (8+ tests)
+- [ ] All unit tests pass (30+ tests including number variations)
+- [ ] All integration tests pass (9+ tests including homophone scenarios)
 - [ ] Manual testing successful on real device
+- [ ] Homophone variations work correctly (e.g., "too" finds "2")
 - [ ] No breaking changes to existing functionality
 - [ ] All existing Home Assistant tests still pass
 - [ ] Code follows existing patterns and style

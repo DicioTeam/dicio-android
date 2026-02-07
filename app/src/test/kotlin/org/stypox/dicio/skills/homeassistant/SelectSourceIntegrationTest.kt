@@ -111,6 +111,26 @@ class SelectSourceIntegrationTest : StringSpec({
         selectSource.sourceName?.trim() shouldBe "Magic 100% Christmas"
     }
 
+    "sentence recognition - homophone 'too' instead of '2'" {
+        val data = Sentences.HomeAssistant["en"]!!
+        val (score, inputData) = data.score("turn kitchen radio to BBC Radio too")
+        
+        inputData.shouldBeInstanceOf<Sentences.HomeAssistant.SelectSource>()
+        val selectSource = inputData as Sentences.HomeAssistant.SelectSource
+        selectSource.entityName?.trim() shouldBe "kitchen radio"
+        selectSource.sourceName?.trim() shouldBe "BBC Radio too"
+    }
+
+    "sentence recognition - homophone 'for' instead of '4'" {
+        val data = Sentences.HomeAssistant["en"]!!
+        val (score, inputData) = data.score("turn kitchen radio to BBC Radio for")
+        
+        inputData.shouldBeInstanceOf<Sentences.HomeAssistant.SelectSource>()
+        val selectSource = inputData as Sentences.HomeAssistant.SelectSource
+        selectSource.entityName?.trim() shouldBe "kitchen radio"
+        selectSource.sourceName?.trim() shouldBe "BBC Radio for"
+    }
+
     "sentence recognition - does not conflict with set_state_on" {
         val data = Sentences.HomeAssistant["en"]!!
         val (score, inputData) = data.score("turn kitchen radio on")
