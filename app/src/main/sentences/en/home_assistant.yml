@@ -15,6 +15,10 @@ set_state_off:
 set_state_toggle:
   - (turn|switch) (the )?.entity_name. toggle
 
+select_source:
+  - (turn|switch|set|tune|change) (the )?.entity_name. to .source_name.
+  - (tune|set) (the )?.entity_name. on .source_name.
+
 get_help:
   - home assistant help
   - (help|how) (with|for) home assistant

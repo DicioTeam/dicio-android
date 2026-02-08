@@ -176,4 +176,54 @@ class HomeAssistantSkillTest : StringSpec({
         val getLocation = inputData as Sentences.HomeAssistant.GetPersonLocation
         getLocation.personName?.trim() shouldBe "Emily"
     }
+
+    // Select Source sentence recognition tests
+    "parse 'turn kitchen radio to BBC Radio 2'" {
+        val data = Sentences.HomeAssistant["en"]!!
+        val (score, inputData) = data.score("turn kitchen radio to BBC Radio 2")
+        
+        inputData.shouldBeInstanceOf<Sentences.HomeAssistant.SelectSource>()
+        val selectSource = inputData as Sentences.HomeAssistant.SelectSource
+        selectSource.entityName?.trim() shouldBe "kitchen radio"
+        selectSource.sourceName?.trim() shouldBe "BBC Radio 2"
+    }
+
+    "parse 'set kitchen radio on Virgin Radio'" {
+        val data = Sentences.HomeAssistant["en"]!!
+        val (score, inputData) = data.score("set kitchen radio on Virgin Radio")
+        
+        inputData.shouldBeInstanceOf<Sentences.HomeAssistant.SelectSource>()
+        val selectSource = inputData as Sentences.HomeAssistant.SelectSource
+        selectSource.entityName?.trim() shouldBe "kitchen radio"
+        selectSource.sourceName?.trim() shouldBe "Virgin Radio"
+    }
+
+    "parse 'tune the bedroom speaker to Heart Dorset'" {
+        val data = Sentences.HomeAssistant["en"]!!
+        val (score, inputData) = data.score("tune the bedroom speaker to Heart Dorset")
+        
+        inputData.shouldBeInstanceOf<Sentences.HomeAssistant.SelectSource>()
+        val selectSource = inputData as Sentences.HomeAssistant.SelectSource
+        selectSource.entityName?.trim() shouldBe "bedroom speaker"
+        selectSource.sourceName?.trim() shouldBe "Heart Dorset"
+    }
+
+    "parse 'change living room tv to HDMI 1'" {
+        val data = Sentences.HomeAssistant["en"]!!
+        val (score, inputData) = data.score("change living room tv to HDMI 1")
+        
+        inputData.shouldBeInstanceOf<Sentences.HomeAssistant.SelectSource>()
+        val selectSource = inputData as Sentences.HomeAssistant.SelectSource
+        selectSource.entityName?.trim() shouldBe "living room tv"
+        selectSource.sourceName?.trim() shouldBe "HDMI 1"
+    }
+
+    "does not conflict with set_state_on" {
+        val data = Sentences.HomeAssistant["en"]!!
+        val (score, inputData) = data.score("turn kitchen radio on")
+        
+        inputData.shouldBeInstanceOf<Sentences.HomeAssistant.SetStateOn>()
+        val setState = inputData as Sentences.HomeAssistant.SetStateOn
+        setState.entityName?.trim() shouldBe "kitchen radio"
+    }
 })

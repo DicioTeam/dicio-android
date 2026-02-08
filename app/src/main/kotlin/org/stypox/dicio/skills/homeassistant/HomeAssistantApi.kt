@@ -40,7 +40,8 @@ object HomeAssistantApi {
         token: String,
         domain: String,
         service: String,
-        entityId: String
+        entityId: String,
+        extraParams: Map<String, String> = emptyMap()
     ): JSONArray {
         val connection = URL("$baseUrl/api/services/$domain/$service").openConnection() as HttpURLConnection
         connection.requestMethod = "POST"
@@ -48,8 +49,10 @@ object HomeAssistantApi {
         connection.setRequestProperty("Content-Type", "application/json")
         connection.doOutput = true
         
-        val body = JSONObject().put("entity_id", entityId).toString()
-        connection.outputStream.write(body.toByteArray())
+        val body = JSONObject().put("entity_id", entityId)
+        extraParams.forEach { (key, value) -> body.put(key, value) }
+        
+        connection.outputStream.write(body.toString().toByteArray())
         
         val scanner = java.util.Scanner(connection.inputStream)
         val response = scanner.useDelimiter("\\A").next()

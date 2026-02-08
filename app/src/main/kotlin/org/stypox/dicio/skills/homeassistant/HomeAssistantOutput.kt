@@ -131,6 +131,123 @@ sealed interface HomeAssistantOutput : SkillOutput {
         )
     }
 
+    data class SelectSourceSuccess(
+        val entityId: String,
+        val friendlyName: String,
+        val sourceName: String
+    ) : HomeAssistantOutput {
+        override fun getSpeechOutput(ctx: SkillContext): String = ctx.getString(
+            R.string.skill_homeassistant_select_source_success,
+            sourceName,
+            friendlyName
+        )
+
+        @Composable
+        override fun GraphicalOutput(ctx: SkillContext) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp)
+            ) {
+                Text(
+                    text = friendlyName,
+                    style = MaterialTheme.typography.headlineMedium,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.fillMaxWidth()
+                )
+                Spacer(modifier = Modifier.height(8.dp))
+                Text(
+                    text = ctx.getString(
+                        R.string.skill_homeassistant_select_source_success,
+                        sourceName,
+                        friendlyName
+                    ),
+                    style = MaterialTheme.typography.bodyLarge,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.fillMaxWidth()
+                )
+            }
+        }
+    }
+
+    data class NoSourceList(
+        val friendlyName: String
+    ) : HomeAssistantOutput {
+        override fun getSpeechOutput(ctx: SkillContext): String = ctx.getString(
+            R.string.skill_homeassistant_no_source_list,
+            friendlyName
+        )
+
+        @Composable
+        override fun GraphicalOutput(ctx: SkillContext) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp)
+            ) {
+                Text(
+                    text = friendlyName,
+                    style = MaterialTheme.typography.headlineMedium,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.fillMaxWidth()
+                )
+                Spacer(modifier = Modifier.height(8.dp))
+                Text(
+                    text = ctx.getString(
+                        R.string.skill_homeassistant_no_source_list,
+                        ""
+                    ).trim(),
+                    style = MaterialTheme.typography.bodyLarge,
+                    textAlign = TextAlign.Center,
+                    color = MaterialTheme.colorScheme.error,
+                    modifier = Modifier.fillMaxWidth()
+                )
+            }
+        }
+    }
+
+    data class SourceNotFound(
+        val requestedSource: String,
+        val friendlyName: String
+    ) : HomeAssistantOutput {
+        override fun getSpeechOutput(ctx: SkillContext): String = ctx.getString(
+            R.string.skill_homeassistant_source_not_found,
+            requestedSource,
+            friendlyName
+        )
+
+        @Composable
+        override fun GraphicalOutput(ctx: SkillContext) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp)
+            ) {
+                Text(
+                    text = friendlyName,
+                    style = MaterialTheme.typography.headlineMedium,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.fillMaxWidth()
+                )
+                Spacer(modifier = Modifier.height(8.dp))
+                Text(
+                    text = ctx.getString(R.string.skill_homeassistant_source_not_found_short),
+                    style = MaterialTheme.typography.bodyLarge,
+                    textAlign = TextAlign.Center,
+                    color = MaterialTheme.colorScheme.error,
+                    modifier = Modifier.fillMaxWidth()
+                )
+                Text(
+                    text = "\"$requestedSource\"",
+                    style = MaterialTheme.typography.bodyMedium,
+                    textAlign = TextAlign.Center,
+                    color = MaterialTheme.colorScheme.error,
+                    modifier = Modifier.fillMaxWidth()
+                )
+            }
+        }
+    }
+
     class HelpResponse : HomeAssistantOutput {
         override fun getSpeechOutput(ctx: SkillContext): String = ctx.getString(
             R.string.skill_homeassistant_help_speech

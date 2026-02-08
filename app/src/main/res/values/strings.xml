@@ -255,6 +255,10 @@
     <string name="skill_homeassistant_entity_not_found">Entity %1$s not found in Home Assistant</string>
     <string name="skill_homeassistant_connection_failed">Could not connect to Home Assistant</string>
     <string name="skill_homeassistant_auth_failed">Home Assistant authentication failed</string>
+    <string name="skill_homeassistant_select_source_success">Playing %1$s on %2$s</string>
+    <string name="skill_homeassistant_no_source_list">%1$s does not have any available sources</string>
+    <string name="skill_homeassistant_source_not_found">Could not find source %1$s on %2$s</string>
+    <string name="skill_homeassistant_source_not_found_short">Could not find source</string>
     <string name="skill_homeassistant_help_title">Home Assistant Commands</string>
     <string name="skill_homeassistant_help_speech">Here are the Home Assistant commands you can use</string>
     <string name="skill_homeassistant_help_content">Status Queries:\n• "What is the living room light status?"\n• "Check the front door lock"\n• "Get status of bedroom temperature"\n\nPerson Location:\n• "Where is the person Dylan?"\n• "What is Dylan\'s location?"\n\nControl Commands:\n• "Turn living room light on"\n• "Switch bedroom fan off"\n• "Toggle kitchen light"\n\nSupported Entities:\n• Lights (light.*)\n• Switches (switch.*)\n• Covers (cover.*) - open/close\n• Locks (lock.*) - lock/unlock\n• Fans (fan.*)\n• Climate (climate.*)\n• Person tracking (person.*)\n\nSetup Required:\nConfigure Home Assistant URL and access token in Dicio settings before using these commands.</string>
