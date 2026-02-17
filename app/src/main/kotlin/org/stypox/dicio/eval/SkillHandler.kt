@@ -31,6 +31,8 @@ import org.stypox.dicio.skills.timer.TimerInfo
 import org.stypox.dicio.skills.translation.TranslationInfo
 import org.stypox.dicio.skills.weather.WeatherInfo
 import org.stypox.dicio.skills.joke.JokeInfo
+import org.stypox.dicio.skills.unit_conversion.UnitConversionInfo
+import org.stypox.dicio.skills.crypto_price.CryptoPriceInfo
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -55,6 +57,8 @@ class SkillHandler @Inject constructor(
         JokeInfo,
         ListeningInfo(dataStore),
         TranslationInfo,
+        UnitConversionInfo,
+        CryptoPriceInfo,
     )
 
     private val fallbackSkillInfoList = listOf(

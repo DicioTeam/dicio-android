@@ -1,0 +1,5 @@
+convert:
+  - convert .value_with_unit. (to|in(to)?) .target_unit.
+  - (what is|whats|what s) .value_with_unit. (in|to) .target_unit.
+  - how much is .value_with_unit. (in|to) .target_unit.
+  - how many .target_unit. ((are|is) there?)? in .value_with_unit.
