@@ -222,4 +222,19 @@
     <string name="pref_weather_length_unit">Unidad de medida</string>
     <string name="pref_weather_length_unit_imperial">Imperial</string>
     <string name="skill_weather_celsius">°C</string>
+    <string name="skill_name_reminder">Recordatorios (Tasks.org)</string>
+    <string name="skill_sentence_example_reminder">Recuérdame comprar leche mañana a las 3pm</string>
+    <string name="skill_reminder_created">Tarea creada: %1$s</string>
+    <string name="skill_reminder_created_with_date">Tarea creada: %1$s, vence %2$s</string>
+    <string name="skill_reminder_no_task">No entendí de qué quieres que te recuerde</string>
+    <string name="skill_reminder_tasks_not_installed">Tasks.org no está instalado. Es necesario para crear recordatorios.</string>
+    <string name="skill_reminder_install_tasks">Instalar Tasks.org</string>
+    <string name="pref_reminder_default_priority">Prioridad predeterminada</string>
+    <string name="pref_reminder_priority_high">Alta</string>
+    <string name="pref_reminder_priority_medium">Media</string>
+    <string name="pref_reminder_priority_low">Baja</string>
+    <string name="pref_reminder_priority_none">Ninguna</string>
+    <string name="pref_reminder_save_voice_input">Guardar entrada de voz original</string>
+    <string name="pref_reminder_save_voice_input_off">La entrada de voz no se guarda</string>
+    <string name="pref_reminder_save_voice_input_on">La entrada de voz se guarda como descripción de la tarea</string>
 </resources>

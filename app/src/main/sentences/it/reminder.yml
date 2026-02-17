@@ -1,0 +1,5 @@
+create:
+  - ricordami di? .task.
+  - (crea|aggiungi) un? (promemoria|attività) per? .task.
+  - non dimenticare di? .task.
+  - (aggiungi|metti) .task. (alla|nella) mia? lista (di|dei)? (compiti|attività)

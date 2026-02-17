@@ -77,4 +77,19 @@
     <string name="skill_fallback_name_text">Γραπτό μήνυμα</string>
     <string name="skill_search_what_question">Τι θέλετε να αναζητήσετε;</string>
     <string name="skill_weather_could_not_find_city">Δεν μπόρεσα να βρω την πόλη %1$s</string>
+    <string name="skill_name_reminder">Υπενθυμίσεις (Tasks.org)</string>
+    <string name="skill_sentence_example_reminder">Θύμισέ μου να αγοράσω γάλα αύριο στις 3μμ</string>
+    <string name="skill_reminder_created">Εργασία δημιουργήθηκε: %1$s</string>
+    <string name="skill_reminder_created_with_date">Εργασία δημιουργήθηκε: %1$s, προθεσμία %2$s</string>
+    <string name="skill_reminder_no_task">Δεν κατάλαβα τι θέλετε να σας υπενθυμίσω</string>
+    <string name="skill_reminder_tasks_not_installed">Το Tasks.org δεν είναι εγκατεστημένο. Το χρειάζεστε για να δημιουργήσετε υπενθυμίσεις.</string>
+    <string name="skill_reminder_install_tasks">Εγκατάσταση Tasks.org</string>
+    <string name="pref_reminder_default_priority">Προεπιλεγμένη προτεραιότητα</string>
+    <string name="pref_reminder_priority_high">Υψηλή</string>
+    <string name="pref_reminder_priority_medium">Μεσαία</string>
+    <string name="pref_reminder_priority_low">Χαμηλή</string>
+    <string name="pref_reminder_priority_none">Καμία</string>
+    <string name="pref_reminder_save_voice_input">Αποθήκευση αρχικής φωνητικής εισαγωγής</string>
+    <string name="pref_reminder_save_voice_input_off">Η φωνητική εισαγωγή δεν αποθηκεύεται</string>
+    <string name="pref_reminder_save_voice_input_on">Η φωνητική εισαγωγή αποθηκεύεται ως περιγραφή εργασίας</string>
 </resources>

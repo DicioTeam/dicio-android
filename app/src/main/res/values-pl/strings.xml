@@ -224,4 +224,19 @@
     <string name="skill_media_previous">Poprzednie…</string>
     <string name="skill_media_next">Następne…</string>
     <string name="skill_media_no_media_session">Żadna sesja mediów nie jest aktywna</string>
+    <string name="skill_name_reminder">Przypomnienia (Tasks.org)</string>
+    <string name="skill_sentence_example_reminder">Przypomnij mi kupić mleko jutro o 15</string>
+    <string name="skill_reminder_created">Zadanie utworzone: %1$s</string>
+    <string name="skill_reminder_created_with_date">Zadanie utworzone: %1$s, termin %2$s</string>
+    <string name="skill_reminder_no_task">Nie zrozumiałem, o czym mam ci przypomnieć</string>
+    <string name="skill_reminder_tasks_not_installed">Tasks.org nie jest zainstalowany. Potrzebujesz go, aby tworzyć przypomnienia.</string>
+    <string name="skill_reminder_install_tasks">Zainstaluj Tasks.org</string>
+    <string name="pref_reminder_default_priority">Domyślny priorytet</string>
+    <string name="pref_reminder_priority_high">Wysoki</string>
+    <string name="pref_reminder_priority_medium">Średni</string>
+    <string name="pref_reminder_priority_low">Niski</string>
+    <string name="pref_reminder_priority_none">Brak</string>
+    <string name="pref_reminder_save_voice_input">Zapisz oryginalne wejście głosowe</string>
+    <string name="pref_reminder_save_voice_input_off">Wejście głosowe nie jest zapisywane</string>
+    <string name="pref_reminder_save_voice_input_on">Wejście głosowe jest zapisywane jako opis zadania</string>
 </resources>

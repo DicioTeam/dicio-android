@@ -220,4 +220,19 @@
     <string name="skill_sentence_example_media">Nästa låt</string>
     <string name="skill_media_playing">Spelar media…</string>
     <string name="skill_media_pausing">Pausar media…</string>
+    <string name="skill_name_reminder">Påminnelser (Tasks.org)</string>
+    <string name="skill_sentence_example_reminder">Påminn mig att köpa mjölk imorgon klockan 15</string>
+    <string name="skill_reminder_created">Uppgift skapad: %1$s</string>
+    <string name="skill_reminder_created_with_date">Uppgift skapad: %1$s, förfaller %2$s</string>
+    <string name="skill_reminder_no_task">Jag förstod inte vad du vill bli påmind om</string>
+    <string name="skill_reminder_tasks_not_installed">Tasks.org är inte installerat. Du behöver det för att skapa påminnelser.</string>
+    <string name="skill_reminder_install_tasks">Installera Tasks.org</string>
+    <string name="pref_reminder_default_priority">Standardprioritet</string>
+    <string name="pref_reminder_priority_high">Hög</string>
+    <string name="pref_reminder_priority_medium">Medel</string>
+    <string name="pref_reminder_priority_low">Låg</string>
+    <string name="pref_reminder_priority_none">Ingen</string>
+    <string name="pref_reminder_save_voice_input">Spara ursprunglig röstinmatning</string>
+    <string name="pref_reminder_save_voice_input_off">Röstinmatning sparas inte</string>
+    <string name="pref_reminder_save_voice_input_on">Röstinmatning sparas som uppgiftsbeskrivning</string>
 </resources>

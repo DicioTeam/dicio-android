@@ -241,4 +241,19 @@
     <string name="skill_sentence_example_translation">Traduis Hola d\'espagnol en anglais</string>
     <string name="failed_to_copy">Échec de la copie au presse-papier</string>
     <string name="skill_translation_auto">Auto</string>
+    <string name="skill_name_reminder">Rappels (Tasks.org)</string>
+    <string name="skill_sentence_example_reminder">Rappelle-moi d\'acheter du lait demain à 15h</string>
+    <string name="skill_reminder_created">Tâche créée : %1$s</string>
+    <string name="skill_reminder_created_with_date">Tâche créée : %1$s, échéance %2$s</string>
+    <string name="skill_reminder_no_task">Je n\'ai pas compris ce dont vous voulez être rappelé</string>
+    <string name="skill_reminder_tasks_not_installed">Tasks.org n\'est pas installé. Il est nécessaire pour créer des rappels.</string>
+    <string name="skill_reminder_install_tasks">Installer Tasks.org</string>
+    <string name="pref_reminder_default_priority">Priorité par défaut</string>
+    <string name="pref_reminder_priority_high">Haute</string>
+    <string name="pref_reminder_priority_medium">Moyenne</string>
+    <string name="pref_reminder_priority_low">Basse</string>
+    <string name="pref_reminder_priority_none">Aucune</string>
+    <string name="pref_reminder_save_voice_input">Sauvegarder l\'entrée vocale originale</string>
+    <string name="pref_reminder_save_voice_input_off">L\'entrée vocale n\'est pas sauvegardée</string>
+    <string name="pref_reminder_save_voice_input_on">L\'entrée vocale est sauvegardée comme description de la tâche</string>
 </resources>

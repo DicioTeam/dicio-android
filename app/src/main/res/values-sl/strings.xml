@@ -137,4 +137,19 @@
 \nPaket:
 \nRazličica:
 \nVerzija operacijskega sistema:</string>
+    <string name="skill_name_reminder">Opomniki (Tasks.org)</string>
+    <string name="skill_sentence_example_reminder">Opomni me, da jutri ob 15h kupim mleko</string>
+    <string name="skill_reminder_created">Naloga ustvarjena: %1$s</string>
+    <string name="skill_reminder_created_with_date">Naloga ustvarjena: %1$s, rok %2$s</string>
+    <string name="skill_reminder_no_task">Nisem razumel, na kaj naj te spomnim</string>
+    <string name="skill_reminder_tasks_not_installed">Tasks.org ni nameščen. Potrebujete ga za ustvarjanje opomnikov.</string>
+    <string name="skill_reminder_install_tasks">Namesti Tasks.org</string>
+    <string name="pref_reminder_default_priority">Privzeta prioriteta</string>
+    <string name="pref_reminder_priority_high">Visoka</string>
+    <string name="pref_reminder_priority_medium">Srednja</string>
+    <string name="pref_reminder_priority_low">Nizka</string>
+    <string name="pref_reminder_priority_none">Brez</string>
+    <string name="pref_reminder_save_voice_input">Shrani izvirni glasovni vnos</string>
+    <string name="pref_reminder_save_voice_input_off">Glasovni vnos ni shranjen</string>
+    <string name="pref_reminder_save_voice_input_on">Glasovni vnos je shranjen kot opis naloge</string>
 </resources>

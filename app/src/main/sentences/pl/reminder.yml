@@ -1,0 +1,5 @@
+create:
+  - przypomnij mi? .task.
+  - (utwórz|dodaj|stwórz) (przypomnienie|zadanie) .task.
+  - nie zapomnij .task.
+  - dodaj .task. do mojej? listy zadań

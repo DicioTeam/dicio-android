@@ -234,4 +234,19 @@
     <string name="skill_listening_not_listening">Я не слушал</string>
     <string name="skill_listening_stop_listening">Хорошо</string>
     <string name="skill_sentence_example_listening">Перестать прослушивать</string>
+    <string name="skill_name_reminder">Напоминания (Tasks.org)</string>
+    <string name="skill_sentence_example_reminder">Напомни мне купить молоко завтра в 15:00</string>
+    <string name="skill_reminder_created">Задача создана: %1$s</string>
+    <string name="skill_reminder_created_with_date">Задача создана: %1$s, срок %2$s</string>
+    <string name="skill_reminder_no_task">Я не понял, о чём вам напомнить</string>
+    <string name="skill_reminder_tasks_not_installed">Tasks.org не установлен. Он необходим для создания напоминаний.</string>
+    <string name="skill_reminder_install_tasks">Установить Tasks.org</string>
+    <string name="pref_reminder_default_priority">Приоритет по умолчанию</string>
+    <string name="pref_reminder_priority_high">Высокий</string>
+    <string name="pref_reminder_priority_medium">Средний</string>
+    <string name="pref_reminder_priority_low">Низкий</string>
+    <string name="pref_reminder_priority_none">Нет</string>
+    <string name="pref_reminder_save_voice_input">Сохранять голосовой ввод</string>
+    <string name="pref_reminder_save_voice_input_off">Голосовой ввод не сохраняется</string>
+    <string name="pref_reminder_save_voice_input_on">Голосовой ввод сохраняется как описание задачи</string>
 </resources>

@@ -242,4 +242,19 @@
     <string name="failed_to_copy">Impossibile copiare negli appunti</string>
     <string name="skill_translation_auto">Auto</string>
     <string name="skill_search_duckduckgo_recaptcha">DuckDuckGo non ha fornito risultati: richiede la risoluzione di un Captcha</string>
+    <string name="skill_name_reminder">Promemoria (Tasks.org)</string>
+    <string name="skill_sentence_example_reminder">Ricordami di comprare il latte domani alle 15</string>
+    <string name="skill_reminder_created">Attività creata: %1$s</string>
+    <string name="skill_reminder_created_with_date">Attività creata: %1$s, scadenza %2$s</string>
+    <string name="skill_reminder_no_task">Non ho capito cosa vuoi che ti ricordi</string>
+    <string name="skill_reminder_tasks_not_installed">Tasks.org non è installato. Serve per creare promemoria.</string>
+    <string name="skill_reminder_install_tasks">Installa Tasks.org</string>
+    <string name="pref_reminder_default_priority">Priorità predefinita</string>
+    <string name="pref_reminder_priority_high">Alta</string>
+    <string name="pref_reminder_priority_medium">Media</string>
+    <string name="pref_reminder_priority_low">Bassa</string>
+    <string name="pref_reminder_priority_none">Nessuna</string>
+    <string name="pref_reminder_save_voice_input">Salva input vocale originale</string>
+    <string name="pref_reminder_save_voice_input_off">L\'input vocale non viene salvato</string>
+    <string name="pref_reminder_save_voice_input_on">L\'input vocale viene salvato come descrizione dell\'attività</string>
 </resources>

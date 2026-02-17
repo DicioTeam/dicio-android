@@ -112,6 +112,14 @@ skills:
           - id: where
             type: string
 
+  - id: reminder
+    specificity: high
+    sentences:
+      - id: create
+        captures:
+          - id: task
+            type: string
+
   - id: translation
     specificity: high
     sentences:

@@ -1,0 +1,5 @@
+create:
+  - recuérdame .task.
+  - (crea|añade) un? (recordatorio|tarea) (para|de)? .task.
+  - no olvides .task.
+  - (añade|pon) .task. (a|en) mi? lista de? tarea<s?>

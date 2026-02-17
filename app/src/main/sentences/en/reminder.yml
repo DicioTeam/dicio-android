@@ -1,0 +1,5 @@
+create:
+  - remind me to? .task.
+  - (add|create) a? (reminder|task) to? .task.
+  - remember to? .task.
+  - (add|put) .task. (to|on|in) my? (task<s?>|to do|todo) list?

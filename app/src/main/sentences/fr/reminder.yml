@@ -1,0 +1,5 @@
+create:
+  - rappelle moi de? .task.
+  - (crée|ajoute) un? (rappel|tâche) (pour|de)? .task.
+  - n? oublie pas de? .task.
+  - (ajoute|mets) .task. (à|sur|dans) ma? liste de? tâche<s?>

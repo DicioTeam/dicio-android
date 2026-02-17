@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+option java_package = "org.stypox.dicio.skills.reminder";
+option java_multiple_files = true;
+
+enum ReminderPriority {
+  // Medium is value 0 so it becomes the proto3 default
+  REMINDER_PRIORITY_MEDIUM = 0;
+  REMINDER_PRIORITY_HIGH = 1;
+  REMINDER_PRIORITY_LOW = 2;
+  REMINDER_PRIORITY_NONE = 3;
+}
+
+message SkillSettingsReminder {
+  ReminderPriority default_priority = 1;
+  bool save_voice_input = 2;
+}

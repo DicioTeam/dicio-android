@@ -234,4 +234,19 @@
     <string name="wake_service_start_notification_summary">Dicio kan de service niet starten op Android 11+ zonder handmatige interactie van de gebruiker.</string>
     <string name="wake_service_triggered_notification_summary">Dicio kan niet starten zonder notificatie te geven bij herkenning van het waakwoord op Android 10+.</string>
     <string name="wake_service_triggered_notification">Dicio waakwoord geactiveerd, tik om te openen</string>
+    <string name="skill_name_reminder">Herinneringen (Tasks.org)</string>
+    <string name="skill_sentence_example_reminder">Herinner me eraan morgen om 15 uur melk te kopen</string>
+    <string name="skill_reminder_created">Taak aangemaakt: %1$s</string>
+    <string name="skill_reminder_created_with_date">Taak aangemaakt: %1$s, deadline %2$s</string>
+    <string name="skill_reminder_no_task">Ik heb niet begrepen waaraan je herinnerd wilt worden</string>
+    <string name="skill_reminder_tasks_not_installed">Tasks.org is niet geïnstalleerd. Je hebt het nodig om herinneringen aan te maken.</string>
+    <string name="skill_reminder_install_tasks">Installeer Tasks.org</string>
+    <string name="pref_reminder_default_priority">Standaard prioriteit</string>
+    <string name="pref_reminder_priority_high">Hoog</string>
+    <string name="pref_reminder_priority_medium">Gemiddeld</string>
+    <string name="pref_reminder_priority_low">Laag</string>
+    <string name="pref_reminder_priority_none">Geen</string>
+    <string name="pref_reminder_save_voice_input">Oorspronkelijke spraakinvoer opslaan</string>
+    <string name="pref_reminder_save_voice_input_off">Spraakinvoer wordt niet opgeslagen</string>
+    <string name="pref_reminder_save_voice_input_on">Spraakinvoer wordt opgeslagen als taakbeschrijving</string>
 </resources>
