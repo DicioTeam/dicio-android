@@ -128,6 +128,8 @@
     <string name="stt_say_something">Say something…</string>
     <string name="stt_did_not_understand">I could not understand, try again</string>
     <string name="stt_popup">Speech to text popup</string>
+    <string name="skill_name_definition">Word definition</string>
+    <string name="skill_sentence_example_definition">Define serendipity</string>
     <string name="skill_name_search">Search</string>
     <string name="skill_sentence_example_search">Search how to feed a cat</string>
     <string name="skill_name_weather">Weather</string>
@@ -229,6 +231,10 @@
     <string name="skill_translation_to">to</string>
     <string name="skill_name_translation">Translate</string>
     <string name="skill_sentence_example_translation">Translate Hola from Spanish to English</string>
+    <string name="skill_definition_found">%1$s, %2$s: %3$s</string>
+    <string name="skill_definition_not_found">Could not find definition for %1$s</string>
+    <string name="skill_definition_network_error">Could not connect to Wiktionary to look up %1$s</string>
+    <string name="skill_definition_parse_error">Could not understand the definition for %1$s</string>
     <string name="pref_weather_temperature_unit">Temperature unit</string>
     <string name="use_system_default">Use system default</string>
     <string name="pref_weather_unit_system_instructions">Uses the unit configured in \"System settings > System > Languages &amp; input > Regional preferences\"</string>

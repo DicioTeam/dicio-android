@@ -1,0 +1,8 @@
+query:
+  - define .word.
+  - (what does|what is|what s|whats) .word. mean|means?
+  - (what is|what s|whats) the? (definition|meaning) (of|for) .word.
+  - (the? definition|meaning) of .word.
+  - .word. definition|meaning
+  - look up .word.
+  - (can you )?(define|explain) .word. (for me|to me)?
