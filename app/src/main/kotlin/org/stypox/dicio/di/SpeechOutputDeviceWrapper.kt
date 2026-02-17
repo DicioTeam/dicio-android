@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
 import org.dicio.skill.context.SpeechOutputDevice
+import org.stypox.dicio.io.audio.AudioFocusManager
 import org.stypox.dicio.io.speech.AndroidTtsSpeechDevice
 import org.stypox.dicio.io.speech.NothingSpeechDevice
 import org.stypox.dicio.io.speech.SnackbarSpeechDevice
@@ -29,6 +30,7 @@ class SpeechOutputDeviceWrapper @Inject constructor(
     @param:ApplicationContext private val context: Context,
     private val dataStore: DataStore<UserSettings>,
     private val localeManager: LocaleManager,
+    private val audioFocusManager: AudioFocusManager,
     // this is always instantiated, but will do nothing if
     // it is not the speech device chosen by the user
     private val snackbarSpeechDevice: SnackbarSpeechDevice,
@@ -54,7 +56,7 @@ class SpeechOutputDeviceWrapper @Inject constructor(
                         null,
                         UNRECOGNIZED,
                         SPEECH_OUTPUT_DEVICE_UNSET,
-                        SPEECH_OUTPUT_DEVICE_ANDROID_TTS -> AndroidTtsSpeechDevice(context, locale)
+                        SPEECH_OUTPUT_DEVICE_ANDROID_TTS -> AndroidTtsSpeechDevice(context, locale, audioFocusManager)
                         SPEECH_OUTPUT_DEVICE_NOTHING -> NothingSpeechDevice()
                         SPEECH_OUTPUT_DEVICE_TOAST -> ToastSpeechDevice(context)
                         SPEECH_OUTPUT_DEVICE_SNACKBAR -> snackbarSpeechDevice
