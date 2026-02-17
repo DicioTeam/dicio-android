@@ -24,6 +24,7 @@ import org.stypox.dicio.skills.listening.ListeningInfo
 import org.stypox.dicio.skills.lyrics.LyricsInfo
 import org.stypox.dicio.skills.media.MediaInfo
 import org.stypox.dicio.skills.navigation.NavigationInfo
+import org.stypox.dicio.skills.nextcloud_notes.NextcloudNotesInfo
 import org.stypox.dicio.skills.open.OpenInfo
 import org.stypox.dicio.skills.search.SearchInfo
 import org.stypox.dicio.skills.telephone.TelephoneInfo
@@ -55,6 +56,7 @@ class SkillHandler @Inject constructor(
         JokeInfo,
         ListeningInfo(dataStore),
         TranslationInfo,
+        NextcloudNotesInfo,
     )
 
     private val fallbackSkillInfoList = listOf(

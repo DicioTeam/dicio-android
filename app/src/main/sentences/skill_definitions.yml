@@ -123,3 +123,20 @@ skills:
             type: string
           - id: target
             type: string
+
+  - id: nextcloud_notes
+    specificity: high
+    sentences:
+      - id: add_note
+        captures:
+          - id: content
+            type: string
+      - id: add_to_shopping_list
+        captures:
+          - id: item
+            type: string
+      - id: query_shopping_list
+      - id: check_shopping_list
+        captures:
+          - id: item
+            type: string

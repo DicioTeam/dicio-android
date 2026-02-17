@@ -41,6 +41,7 @@ Currently Dicio answers questions about:
 - **media**: play, pause, previous, next song
 - **translation**: translate from/to any language with **Lingva** - _How do I say Football in German?_
 - **wake word control**: turn on/off the wakeword - _Stop listening_
+- **nextcloud notes**: add notes to a Nextcloud instance, including a separate grocery list - _Take a note to implement Nextcloud support in Dicio_
 
 ## Speech to text
 

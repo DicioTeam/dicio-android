@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+option java_package = "org.stypox.dicio.skills.nextcloud_notes";
+option java_multiple_files = true;
+
+message SkillSettingsNextcloudNotes {
+  string server_address = 1;
+  string username = 2;
+  string password = 3;
+  string target_note = 4;
+  string target_shopping_list = 5;
+}
