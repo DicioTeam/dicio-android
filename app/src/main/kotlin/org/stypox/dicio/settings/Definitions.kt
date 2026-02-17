@@ -8,6 +8,7 @@ import androidx.compose.material.icons.filled.Campaign
 import androidx.compose.material.icons.filled.Cloud
 import androidx.compose.material.icons.filled.ColorLens
 import androidx.compose.material.icons.filled.DarkMode
+import androidx.compose.material.icons.filled.Extension
 import androidx.compose.material.icons.filled.Hearing
 import androidx.compose.material.icons.filled.InvertColors
 import androidx.compose.material.icons.filled.KeyboardAlt
@@ -29,6 +30,7 @@ import org.stypox.dicio.settings.datastore.SpeechOutputDevice
 import org.stypox.dicio.settings.datastore.SttPlaySound
 import org.stypox.dicio.settings.datastore.Theme
 import org.stypox.dicio.settings.datastore.WakeDevice
+import org.stypox.dicio.settings.datastore.FallbackSkill
 import org.stypox.dicio.settings.ui.BooleanSetting
 import org.stypox.dicio.settings.ui.ListSetting
 
@@ -97,6 +99,23 @@ fun dynamicColors() = BooleanSetting(
     icon = Icons.Default.InvertColors,
     descriptionOff = stringResource(R.string.pref_dynamic_colors_summary),
     descriptionOn = stringResource(R.string.pref_dynamic_colors_summary),
+)
+
+@Composable
+fun fallbackSkillSetting() = ListSetting(
+    title = stringResource(R.string.pref_fallback_skill_title),
+    icon = Icons.Default.Extension,
+    description = stringResource(R.string.pref_fallback_skill_summary),
+    possibleValues = listOf(
+        ListSetting.Value(
+            value = FallbackSkill.FALLBACK_SKILL_TEXT,
+            name = stringResource(R.string.skill_fallback_name_text),
+        ),
+        ListSetting.Value(
+            value = FallbackSkill.FALLBACK_SKILL_AIQUERY,
+            name = stringResource(R.string.skill_name_aiquery),
+        ),
+    ),
 )
 
 @Composable

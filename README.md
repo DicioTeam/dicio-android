@@ -41,6 +41,7 @@ Currently Dicio answers questions about:
 - **media**: play, pause, previous, next song
 - **translation**: translate from/to any language with **Lingva** - _How do I say Football in German?_
 - **wake word control**: turn on/off the wakeword - _Stop listening_
+- **ai query**: talk to an LLM and ask it questions. optionally, send unknown queries to AI to be answered. - _Ask AI what is the meaning of life?_ <sup>Requires your own OpenAI compatible provider and API keys</sup>
 
 ## Speech to text
 

@@ -6,6 +6,7 @@ import "input_device.proto";
 import "speech_output_device.proto";
 import "wake_device.proto";
 import "stt_play_sound.proto";
+import "fallback_skill.proto";
 
 option java_package = "org.stypox.dicio.settings.datastore";
 option java_multiple_files = true;
@@ -20,4 +21,5 @@ message UserSettings {
     map<string, bool> enabled_skills = 7;
     WakeDevice wake_device = 8;
     SttPlaySound stt_play_sound = 9;
+    FallbackSkill fallback_skill = 10;
 }

@@ -1,0 +1,10 @@
+query:
+  - ask chatgpt .question.
+  - chatgpt .question.
+  - ask ai .question.
+  - ask the ai .question.
+  - (can you|could you) ask chatgpt .question.
+  - chatgpt what is .question.
+  - chatgpt how (do|does|is|are) .question.
+  - chatgpt (why|when|where|who) .question.
+  - ask chat .question.

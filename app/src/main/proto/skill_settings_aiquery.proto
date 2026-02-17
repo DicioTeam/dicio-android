@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+option java_package = "org.stypox.dicio.skills.aiquery";
+option java_multiple_files = true;
+
+message SkillSettingsAIQuery {
+  string endpoint_url = 1;
+  string api_key = 2;
+  string system_prompt = 3;
+  string model = 4;
+}

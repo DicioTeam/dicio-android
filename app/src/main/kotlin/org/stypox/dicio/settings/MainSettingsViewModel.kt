@@ -19,6 +19,7 @@ import org.stypox.dicio.settings.datastore.Theme
 import org.stypox.dicio.settings.datastore.UserSettings
 import org.stypox.dicio.settings.datastore.WakeDevice
 import org.stypox.dicio.util.toStateFlowDistinctBlockingFirst
+import org.stypox.dicio.settings.datastore.FallbackSkill
 import javax.inject.Inject
 
 @HiltViewModel
@@ -73,4 +74,6 @@ class MainSettingsViewModel @Inject constructor(
         updateData { it.setSttPlaySound(value) }
     fun setAutoFinishSttPopup(value: Boolean) =
         updateData { it.setAutoFinishSttPopup(value) }
+    fun setFallbackSkill(value: FallbackSkill) =
+        updateData { it.setFallbackSkill(value) }
 }

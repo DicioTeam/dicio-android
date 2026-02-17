@@ -64,6 +64,8 @@
     <string name="pref_appearance">Appearance</string>
     <string name="pref_skills_title">Skills</string>
     <string name="pref_skills_summary">Enable/disable skills and tune their behavior</string>
+    <string name="pref_fallback_skill_title">Fallback Skill</string>
+    <string name="pref_fallback_skill_summary">Choose default fallback skill</string>
     <string name="expand">Expand</string>
     <string name="reduce">Reduce</string>
     <string name="pref_theme">Theme</string>
@@ -246,4 +248,15 @@
     <string name="failed_to_copy">Failed to copy to clipboard</string>
     <string name="skill_translation_auto">Auto</string>
     <string name="skill_search_duckduckgo_recaptcha">DuckDuckGo did not provide results, asking for a Captcha to be solved</string>
+    <string name="skill_name_aiquery">AI Query</string>
+    <string name="skill_sentence_example_aiquery">Ask AI what is the meaning of life</string>
+    <string name="skill_aiquery_error">Could not get a response from AI provider</string>
+    <string name="pref_aiquery_api_key">AI provider API Key</string>
+    <string name="pref_aiquery_api_key_description">Enter your AI provider API key</string>
+    <string name="pref_aiquery_model">Model</string>
+    <string name="pref_aiquery_model_description">Default: gpt-4o-mini</string>
+    <string name="pref_aiquery_system_prompt">System Prompt</string>
+    <string name="pref_aiquery_system_prompt_description">Customize the AI behavior</string>
+    <string name="pref_aiquery_endpoint_url">API Endpoint URL</string>
+    <string name="pref_aiquery_endpoint_url_description">Defaults to OpenAI\'s endpoint - Any OpenAI API provider endpoint URL is compatible (e.g. OpenRouter)</string>
 </resources>

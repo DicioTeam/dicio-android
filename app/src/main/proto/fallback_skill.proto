@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+option java_package = "org.stypox.dicio.settings.datastore";
+option java_multiple_files = true;
+
+enum FallbackSkill {
+    FALLBACK_SKILL_UNSET = 0;
+    FALLBACK_SKILL_TEXT = 1;
+    FALLBACK_SKILL_AIQUERY = 2;
+}

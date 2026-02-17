@@ -39,6 +39,7 @@ import org.stypox.dicio.settings.datastore.SttPlaySound
 import org.stypox.dicio.settings.datastore.Theme
 import org.stypox.dicio.settings.datastore.UserSettingsModule.Companion.newDataStoreForPreviews
 import org.stypox.dicio.settings.datastore.WakeDevice
+import org.stypox.dicio.settings.datastore.FallbackSkill
 import org.stypox.dicio.settings.ui.SettingsCategoryTitle
 import org.stypox.dicio.settings.ui.SettingsItem
 import org.stypox.dicio.ui.theme.AppTheme
@@ -117,6 +118,16 @@ private fun MainSettingsScreen(
                 modifier = Modifier
                     .clickable(onClick = navigateToSkillSettings)
                     .testTag("skill_settings_item")
+            )
+        }
+        item {
+            fallbackSkillSetting().Render(
+                when (val fallbackSkill = settings.fallbackSkill) {
+                    FallbackSkill.UNRECOGNIZED,
+                    FallbackSkill.FALLBACK_SKILL_UNSET -> FallbackSkill.FALLBACK_SKILL_TEXT
+                    else -> fallbackSkill
+                },
+                viewModel::setFallbackSkill,
             )
         }
 

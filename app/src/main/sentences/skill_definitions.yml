@@ -123,3 +123,11 @@ skills:
             type: string
           - id: target
             type: string
+
+  - id: aiquery
+    specificity: low
+    sentences:
+      - id: query
+        captures:
+          - id: question
+            type: string
