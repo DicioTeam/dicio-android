@@ -64,6 +64,11 @@ skills:
       - id: stop
       - id: start
 
+  - id: cancel
+    specificity: high
+    sentences:
+      - id: exit
+
   - id: search
     specificity: low
     sentences:
