@@ -134,3 +134,26 @@ skills:
             type: string
           - id: target
             type: string
+
+  - id: checklist
+    specificity: medium
+    sentences:
+      - id: start_list
+        captures:
+          - id: list
+            type: string
+      - id: complete_item
+        captures:
+          - id: item
+            type: string
+          - id: item_number
+            type: string
+          - id: list
+            type: string
+      - id: skip_item
+      - id: wait
+      - id: query_item
+        captures:
+          - id: list
+            type: string
+      - id: reset_list

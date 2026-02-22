@@ -83,8 +83,9 @@ kotlinpoet = { module = "com.squareup:kotlinpoet", version.ref = "kotlinpoet" }
 navigation = { module = "androidx.navigation:navigation-compose", version.ref = "navigation" }
 okhttp = { module = "com.squareup.okhttp3:okhttp" }
 okhttp-bom = { module = "com.squareup.okhttp3:okhttp-bom", version.ref = "okhttp" }
-protobuf-java-lite = { module = "com.google.protobuf:protobuf-javalite", version.ref = "protoc" }
-protobuf-kotlin-lite = { module = "com.google.protobuf:protobuf-kotlin-lite", version.ref = "protoc" }
+protobuf-java = { module = "com.google.protobuf:protobuf-java", version.ref = "protoc" }
+protobuf-java-util = { module = "com.google.protobuf:protobuf-java-util", version.ref = "protoc" }
+protobuf-kotlin = { module = "com.google.protobuf:protobuf-kotlin", version.ref = "protoc" }
 protobuf-protoc = { module = "com.google.protobuf:protoc", version.ref = "protoc" }
 test-android-compose-ui-test-junit4 = { module = "androidx.compose.ui:ui-test-junit4" }
 test-core = { module = "androidx.test:core", version.ref = "androidxTest" }
