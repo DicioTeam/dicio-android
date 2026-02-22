@@ -1,0 +1,27 @@
+start_list:
+  - inizi<a|are|amo>|cominci<a|are|amo>|continu<a|are|iamo>|riprend<i|ere|iamo> il|lo|la|l|dal<l|lo|la?>? (ultim<a|o>? lista|elenco)|(lista|elenco chiamato|denominato|(con il nome)|(di nome)|del<l|la?> .list.)
+
+complete_item:
+  - lo? <h?>o? fatt<o|a>|completa<to|ta|lo|la?> (il|lo|la|l|quest<o|a> passo|passaggio|linea|riga?)|(il|lo|la|l passo|passaggio|linea|riga? di|col|(con il)? numero|numerat<o|a> .item_number.)|.item.|(il passo|passaggio|linea|riga chiamato|denominato|(con il nome)|(di nome)? .item.) (<del|dal|sul><l|lo|la?> lista|elenco chiamato|denominato|(con il nome)|(di nome)|del<l|la?>? .list.)?
+
+skip_item:
+  - salta<lo|la>|passa (a<l|llo|lla|i|lle|gli?> prossim<o|a|i|e>|successiv<o|a|i|e> pass<o|i>|passaggi<o?>|line<a|e>|rig<a|he>?)|avanti?
+  - lascia perdere il|lo|la|l|quest<o|a> passo|passaggio|linea|riga?
+  - prossim<o|a|i|e>|successiv<o|a|i|e> pass<o|i>|passaggi<o?>|line<a|e>|rig<a|he>
+
+wait:
+  - aspetta<mi?>
+  - aspetta<mi?>|dammi un|uno|due|(un paio di) second<o|i>|minut<o|i>|moment<o|i>|istant<e|i>
+  - un momento|istante
+  - ferma|interrompi|annulla il|lo|la|l? lista|elenco
+
+query_item:
+  - ripeti<mi?>|ricorda<mi?>|dimmi cos<a?> rimane|ho|(c<i?> e) <del|dal|sul><l|lo|la?> lista|elenco (chiamato|denominato|(con il nome)|(di nome)|del<l|la?>? .list.)?
+  - ripeti<mi?>|ricorda<mi?>|dimmi qual<e|i?>|che|cos<a?> e|sono il|lo|la|l|i|gli|le? prossim<o|a|i|e>|successiv<o|a|i|e>? passo|passaggio|linea|riga? <del|dal|sul><l|lo|la?> lista|elenco (chiamato|denominato|(con il nome)|(di nome)|del<l|la?>? .list.)?
+  - ripeti<mi?>|ricorda<mi?>|dimmi qual<e|i?>|che|cos<a?> e|sono il|lo|la|l|i|gli|le? prossim<o|a|i|e>|successiv<o|a|i|e>? passo|passaggio|linea|riga
+  - ripeti<mi?>|ricorda<mi?>|dimmi a|su? cosa|(che|qual<e|i?> passo|passaggio|linea|riga) (stav<o|amo> facendo|lavorando)|(dovev<o|amo>|(c<i?>? avev<o|amo> da) fare|lavorare|completare) (<del|dal|sul><l|lo|la?> lista|elenco (chiamato|denominato|(con il nome)|(di nome)|del<l|la?>? .list.)?)?
+  - ripeti<mi?>|ricorda<mi?>|dimmi dove|(a|su qual<e|i?>|che|cos<a?> passo|passaggio|linea|riga|punto?) ero|eravamo|sono|siamo arrivat<o|i|e>|rimast<o|i|e> (<del|dal|sul><l|lo|la?> lista|elenco (chiamato|denominato|(con il nome)|(di nome)|del<l|la?>? .list.)?)?
+
+reset_list:
+  - riparti<re|amo?>|ricominci<a|are|amo>|resett<a|iamo>|azzer<a|iamo> il|lo|la|l|(su? quest<o|a>)|sul<l|lo|la?> lista|elenco dal<l|lo|la?> inizio|principio|(passo|passaggio|linea|riga? iniziale)|cima|(prim<o|a> passo|passaggio|linea|riga?)
+  - riparti<re|amo?>|ricominci<a|are|amo>|resett<a|iamo>|azzer<a|iamo> dal<l|lo|la?> inizio|principio|(passo|passaggio|linea|riga? iniziale)|cima|(prim<o|a> passo|passaggio|linea|riga?) (il|lo|la|l|(su? quest<o|a>)|sul<l|lo|la?> lista|elenco)?
