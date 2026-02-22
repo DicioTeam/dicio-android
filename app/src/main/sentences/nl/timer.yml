@@ -1,12 +1,12 @@
 set:
   - timer (voor|over)? .duration.
   - herinner me over .duration.
-  - zet|maak|start|begin een? timer (voor|van|over)? .duration. (genaamd|(de naam)|onder .name.)?
+  - zet|maak|start|begin een? timer (voor|van|over)? .duration.
 
 cancel:
-  - stop|"beëindig"|eindig|cancel|annuleer (de|het)? (.name.? timer)|(timer genaamd|(met|onder de naam) .name.)
-  - zet (de|het)? (.name.? timer)|(timer genaamd|(met|onder de naam) .name.) af|stil|uit?
+  - stop|beëindig|eindig|cancel|annuleer (de|het)? timer
+  - zet (de|het)? timer af|stil|uit?
 
 query:
-  - (hoe lang)|(hoeveel tijd|seconden|minuten|uren) (zijn er)? nog voor|op (de|het)? (.name.? timer)|(timer genaamd|(met|onder de naam) .name.) (afgaat|afloopt)?
-  - wanneer loopt (de|het)? (.name.? timer)|(timer genaamd|(met|onder de naam) .name.) af
+  - (hoe lang)|(hoeveel tijd|seconden|minuten|uren) (zijn er)? nog voor|op (de|het)? timer (afgaat|afloopt)?
+  - wanneer loopt (de|het)? timer af

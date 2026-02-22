@@ -1,10 +1,10 @@
 set:
   - timer|(säg till om) .duration.
-  - (ställ in?)|starta|aktivera|skapa|sätt en? (.duration. time<r|rs?>)|(time<r|rs?> (med|på .duration.)? (kallad|(med namnet) .name.)?)
+  - (ställ in?)|starta|aktivera|skapa|sätt en? (.duration. time<r|rs?>)|(time<r|rs?> (med|på .duration.)?)
 
 cancel:
-  - avbryt|stanna|inaktivera|stoppa|(ta bort) (.name.? time<r|rs?>)|(time<r|rs?> kallad|(med namnet) .name.)
+  - avbryt|stanna|inaktivera|stoppa|(ta bort) time<r|rs?>
 
 query:
-  - hur länge|(mycket tid?) är det? kvar? på (.name.? time<r|rs?>)|(time<r|rs?> kallad|(med namnet) .name.)
-  - när kommer|är (.name.? time<r|rs?>)|(time<r|rs?> kallad|(med namnet) .name.) vara? färdig|klar|slut
+  - hur länge|(mycket tid?) är det? kvar? på time<r|rs?>
+  - när kommer|är time<r|rs?> vara? färdig|klar|slut

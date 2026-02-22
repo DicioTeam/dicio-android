@@ -1,10 +1,10 @@
 set:
   - timer|(ping mich in) .duration.
-  - stell<e?>|start<e?> einen timer (mit namen .name.)? für|auf .duration. (mit dem namen .name.)|(genannt .name.)? ein?
+  - stell<e?>|start<e?> einen timer für|auf .duration. ein?
 
 cancel:
-  - stop<p|pe?>|halt<e?> den|die? timer .name.? (mit dem? namen .name.)|(genannt .name.)? an?
+  - stop<p|pe?>|halt<e?> den|die? timer an?
 
 query:
-  - wie lange läuft der timer .name.|(mit dem? namen .name.)|(genannt .name.)? noch
-  - wann läuft der timer .name.|(mit dem? namen .name.)|(genannt .name.)? ab
+  - wie lange läuft der timer noch
+  - wann läuft der timer ab

@@ -1,11 +1,11 @@
 set:
   - notifica<r?>me|alerta<r?>me en .duration.
-  - establece<r?>|ajusta<r?>|configura<r?>|inicia<r?>|crea<r?> un? temporizador|cronometro|contador (con duracion)? de .duration. ((denominado|llamado|(con el nombre de?)) .name.)?
+  - establece<r?>|ajusta<r?>|configura<r?>|inicia<r?>|crea<r?> un? temporizador|cronometro|contador (con duracion)? de .duration.
 
 cancel:
-  - cancela<r?>|deten<er?> ((el? temporizador|cronometro|contador llamado|(con el nombre de?))|(los? temporizadores|cronometros|contadores (llamados|(con el nombre de?))))? .name.
-  - silencia<r?>|desactiva<r?> ((el|la? alarma|timbre llamad<a|o>|(con el nombre de?))|(los|las? alarma|timbre (denominad<a|o>s|llamad<a|o>s|(con el nombre de?))))? .name.
+  - cancela<r?>|deten<er?> (el? temporizador|cronometro|contador)|(los? temporizadores|cronometros|contadores)
+  - silencia<r?>|desactiva<r?> (el|la? alarma|timbre)|(los|las? alarma|timbre)
 
 query:
-  - cuanto tiempo? le|te? queda|resta|falta|sobra al|(en el) temporizador|cronometro|contador (llamado|(con el nombre de?) .name.)?
-  - cuando terminara|finalizara|(se detendra) el temporizador|cronometro|contador (llamado|(con el nombre de?) .name.)?
+  - cuanto tiempo? le|te? queda|resta|falta|sobra al|(en el) temporizador|cronometro|contador
+  - cuando terminara|finalizara|(se detendra) el temporizador|cronometro|contador

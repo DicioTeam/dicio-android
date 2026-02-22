@@ -98,16 +98,17 @@ skills:
         captures:
           - id: duration
             type: duration
-          - id: name
-            type: string
       - id: cancel
-        captures:
-          - id: name
-            type: string
       - id: query
+
+  - id: alarm
+    specificity: high
+    sentences:
+      - id: set
         captures:
-          - id: name
+          - id: time
             type: string
+      - id: show
 
   - id: util_yes_no
     specificity: high
