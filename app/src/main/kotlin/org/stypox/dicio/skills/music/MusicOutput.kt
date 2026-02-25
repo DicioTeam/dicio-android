@@ -3,11 +3,13 @@ package org.stypox.dicio.skills.music
 import android.content.pm.PackageManager
 import android.util.Log
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.requiredWidth
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -30,11 +32,12 @@ private val TAG = MusicOutput::class.simpleName
 class MusicOutput(
     private val appName: String?,
     private val packageName: String?,
+    private val songName: String?,
 ) : SkillOutput {
     override fun getSpeechOutput(ctx: SkillContext): String = if (packageName == null) {
         ctx.getString(R.string.skill_music_no_app_found)
     } else {
-        ctx.getString(R.string.skill_open_opening, appName)
+        ctx.getString(R.string.skill_music_playing, songName, appName)
     }
 
     @Composable
@@ -58,13 +61,15 @@ class MusicOutput(
                 }
 
                 if (icon != null) {
-                    Image(
-                        painter = rememberDrawablePainter(icon),
-                        contentDescription = appName,
-                        modifier = Modifier
-                            .fillMaxWidth(0.2f)
-                            .aspectRatio(1.0f),
-                    )
+                    BoxWithConstraints {
+                        Image(
+                            painter = rememberDrawablePainter(icon),
+                            contentDescription = appName,
+                            modifier = Modifier
+                                .requiredWidth(minOf(maxWidth * 0.2f, 80.dp))
+                                .aspectRatio(1.0f),
+                        )
+                    }
 
                     Spacer(modifier = Modifier.width(8.dp))
                 }

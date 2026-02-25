@@ -19,6 +19,7 @@ class MusicSkill(correspondingSkillInfo: SkillInfo, data: StandardRecognizerData
             is Music.Query -> Pair(inputData.song, inputData.artist)
         }
 
+        // https://developer.android.com/guide/components/intents-common#PlaySearch
         val intent = Intent(MediaStore.INTENT_ACTION_MEDIA_PLAY_FROM_SEARCH).apply {
             putExtra(MediaStore.EXTRA_MEDIA_FOCUS, MediaStore.Audio.Media.ENTRY_CONTENT_TYPE)
             putExtra(MediaStore.EXTRA_MEDIA_TITLE, song)
@@ -35,7 +36,7 @@ class MusicSkill(correspondingSkillInfo: SkillInfo, data: StandardRecognizerData
         val packageManager: PackageManager = ctx.android.packageManager
         val componentName = intent.resolveActivity(packageManager)
         if (componentName == null) {
-            return MusicOutput(appName = null, packageName = null)
+            return MusicOutput(appName = null, packageName = null, songName = null)
         }
         ctx.android.startActivity(intent)
 
@@ -43,6 +44,7 @@ class MusicSkill(correspondingSkillInfo: SkillInfo, data: StandardRecognizerData
         return MusicOutput(
             appName = applicationInfo.loadLabel(packageManager).toString(),
             packageName = applicationInfo.packageName,
+            songName = song
         )
     }
 }

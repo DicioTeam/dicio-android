@@ -13,6 +13,7 @@ Dicio answers questions about:
 <li><b>navigation</b>: opens the navigation app at the requested position - <i>Take me to New York, fifteenth avenue</i></li>
 <li><b>jokes</b>: tells you a joke - <i>Tell me a joke</i></li>
 <li><b>media</b>: play, pause, previous, next song - <i>Next Song</i></li>
+<li><b>music</b>: search for and play a specific song - <i>Play We will rock you by Queen</i></li>
 <li><b>translation</b>: translate from/to any language with <b>Lingva</b> - <i>How do I say Football in German?</i></li>
 <li><b>wake word control</b>: turn on/off the wakeword - <i>Stop listening</i></li>
 <li><b>notifications</b>: reads all notifications currently in the status bar - <i>What are my notifications?</i></li>
