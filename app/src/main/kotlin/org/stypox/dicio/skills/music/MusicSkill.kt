@@ -23,15 +23,15 @@ class MusicSkill(correspondingSkillInfo: SkillInfo, data: StandardRecognizerData
         val intent = Intent(MediaStore.INTENT_ACTION_MEDIA_PLAY_FROM_SEARCH).apply {
             putExtra(MediaStore.EXTRA_MEDIA_FOCUS, MediaStore.Audio.Media.ENTRY_CONTENT_TYPE)
             putExtra(MediaStore.EXTRA_MEDIA_TITLE, song)
-            putExtra(SearchManager.QUERY, song)
+
+            if (artist != null) {
+                putExtra(MediaStore.EXTRA_MEDIA_ARTIST, artist)
+                putExtra(SearchManager.QUERY, "$artist $song")
+            } else {
+                putExtra(SearchManager.QUERY, song)
+            }
         }
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-        // also search for the artist if given
-        if (artist != null)
-            intent.apply {
-                putExtra(MediaStore.EXTRA_MEDIA_ARTIST, artist)
-                putExtra(SearchManager.QUERY, "$song $artist")
-            }
 
         val packageManager: PackageManager = ctx.android.packageManager
         val componentName = intent.resolveActivity(packageManager)
