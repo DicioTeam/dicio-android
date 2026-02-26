@@ -223,7 +223,7 @@
     <string name="skill_sentence_example_listening">Stop listening</string>
     <string name="skill_cancel_confirmation">Okay</string>
     <string name="skill_name_cancel">Cancel</string>
-    <string name="skill_sentence_example_cancel">Cancel</string>
+    <string name="skill_sentence_example_cancel">Nevermind</string>
     <string name="skill_translation_success">Translated to %1$s</string>
     <string name="skill_translation_unknown_language">I don\'t recognize language %1$s</string>
     <string name="skill_translation_unsupported_language">Language %1$s (%2$s) is not supported</string>
