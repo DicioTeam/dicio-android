@@ -37,6 +37,7 @@ import org.stypox.dicio.util.StringUtils
 import org.stypox.dicio.util.getPluralString
 import org.stypox.dicio.util.getString
 
+// TODO remind me about whatever tomorrow at nine is misinterpreted
 sealed interface CalendarOutput : SkillOutput {
 
     data class Added(
@@ -67,7 +68,8 @@ sealed interface CalendarOutput : SkillOutput {
         @Composable
         override fun GraphicalOutput(ctx: SkillContext) {
             val dateRangeFormatted = remember { formatDateTimeRange(ctx, begin, end) }
-            val durationFormatted = remember { formatDuration(ctx, Duration.between(begin, end)) }
+            val duration = remember { Duration.between(begin, end) }
+            val durationFormatted = remember(duration) { formatDuration(ctx, duration) }
 
             Column(
                 modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp),
@@ -96,13 +98,15 @@ sealed interface CalendarOutput : SkillOutput {
                     textAlign = TextAlign.Center
                 )
 
-                Spacer(modifier = Modifier.height(2.dp))
+                if (duration >= Duration.ofSeconds(1)) {
+                    Spacer(modifier = Modifier.height(2.dp))
 
-                Text(
-                    text = stringResource(R.string.skill_calendar_duration, durationFormatted),
-                    style = MaterialTheme.typography.bodyLarge,
-                    textAlign = TextAlign.Center
-                )
+                    Text(
+                        text = stringResource(R.string.skill_calendar_duration, durationFormatted),
+                        style = MaterialTheme.typography.bodyLarge,
+                        textAlign = TextAlign.Center
+                    )
+                }
             }
         }
     }
