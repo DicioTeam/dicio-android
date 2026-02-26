@@ -59,7 +59,7 @@ sealed interface CalendarOutput : SkillOutput {
                 ctx.getString(R.string.skill_calendar_adding_begin_duration, title, beginText, durationText)
             } else {
                 val endText = ctx.parserFormatter!!
-                    .niceDateTime(begin)
+                    .niceDateTime(end)
                     .get()
                 ctx.getString(R.string.skill_calendar_adding_begin_end, title, beginText, endText)
             }
