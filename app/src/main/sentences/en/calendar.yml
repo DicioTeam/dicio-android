@@ -1,15 +1,8 @@
-create_event:
-  - (add|create|schedule|make|put) .title. (to|on|in my?)? calendar? ((on|at|for|starting)? .date_time.)? ((for|lasting)? .duration.)?
-  - (add|create|schedule|make) (a|an)? (calendar|new)? event (called|named|for)? .title. ((on|at|for|starting)? .date_time.)? ((for|lasting)? .duration.)?
-  - (set up|book) (a|an)? (meeting|appointment|event)? .title. ((on|at|for|starting)? .date_time.)? ((for|lasting)? .duration.)?
-  - remind me (about|of|to)? .title. ((on|at|for|starting)? .date_time.)? ((for|lasting)? .duration.)?
-  - (on|for) .date_time. (add|create|schedule|make) .title. (to|on)? calendar?
-  - (block|hold|reserve) .duration. (for)? .title. ((on|at|starting)? .date_time.)?
+create:
+  - (add|create|schedule|make|put|(arrange for?)|book|setup|(set up) ((a|an|the event<s?>|appointment<s?>|meeting<s?> called|named|(with the name)|for?)? .title. to|on|in my|the? calendar|agenda|schedule|timetable)|(a|an|the event<s?>|appointment<s?>|meeting<s?> called|named|(with the name)|for? .title.))|(schedule|(reserve a slot for)|(remind me about|of|to?) .title.) (starting|beginning|(that begin<s?>) on|at|for|from? the?)|(on|at|for|from the?) .begin. and? (for|lasting|(with duration)|(that last<s?>)? .duration.)|(that is .duration. long)|(finishing|(that finish<es?>)|ending|(that end<s?>)|(lasting|(that lasts)? until)|to .end.)
+  - block|hold|reserve|book .duration. about|of|to|for? .title. (starting|beginning|(that begin<s?>) on|at|for|from? the?)|(on|at|for|from the?) .begin.
 
-query_events:
-  - what (events|appointments|meetings|plans) (do i have|are (on|in) my? calendar|are scheduled) (today|tomorrow|.date_time.)?
-  - (what s|whats) on my? calendar (today|tomorrow|(for|on)? .date_time.)?
-  - (do i have|show me|list) (any|my)? (events|appointments|meetings|plans) (today|tomorrow|(for|on)? .date_time.)?
-  - (show|tell me|read) (me)? my? (calendar|schedule|agenda) ((for|on)? (today|tomorrow|.date_time.))?
-  - (am i|are we) (busy|free) (today|tomorrow|on .date_time.)?
-  - (what|anything) (is|s) (happening|scheduled|planned) (today|tomorrow|on .date_time.)?
+query:
+  - (what event<s?>|appointment<s?>|meeting<s?>|plan<s?>? (do i have)|(are|is there?))|((do i have)|(are|is there?)|(show|tell|list|read me?)? any|my|the|an? event<s?>|appointment<s?>|meeting<s?>|plan<s?> (i have)?) (on|in|inside my|the? calendar|agenda|schedule|timetable)|scheduled|arranged|happening|planned? (on|at|for? the? .when.)? (on|in|inside my|the? calendar|agenda|schedule|timetable)?
+  - (show|tell|list|read me?)|((do i have)|(is there?) anything on|in|inside) the|my? calendar|agenda|schedule|timetable (on|at|for? the? .when.)?
+  - ((am i)|(are we) busy|free|occupied)|(do i have free? time) (on|at|for? the? .when.)?

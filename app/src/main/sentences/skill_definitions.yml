@@ -138,15 +138,17 @@ skills:
   - id: calendar
     specificity: high
     sentences:
-      - id: create_event
+      - id: create
         captures:
           - id: title
             type: string
-          - id: date_time
-            type: string
+          - id: begin
+            type: date_time
+          - id: end
+            type: date_time
           - id: duration
             type: duration
-      - id: query_events
+      - id: query
         captures:
-          - id: date_time
-            type: string
+          - id: when
+            type: date_time
