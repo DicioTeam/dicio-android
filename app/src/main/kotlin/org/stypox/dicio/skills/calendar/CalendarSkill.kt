@@ -73,12 +73,13 @@ class CalendarSkill(
                 .appendPath(date.atTime(LocalTime.MAX).toEpochMilli().toString())
                 .build(),
             // we want to read these fields
-            arrayOf(CCI.TITLE, CCI.BEGIN, CCI.END, CCI.EVENT_LOCATION, CCI.ALL_DAY),
+            arrayOf(CCI.EVENT_ID, CCI.TITLE, CCI.BEGIN, CCI.END, CCI.EVENT_LOCATION, CCI.ALL_DAY),
             null, // selection handled by URI
             null, // selectionArgs handled by URI
             "${CCI.BEGIN} ASC" // order them by begin
         )?.use { cursor ->
             // use ...OrThrow() because all fields surely exist as we requested them in query()
+            val eventIdIndex = cursor.getColumnIndexOrThrow(CCI.EVENT_ID)
             val titleIndex = cursor.getColumnIndexOrThrow(CCI.TITLE)
             val beginIndex = cursor.getColumnIndexOrThrow(CCI.BEGIN)
             val endIndex = cursor.getColumnIndexOrThrow(CCI.END)
@@ -89,6 +90,7 @@ class CalendarSkill(
             while (cursor.moveToNext()) {
                 events.add(
                     CalendarEvent(
+                        id = cursor.getLongOrNull(eventIdIndex),
                         title = cursor.getNonBlankStringOrNull(titleIndex),
                         begin = cursor.getDateTimeOrNull(beginIndex),
                         end = cursor.getDateTimeOrNull(endIndex),

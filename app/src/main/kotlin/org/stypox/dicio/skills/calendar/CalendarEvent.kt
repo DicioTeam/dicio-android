@@ -8,6 +8,7 @@ import org.stypox.dicio.R
 import org.stypox.dicio.util.getString
 
 data class CalendarEvent(
+    val id: Long?,
     val title: String?,
     val begin: LocalDateTime?,
     val end: LocalDateTime?,

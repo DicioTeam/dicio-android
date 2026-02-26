@@ -1,5 +1,8 @@
 package org.stypox.dicio.skills.calendar
 
+import android.content.ContentUris
+import android.content.Intent
+import android.provider.CalendarContract
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -194,6 +197,17 @@ private fun EventCard(
 ) {
     Card(
         modifier = modifier,
+        onClick = {
+            if (event.id == null) {
+                return@Card
+            }
+            // open the full event description in the calendar app
+            val intent = Intent(Intent.ACTION_VIEW).apply {
+                data = ContentUris.withAppendedId(CalendarContract.Events.CONTENT_URI, event.id!!)
+                flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            }
+            ctx.android.startActivity(intent)
+        },
         elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
     ) {
         Text(
@@ -223,11 +237,12 @@ private fun EventCardPreview() {
     EventCard(
         ctx = SkillContextImpl.newForPreviews(LocalContext.current),
         event = CalendarEvent(
+            id = null,
             title = "Meet with John",
             begin = LocalDateTime.of(2026, 2, 26, 18, 0),
             end = LocalDateTime.of(2026, 2, 26, 21, 0),
             location = "Online",
-            isAllDay = false
+            isAllDay = false,
         ),
         queryDate = LocalDate.of(2026, 2, 26),
     )

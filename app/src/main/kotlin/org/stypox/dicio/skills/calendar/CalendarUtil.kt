@@ -45,8 +45,12 @@ internal fun Cursor.getNonBlankStringOrNull(index: Int): String? {
     return index.takeUnless(this::isNull)?.let(this::getString)?.takeUnless(String::isBlank)
 }
 
+internal fun Cursor.getLongOrNull(index: Int): Long? {
+    return index.takeUnless(this::isNull)?.let(this::getLong)
+}
+
 internal fun Cursor.getDateTimeOrNull(index: Int): LocalDateTime? {
-    val millis = index.takeUnless(this::isNull)?.let(this::getLong) ?: return null
+    val millis = getLongOrNull(index) ?: return null
     return LocalDateTime.ofInstant(Instant.ofEpochMilli(millis), ZoneOffset.UTC)
 }
 
