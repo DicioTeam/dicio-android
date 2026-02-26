@@ -40,7 +40,7 @@ class CalendarSkill(
         var begin = inputData.begin
             ?: LocalDateTime.now()
         var end = inputData.end
-            ?: begin.plus(inputData.duration?.toJavaDuration() ?: Duration.ofHours(1))
+            ?: begin.plus(inputData.duration?.toJavaDuration() ?: Duration.ZERO)
         if (begin.isAfter(end)) {
             val tmpBegin = begin
             begin = end
