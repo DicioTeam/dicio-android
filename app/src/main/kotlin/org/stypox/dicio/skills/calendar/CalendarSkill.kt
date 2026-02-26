@@ -37,10 +37,15 @@ class CalendarSkill(
             ?.trim()
             ?.replaceFirstChar { it.titlecase(ctx.locale) }
             ?: ctx.getString(R.string.skill_calendar_no_name)
-        val begin = inputData.begin
+        var begin = inputData.begin
             ?: LocalDateTime.now()
-        val end = inputData.end
+        var end = inputData.end
             ?: begin.plus(inputData.duration?.toJavaDuration() ?: Duration.ofHours(1))
+        if (begin.isAfter(end)) {
+            val tmpBegin = begin
+            begin = end
+            end = tmpBegin
+        }
 
         // create calendar intent
         val calendarIntent = Intent(Intent.ACTION_INSERT).apply {
