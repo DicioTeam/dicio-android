@@ -23,6 +23,9 @@ sealed interface WakeState {
 
     data object Loading : WakeState
 
+    /**
+     * Like [NotLoaded], but the reason why it is not loaded is because there was an error.
+     */
     data class ErrorLoading(
         val throwable: Throwable
     ) : WakeState

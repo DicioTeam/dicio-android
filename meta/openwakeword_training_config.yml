@@ -1,0 +1,36 @@
+augmentation_batch_size: 16
+augmentation_rounds: 1
+background_paths:
+- ./audioset_16k
+- ./fma
+background_paths_duplication_rate:
+- 1
+batch_n_per_class:
+  ACAV100M_sample: 1024
+  adversarial_negative: 50
+  positive: 50
+custom_negative_phrases: []
+false_positive_validation_data_path: validation_set_features.npy
+feature_data_files:
+  ACAV100M_sample: openwakeword_features_ACAV100M_2000_hrs_16bit.npy
+layer_size: 32
+max_negative_weight: 2700
+model_name: hey_dicio
+model_type: dnn
+n_samples: 50000
+n_samples_val: 2000
+output_dir: ./my_custom_model
+piper_sample_generator_path: ./piper-sample-generator
+rir_paths:
+- ./mit_rirs
+steps: 120000
+target_accuracy: 0.7
+target_false_positives_per_hour: 0.2
+target_phrase:
+- hey dicho
+- hey dicio
+- hey dichio
+- hey disio
+- hey dizio
+target_recall: 0.7
+tts_batch_size: 50

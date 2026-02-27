@@ -1,0 +1,3 @@
+query:
+  - aç|çalıştır|göster|başlat (app|uygulama<yı?>? .what.)|(.what. app|uygulama<yı?>?)
+  - (app|uygulama<yı?>? .what.)|(.what. app|uygulama<yı?>?) aç|çalıştır|göster|başlat

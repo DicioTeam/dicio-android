@@ -1,0 +1,7 @@
+turn_on:
+  - (switch on)|(turn on)|activate|enable the? flashlight|torch|flash|light
+  - switch|turn? the? flashlight|torch|flash|light on
+
+turn_off:
+  - (switch off)|(turn off)|deactivate|disable the? flashlight|torch|flash|light
+  - switch|turn? the? flashlight|torch|flash|light off

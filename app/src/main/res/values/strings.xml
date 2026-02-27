@@ -105,6 +105,8 @@
     <string name="pref_search_engine_duckduckgo" translatable="false">DuckDuckGo</string>
     <string name="pref_weather_default_city">Default city</string>
     <string name="pref_weather_default_city_using_ip_info">Set the city to use for weather when you do not explicitly say one. The current behaviour is to get the location from IP info.</string>
+    <string name="pref_stt_silence_duration_title">Maximum silence before start of speech</string>
+    <string name="pref_stt_silence_duration_description">Give up listening after %1$d silent intervals</string>
     <string name="pref_stt_auto_finish_title">Directly send result of speech to text popup</string>
     <string name="pref_stt_auto_finish_summary_on">Automatically send speech result to requesting app when listening finishes</string>
     <string name="pref_stt_auto_finish_summary_off">Wait for manual confirmation before sending speech result to requesting app</string>
@@ -261,4 +263,34 @@
     <string name="failed_to_copy">Failed to copy to clipboard</string>
     <string name="skill_translation_auto">Auto</string>
     <string name="skill_search_duckduckgo_recaptcha">DuckDuckGo did not provide results, asking for a Captcha to be solved</string>
+    <string name="skill_notify_message_no_app">The notification says %1$s.</string>
+    <string name="skill_notify_message_app">The %1$s notification says %2$s.</string>
+    <string name="skill_notify_messages_separator">, </string>
+    <string name="skill_sentence_example_notify">What\'s my notification?</string>
+    <string name="skill_name_notify">Notify</string>
+    <string name="skill_notify_failed">Couldn\'t connect the notification listener service</string>
+    <string name="skill_notify_no_notifications">You have no notifications</string>
+    <string name="perm_notification_listener">read all notifications</string>
+    <string name="skill_notify_handler_label">Notify skill in Dicio assistant</string>
+    <string name="skill_name_flashlight">Flashlight</string>
+    <string name="skill_sentence_example_flashlight">Turn on the flashlight</string>
+    <string name="skill_flashlight_turned_on">Flashlight turned on</string>
+    <string name="skill_flashlight_turned_off">Flashlight turned off</string>
+    <string name="skill_flashlight_error">Unable to control the flashlight</string>
+    <string name="about">About</string>
+    <string name="about_version">%1$s (%2$d)</string>
+    <string name="about_version_copy">Copy version info</string>
+    <string name="about_description">Multilanguage, local and libre voice assistant</string>
+    <string name="about_repository_title">Source code repository</string>
+    <string name="about_repository_description">Dicio is free and open source, licensed under GPLv3</string>
+    <string name="about_repository_link" translatable="false">https://github.com/Stypox/dicio-android</string>
+    <string name="about_issues_title">Found a bug?</string>
+    <string name="about_issues_description">Feel free to request new features or report broken things (remember to attach logs)</string>
+    <string name="about_issues_link" translatable="false">https://github.com/Stypox/dicio-android/issues</string>
+    <string name="about_contributing_title">Contributing</string>
+    <string name="about_contributing_description">Dicio is developed by volunteers around the world. You can help out too by contributing code improvements, translations and even new skills!</string>
+    <string name="about_contributing_link" translatable="false">https://github.com/Stypox/dicio-android#contributing</string>
+    <string name="about_privacy_title">Privacy policy</string>
+    <string name="about_privacy_description">Dicio connects to external services only when a skill is expected to do so, or to download machine learning models during setup. All speech processing is performed locally on-device, and most skills can be used offline.</string>
+    <string name="about_privacy_link" translatable="false">https://stypox.org/dicio-privacy-policy.html</string>
 </resources>

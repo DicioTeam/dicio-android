@@ -1,0 +1,24 @@
+Dicio, <i>ücretsiz ve açık kaynaklı</i> bir <b>sesli asistan</b>dır. Birçok farklı <b>özellik</b> ve girdi/çıktı yöntemi destekler ve bir soruya <b>konuşma</b> ve <b>grafik</b> geri bildirim sağlar. <a href="https://github.com/alphacep/vosk-api/">Vosk</a> kullanarak <i>sesi metne</i> dönüştürür. <b>Birden fazla dil</b> desteğine sahiptir ve şu anda Çek, Hollandaca, İngilizce, Fransızca, Almanca, Yunanca, İtalyanca, Lehçe, Rusça, Slovence, İspanyolca, İsveççe, Türkçe ve Ukraynaca dillerinde mevcuttur.
+
+Dicio, aşağıdaki konularda soruları yanıtlar:
+<ul>
+<li><b>arama</b>: <b>DuckDuckGo</b> üzerinde bilgi arar (gelecekte daha fazla motor) - <i>Dicio için ara</i></li>
+<li><b>hava durumu</b>: <b>OpenWeatherMap</b>’den hava durumu bilgisi toplar - <i>Hava durumu nasıl?</i></li>
+<li><b>şarkı sözleri</b>: Şarkılar için <b>Genius</b> sözlerini gösterir - <i>''We will, we will rock you'' diyen şarkı nedir?</i></li>
+<li><b>uygulama aç</b>: Cihazınızdaki bir uygulamayı açar - <i>NewPipe'i aç</i></li>
+<li><b>hesap makinesi</b>: Temel hesaplamaları değerlendirir - <i>Dört bin iki çarpı üç eksi bir milyon bölü üç yüz kaç?</i></li>
+<li><b>telefon</b>: Kişileri görüntüleyip arar - <i>Tom'u ara</i></li>
+<li><b>saat</b>: Geçerli saati sorgular - <i>Saat kaç?</i></li>
+<li><b>navigasyon</b>: İstediğiniz konumda navigasyon uygulamasını açar - <i>New York, on beşinci caddeye götür</i></li>
+<li><b>fıkra</b>: Size bir fıkra anlatır - <i>Bir fıkra söyle</i></li>
+<li><b>medya</b>: Şarkıyı oynatır, duraklatır, önceki veya sonraki şarkıyı geçer - <i>Sonraki Şarkı</i></li>
+<li><b>çeviri</b>: <b>Lingva</b> ile herhangi bir dilde çeviri yapar - <i>Futbol'u Almanca nasıl söylerim?</i></li>
+</ul>
+
+Dicio, bir metin kutusundan veya <a href="https://github.com/alphacep/vosk-api/">Vosk</a> <i>sesi metne</i> özelliğinden girdi alabilir ve Android <i>ses sentezleme</i> motoru ile konuşabilir. Beceriler, bir soruya yanıt verirken <b>interaktif grafik çıkışı</b> sunar.
+
+Her bir özellik, ilgili ayarlar ekranı kullanılarak etkinleştirilebilir, devre dışı bırakılabilir veya özelleştirilebilir. Karanlık, siyah ve dinamik renk temaları mevcuttur.
+
+Kullanıcı girişi, belirli, ancak yeniden kullanılabilir kütüphaneler tarafından yorumlanır: <a href="https://github.com/Stypox/dicio-sentences-compiler">dicio-sentences-compiler</a> ve <a href="https://github.com/Stypox/dicio-numbers">dicio-numbers</a>.
+
+Bu uygulama, bazı özelliklerin kullanıcı tarafından istenen bilgileri elde etmek için ücretsiz olmayan hizmetler kullandığı için <i>NonFreeNet</i> anti özelliğine sahiptir; istenmeyen özellikleri kolayca devre dışı bırakabilir veya ayarlardan alternatif hizmetleri seçebilirsiniz.

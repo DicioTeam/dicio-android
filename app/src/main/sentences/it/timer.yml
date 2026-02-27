@@ -1,10 +1,10 @@
 set:
   - timer .duration.
-  - imposta|crea|mett<e|i>|(fa<mm?>i partire) un? jaime|time<r|s?>|temporizzatore|contaminuti|(conta minuti) (di|<t|f>ra|(che dur<a|i>)|(con durata di?)|(che suon<a|i> <t|f>ra) .duration.)? (chiamato|denominato|(con il nome) .name.)?
+  - imposta|crea|mett<e|i>|(fa<mm?>i partire) un? jaime|time<r|s?>|temporizzatore|contaminuti|(conta minuti) (di|<t|f>ra|(che dur<a|i>)|(con durata di?)|(che suon<a|i> <t|f>ra) .duration.)? (chiamato|denominato|(con il nome)|(di nome)|del<l|la?> .name.)?
 
 cancel:
-  - spegn<e|i>|blocca|interromp<e|i>|arresta|annulla|ferma|(fa<mm?>i smettere) i|il? jaime|time<r|rs|s?>|temporizzator<e|i>|contaminuti|(conta minuti) (chiamat<o|i>|denominat<o|i>|(con il nome)? .name.)?
-  - silenzia i|il|l|lo|gli? jaime|time<r|rs|s?>|temporizzator<e|i>|contaminuti|(conta minuti)|suono|suoneri<a|e>|allarm<e|i>|ton<o|i> (chiamat<o|i>|denominat<o|i>|(con il nome)? .name.)?
+  - spegn<e|i>|blocca|interromp<e|i>|arresta|annulla|ferma|(fa<mm?>i smettere) i|il? jaime|time<r|rs|s?>|temporizzator<e|i>|contaminuti|(conta minuti) (chiamato|denominato|(con il nome)|(di nome)|del<l|la?> .name.)?
+  - silenzia i|il|l|lo|gli? jaime|time<r|rs|s?>|temporizzator<e|i>|contaminuti|(conta minuti)|suono|suoneri<a|e>|allarm<e|i>|ton<o|i> (chiamato|denominato|(con il nome)|(di nome)|del<l|la?> .name.)?
 
 query:
-  - quanto tempo? manca|resta|rimane|(e? restato)|(e? rimasto) su<i|l?>|(per i|il?)? jaime|time<r|rs|s?>|temporizzator<e|i>|contaminuti|(conta minuti) (chiamat<o|i>|denominat<o|i>|(con il nome)? .name.)?
+  - quanto tempo? manca|resta|rimane|(e? restato)|(e? rimasto) su<i|l?>|(per i|il?)? jaime|time<r|rs|s?>|temporizzator<e|i>|contaminuti|(conta minuti) (chiamato|denominato|(con il nome)|(di nome)|del<l|la?> .name.)?

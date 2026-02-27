@@ -1,4 +1,4 @@
-Dicio is a <i>free and open source</i> <b>voice assistant</b>. It supports many different <b>skills</b> and input/output methods, and it provides both <b>speech</b> and <b>graphical</b> feedback to a question. It uses <a href="https://github.com/alphacep/vosk-api/">Vosk</a> for <i>speech to text</i>. It has <b>multilanguage</b> support, and is currently available in Czech, Dutch, English, French, German, Greek, Italian, Polish, Russian, Slovenian, Spanish, Swedish and Ukrainian.
+Dicio is a <i>free and open source</i> <b>voice assistant</b>. It supports many different <b>skills</b> and input/output methods, and it provides both <b>speech</b> and <b>graphical</b> feedback to a question. It uses <a href="https://github.com/alphacep/vosk-api/">Vosk</a> for <i>speech to text</i>. It has <b>multilanguage</b> support, and is currently available in Czech, Dutch, English, French, German, Greek, Italian, Polish, Russian, Slovenian, Spanish, Swedish, Turkish and Ukrainian.
 
 Dicio answers questions about:
 <ul>
@@ -15,6 +15,9 @@ Dicio answers questions about:
 <li><b>media</b>: play, pause, previous, next song - <i>Next Song</i></li>
 <li><b>translation</b>: translate from/to any language with <b>Lingva</b> - <i>How do I say Football in German?</i></li>
 <li><b>reminders</b>: create tasks in <b>Tasks.org</b> via voice - <i>Remind me to buy milk</i></li>
+<li><b>wake word control</b>: turn on/off the wakeword - <i>Stop listening</i></li>
+<li><b>notifications</b>: reads all notifications currently in the status bar - <i>What are my notifications?</i></li>
+<li><b>flashlight</b>: turn on/off the phone's flashlight - <i>Turn on the light</i></li>
 </ul>
 
 Dicio can receive input through a text box or through <a href="https://github.com/alphacep/vosk-api/">Vosk</a> <i>speech to text</i>, and can talk using toasts or the Android <i>speech synthesis</i> engine. <b>Interactive graphical output</b> is provided by skills when they answer a question.

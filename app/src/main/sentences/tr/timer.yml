@@ -1,0 +1,12 @@
+set:
+  - zamanlayıcı|(bana? haber ver) .duration. içerisinde?
+  - bir? (.name. adında|(adı ile)|adıyla|adındaki)? zamanlayıcı kur|başlat|oluştur (.duration.)|(.duration. kadar)?
+
+cancel:
+  - zamanlayıcı<yı?> (durdur|(devre dışı bırak?)|bitir|iptal et?) (.name. adında|(adı ile)|adıyla|adındaki?)
+  - zamanlayıcı<yı?> sessize al|(kapat)|sessiz .name. adında|(adı ile)|adıyla|adındaki?
+  - (sessize al)|kapat|sessiz .name. zamanlayıcı
+
+query:
+  - ne kadar|zaman|vakit kaldı? (.name.? zamanlayıcı)|(zamanlayıcı .name. adında|(adı ile)|adıyla|adındaki)?
+  - zamanlayıcı ne zaman (.name.?)|(.name. adında|(adı ile)|adıyla|adındaki) bitiyor|(süresi doluyor)

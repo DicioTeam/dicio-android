@@ -1,4 +1,4 @@
-Dicio es un <b>asistente de voz</b> <i>libre y de código abierto</i>. Soporta varias <b>habilidades</b> y métodos de entrada/salida, y ofrece una respuesta tanto <b>sonora</b> como <b>gráfica</b> a cada pregunta. Recurre a <a href="https://github.com/alphacep/vosk-api/">Vosk</a> para <i>reconocimiento de voz</i>. Cuenta con soporte <b>multilingüe</b>, y actualmente está disponible en alemán, checo, esloveno, español, francés, griego, inglés, italiano, polaco, ruso y ucraniano.
+Dicio es un <b>asistente de voz</b> <i>libre y de código abierto</i>. Soporta varias <b>habilidades</b> y métodos de entrada/salida, y ofrece una respuesta tanto <b>sonora</b> como <b>gráfica</b> a cada pregunta. Recurre a <a href="https://github.com/alphacep/vosk-api/">Vosk</a> para <i>reconocimiento de voz</i>. Cuenta con soporte <b>multilingüe</b>, y actualmente está disponible en alemán, checo, esloveno, español, francés, griego, inglés, italiano, polaco, ruso, turco y ucraniano.
 
 Dicio puede atender respuestas sobre:
 <ul>

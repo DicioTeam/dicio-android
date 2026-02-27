@@ -25,13 +25,10 @@ class TimerSkill(correspondingSkillInfo: SkillInfo, data: StandardRecognizerData
     override suspend fun generateOutput(ctx: SkillContext, inputData: Timer): SkillOutput {
         return when (inputData) {
             is Timer.Set -> {
-                val duration = inputData.duration?.let {
-                    ctx.parserFormatter?.extractDuration(it)?.first?.toJavaDuration()
-                }
-                if (duration == null) {
+                if (inputData.duration == null) {
                     TimerOutput.SetAskDuration { setTimer(ctx, it, inputData.name) }
                 } else {
-                    setTimer(ctx, duration, inputData.name)
+                    setTimer(ctx, inputData.duration.toJavaDuration(), inputData.name)
                 }
             }
             is Timer.Query -> {

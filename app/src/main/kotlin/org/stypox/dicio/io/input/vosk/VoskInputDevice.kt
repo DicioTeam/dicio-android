@@ -49,6 +49,7 @@ import org.stypox.dicio.io.input.vosk.VoskState.NotDownloaded
 import org.stypox.dicio.io.input.vosk.VoskState.NotInitialized
 import org.stypox.dicio.io.input.vosk.VoskState.NotLoaded
 import org.stypox.dicio.io.input.vosk.VoskState.Unzipping
+import org.stypox.dicio.settings.datastore.UserSettings
 import org.stypox.dicio.ui.util.Progress
 import org.stypox.dicio.util.FileToDownload
 import org.stypox.dicio.util.LocaleUtils
@@ -68,6 +69,7 @@ class VoskInputDevice(
     @ApplicationContext appContext: Context,
     private val okHttpClient: OkHttpClient,
     localeManager: LocaleManager,
+    private val silencesBeforeStop: StateFlow<Int>
 ) : SttInputDevice {
 
     private val _state: MutableStateFlow<VoskState>
@@ -83,7 +85,6 @@ class VoskInputDevice(
     private val sameModelUrlCheck: File get() = File(filesDir, "vosk-model-url")
     private val modelDirectory: File get() = File(filesDir, "vosk-model")
     private val modelExistFileCheck: File get() = File(modelDirectory, "ivector")
-
 
     init {
         // Run blocking, because the locale is always available right away since LocaleManager also
@@ -420,7 +421,7 @@ class VoskInputDevice(
         eventListener: (InputEvent) -> Unit,
     ) {
         _state.value = Listening(speechService, eventListener)
-        speechService.startListening(VoskListener(this, eventListener, speechService))
+        speechService.startListening(VoskListener(this, eventListener, silencesBeforeStop.value, speechService))
     }
 
     /**

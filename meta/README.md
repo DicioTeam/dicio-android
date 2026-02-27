@@ -16,7 +16,7 @@ The launcher icon can be generated using [IconKitchen](https://icon.kitchen). Th
 - **Effect: Drop shadow**
 - **Padding: 17%**
 - Background type: Color
-- **Bakcground color: `#daec21`** from above
+- **Background color: `#daec21`** from above
 - Texture: None
 - Badge: none
 - Filename: none (defaults to `ic_launcher`)

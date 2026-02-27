@@ -1,6 +1,7 @@
 package org.stypox.dicio.di
 
 import android.content.Context
+import android.util.Log
 import androidx.datastore.core.DataStore
 import dagger.Module
 import dagger.Provides
@@ -28,12 +29,42 @@ import org.stypox.dicio.util.distinctUntilChangedBlockingFirst
 import javax.inject.Singleton
 
 interface WakeDeviceWrapper {
+    /**
+     * @see [WakeDevice.state]
+     */
     val state: StateFlow<WakeState?>
+
+    /**
+     * @see [WakeDevice.isHeyDicio]
+     */
     val isHeyDicio: StateFlow<Boolean>
 
+    /**
+     * @see [WakeDevice.download]
+     */
     fun download()
+
+    /**
+     * @see [WakeDevice.processFrame]
+     */
     fun processFrame(audio16bitPcm: ShortArray): Boolean
+
+    /**
+     * @see [WakeDevice.frameSize]
+     */
     fun frameSize(): Int
+
+    /**
+     * Destroys and initializes from scratch the current [WakeDevice].
+     */
+    fun reinitialize()
+
+    /**
+     * Same as [reinitialize], but runs only if the current [WakeDevice] is using up precious
+     * resources, otherwise does nothing to prevent [WakeState.ErrorLoading]s from being destroyed
+     * together with the (failing) [WakeDevice].
+     * @see [WakeDevice.isOccupyingResources]
+     */
     fun reinitializeToReleaseResources()
 }
 
@@ -86,6 +117,7 @@ class WakeDeviceWrapperImpl(
     }
 
     private fun changeWakeDeviceTo(setting: DataStoreWakeDevice) {
+        Log.d(TAG, "changeWakeDeviceTo($setting) called")
         currentSetting = setting
         val newWakeDevice = buildInputDevice(setting)
         lastFrameHadWrongSize = false
@@ -133,8 +165,18 @@ class WakeDeviceWrapperImpl(
         return currentDevice.value?.frameSize() ?: 0
     }
 
-    override fun reinitializeToReleaseResources() {
+    override fun reinitialize() {
         changeWakeDeviceTo(currentSetting)
+    }
+
+    override fun reinitializeToReleaseResources() {
+        if (currentDevice.value?.isOccupyingResources() ?: true) {
+            reinitialize()
+        }
+    }
+
+    companion object {
+        const val TAG: String = "WakeDeviceWrapper"
     }
 }
 

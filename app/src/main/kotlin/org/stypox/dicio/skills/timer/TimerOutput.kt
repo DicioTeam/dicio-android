@@ -59,7 +59,7 @@ sealed interface TimerOutput : SkillOutput {
                 ): Pair<Score, Duration?> {
                     val duration = ctx.parserFormatter!!
                         .extractDuration(input)
-                        .first
+                        .parseFirst()
                         ?.toJavaDuration()
 
                     return Pair(

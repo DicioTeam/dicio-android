@@ -10,6 +10,7 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MICROPHONE" />
     <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
+    <uses-permission android:name="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE" tools:ignore="ProtectedPermissions"/>
 
     <!-- required by the download manager for APIs < Q -->
     <uses-permission
@@ -99,6 +100,17 @@
             <meta-data
                 android:name="android.speech"
                 android:resource="@xml/stt_service_metadata" />
+        </service>
+
+        <service
+            android:name=".skills.notify.NotifyHandler"
+            android:description="@string/skill_notify_handler_label"
+            android:label="@string/skill_notify_handler_label"
+            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.service.notification.NotificationListenerService" />
+            </intent-filter>
         </service>
 
         <receiver

@@ -1,0 +1,4 @@
+translate:
+  - bitte? übersetz<e?> (mir|uns)? .query. ((von|vom|aus dem? .source.)? (zu|zum|in<s?> .target.)?)|(zu|zum|in<s?> .target. von|vom|aus .source.) (für mich|uns)?
+  - ((ich will)|(wir wollen) wissen)|(sag<e?> mir|uns)? (was|wie ist|heißt|bedeutet .query. in|im|auf .target.)|((was|wie)? .query. in|im|auf .target. (ist|heißt|bedeutet)?)
+  - wie könn<t?><e?><n?>|würd<e?><n?>|soll<te?><n?>|tu<t?><en?>|kann|sag<t?><e?><n?>|nenn<t?><e?><n?> ich|man|du|jemand|jemensch|du|leute|menschen|personen (.query. in|im|auf .target. (sagen|nennen)?)|(in|im|auf .target. .query. (sagen|nennen)?)

@@ -84,7 +84,7 @@ class OpenWakeWordDevice(
         }
 
         if (model == null) {
-            if (_state.value != WakeState.NotLoaded) {
+            if (_state.value.let { it != WakeState.NotLoaded && it !is WakeState.ErrorLoading }) {
                 throw IOException("Model has not been downloaded yet")
             }
 
@@ -97,8 +97,9 @@ class OpenWakeWordDevice(
                 )
                 _state.value = WakeState.Loaded
             } catch (t: Throwable) {
+                Log.e(TAG, "Failed to load model", t)
                 _state.value = WakeState.ErrorLoading(t)
-                return false
+                throw t
             }
         }
 
@@ -112,6 +113,8 @@ class OpenWakeWordDevice(
     override fun frameSize(): Int {
         return OwwModel.MEL_INPUT_COUNT
     }
+
+    override fun isOccupyingResources(): Boolean = model != null
 
     override fun destroy() {
         model?.close()

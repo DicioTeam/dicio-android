@@ -1,4 +1,4 @@
-Dicio je <i>svobodný</i> <b>hlasový asistent</b> s <i>otevřeným zdrojovým kódem</i>. Podporuje mnoho různých <b>dovedností</b> a vstupních/výstupních metod a poskytuje jak <b>řečovou</b>, tak <b>grafickou</b> zpětnou vazbu na otázku. Pro převod <i>řeči na text</i> používá program <a href="https://github.com/alphacep/vosk-api/">Vosk</a>. Má <b>vícejazyčnou</b> podporu a v současné době je k dispozici v češtině, nizozemštině, angličtině, francouzštině, němčině, řečtině, italštině, ruštině, slovinštině a španělštině.
+Dicio je <i>svobodný</i> <b>hlasový asistent</b> s <i>otevřeným zdrojovým kódem</i>. Podporuje mnoho různých <b>dovedností</b> a vstupních/výstupních metod a poskytuje jak <b>řečovou</b>, tak <b>grafickou</b> zpětnou vazbu na otázku. Pro převod <i>řeči na text</i> používá program <a href="https://github.com/alphacep/vosk-api/">Vosk</a>. Má <b>vícejazyčnou</b> podporu a v současné době je k dispozici v češtině, nizozemštině, angličtině, francouzštině, němčině, řečtině, italštině, ruštině, slovinštině, španělštině a turštině.
 
 Dicio odpovídá na otázky týkající se:
 <ul>

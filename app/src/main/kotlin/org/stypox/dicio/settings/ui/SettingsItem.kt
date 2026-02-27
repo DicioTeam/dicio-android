@@ -37,6 +37,7 @@ fun SettingsItem(
     icon: ImageVector? = null,
     description: String? = null,
     content: (@Composable () -> Unit)? = null,
+    innerContent: (@Composable () -> Unit)? = null,
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
@@ -69,6 +70,10 @@ fun SettingsItem(
                     text = description,
                     style = MaterialTheme.typography.bodyMedium,
                 )
+            }
+            if (innerContent != null) {
+                Spacer(modifier = Modifier.height(3.dp))
+                innerContent()
             }
         }
         if (content != null) {

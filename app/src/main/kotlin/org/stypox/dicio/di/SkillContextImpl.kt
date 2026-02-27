@@ -10,6 +10,7 @@ import org.stypox.dicio.io.speech.NothingSpeechDevice
 import java.util.Locale
 import javax.inject.Inject
 import javax.inject.Singleton
+import org.dicio.skill.standard.util.MatchHelper
 
 @Singleton
 class SkillContextImpl private constructor(
@@ -52,6 +53,8 @@ class SkillContextImpl private constructor(
         }
 
     override var previousOutput: SkillOutput? = null
+
+    override var standardMatchHelper: MatchHelper? = null
 
     companion object {
         fun newForPreviews(context: Context): SkillContextImpl {

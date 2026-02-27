@@ -1,13 +1,18 @@
 package org.dicio.skill.standard.construct
 
 import org.dicio.skill.standard.StandardScore
-import org.dicio.skill.standard.capture.StringRangeCapture
+import org.dicio.skill.standard.capture.StringCapture
 import org.dicio.skill.standard.util.MatchHelper
 import org.dicio.skill.standard.util.normalizeMemToEnd
 
 data class CapturingConstruct(
     private val name: String,
-    private val weight: Float
+    // By default, don't assign extra points for having matched a capturing group: the fact that the
+    // capturing group can match any part of the input already gives enough points from the words
+    // that were actually matched. Also, if there is an optional word next to a capturing group that
+    // matches with an input word, this will ensure that it is not included in the capturing group
+    // but is instead matched.
+    private val weight: Float = 0.0f,
 ) : Construct {
     override fun matchToEnd(memToEnd: Array<StandardScore>, helper: MatchHelper) {
         val cumulativeWeight = helper.cumulativeWeight
@@ -34,7 +39,7 @@ data class CapturingConstruct(
                 userWeight = userWeight,
                 refMatched = weight,
                 refWeight = weight,
-                capturingGroup = StringRangeCapture(name, start, lastCapturingGroupEnd),
+                capturingGroup = StringCapture(name, start, lastCapturingGroupEnd),
             )
 
             if (ifContinuingCapturingGroup.score() >= ifSkippingCapturingGroup.score()) {

@@ -15,9 +15,11 @@ import androidx.compose.material.icons.filled.BookmarkAdded
 import androidx.compose.material.icons.filled.BookmarkRemove
 import androidx.compose.material.icons.filled.Pets
 import androidx.compose.material3.Card
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.RadioButton
+import androidx.compose.material3.Slider
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -44,6 +46,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import kotlinx.coroutines.job
 import org.stypox.dicio.R
+import kotlin.math.roundToInt
 
 interface SettingWithValue<T> {
     @Composable
@@ -73,6 +76,38 @@ class BooleanSetting(
                 Switch(
                     checked = value,
                     onCheckedChange = onValueChange,
+                )
+            },
+        )
+    }
+}
+
+class IntSetting(
+    private val title: String,
+    private val minimum: Int,
+    private val maximum: Int,
+    private val icon: ImageVector? = null,
+    private val description: (@Composable (Int) -> String)? = null,
+) : SettingWithValue<Int> {
+    init {
+        assert(maximum > minimum)
+    }
+
+    @Composable
+    override fun Render(
+        value: Int,
+        onValueChange: (Int) -> Unit,
+    ) {
+        SettingsItem(
+            title = title,
+            icon = icon,
+            description = description?.invoke(value),
+            innerContent = {
+                Slider(
+                    value = value.toFloat(),
+                    onValueChange = { onValueChange(it.roundToInt()) },
+                    steps = maximum - minimum - 1,
+                    valueRange = minimum.toFloat()..maximum.toFloat()
                 )
             },
         )

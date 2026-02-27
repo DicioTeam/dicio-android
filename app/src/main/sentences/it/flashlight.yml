@@ -1,0 +1,6 @@
+turn_on:
+  - accendi<mi?>|illumina<mi?>|attiva<mi?>|abilita<mi?> il|lo|la torcia|luce|lampadina|flash
+  - fai|fammi luce
+
+turn_off:
+  - spegni<mi?>|togli<mi?>|disattiva<mi?>|abilita<mi?> il|lo|la torcia|luce|lampadina|flash

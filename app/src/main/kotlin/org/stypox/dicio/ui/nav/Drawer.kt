@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.RecordVoiceOver
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Icon
@@ -34,6 +35,7 @@ import org.stypox.dicio.R
 @Composable
 fun DrawerContent(
     onSettingsClick: () -> Unit,
+    onAboutClick: () -> Unit,
     onSpeechToTextPopupClick: () -> Unit,
     closeDrawer: () -> Unit,
 ) {
@@ -67,13 +69,23 @@ fun DrawerContent(
             },
             modifier = Modifier.padding(horizontal = 12.dp),
         )
+
+        DrawerItem(
+            icon = Icons.Default.Info,
+            label = R.string.about,
+            onClick = {
+                onAboutClick()
+                closeDrawer()
+            },
+            modifier = Modifier.padding(horizontal = 12.dp),
+        )
     }
 }
 
 @Preview
 @Composable
 private fun DrawerContentPreview() {
-    DrawerContent(onSettingsClick = {}, onSpeechToTextPopupClick = {}, closeDrawer = {})
+    DrawerContent(onSettingsClick = {}, onAboutClick = {}, onSpeechToTextPopupClick = {}, closeDrawer = {})
 }
 
 @Preview

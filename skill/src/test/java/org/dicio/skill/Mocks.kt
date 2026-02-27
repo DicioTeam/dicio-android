@@ -12,14 +12,16 @@ import org.dicio.skill.old_standard_impl.StandardRecognizerData
 import org.dicio.skill.old_standard_impl.StandardRecognizerSkill
 import org.dicio.skill.old_standard_impl.StandardResult
 import java.util.Locale
+import org.dicio.skill.standard.util.MatchHelper
 
-object MockSkillContext : SkillContext {
+class MockSkillContext : SkillContext {
     override val android: Context get() = mocked()
     override val locale: Locale get() = mocked()
     override val sentencesLanguage: String get() = mocked()
     override val parserFormatter: ParserFormatter get() = mocked()
     override val speechOutputDevice: SpeechOutputDevice get() = mocked()
-    override val previousOutput: SkillOutput = mocked()
+    override val previousOutput: SkillOutput get() = mocked()
+    override var standardMatchHelper: MatchHelper? = null
 }
 
 object MockSkillInfo : SkillInfo("") {

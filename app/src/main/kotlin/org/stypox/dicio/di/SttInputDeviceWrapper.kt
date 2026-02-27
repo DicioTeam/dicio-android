@@ -9,6 +9,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -24,15 +25,15 @@ import org.stypox.dicio.io.input.SttState
 import org.stypox.dicio.io.input.external_popup.ExternalPopupInputDevice
 import org.stypox.dicio.io.input.vosk.VoskInputDevice
 import org.stypox.dicio.settings.datastore.InputDevice
-import org.stypox.dicio.settings.datastore.InputDevice.INPUT_DEVICE_NOTHING
 import org.stypox.dicio.settings.datastore.InputDevice.INPUT_DEVICE_EXTERNAL_POPUP
+import org.stypox.dicio.settings.datastore.InputDevice.INPUT_DEVICE_NOTHING
 import org.stypox.dicio.settings.datastore.InputDevice.INPUT_DEVICE_UNSET
 import org.stypox.dicio.settings.datastore.InputDevice.INPUT_DEVICE_VOSK
 import org.stypox.dicio.settings.datastore.InputDevice.UNRECOGNIZED
 import org.stypox.dicio.settings.datastore.SttPlaySound
 import org.stypox.dicio.settings.datastore.UserSettings
 import org.stypox.dicio.util.distinctUntilChangedBlockingFirst
-import javax.inject.Singleton
+import org.stypox.dicio.util.toStateFlowDistinctBlockingFirst
 
 
 interface SttInputDeviceWrapper {
@@ -58,6 +59,7 @@ class SttInputDeviceWrapperImpl(
 
     private var inputDeviceSetting: InputDevice
     private var sttPlaySoundSetting: SttPlaySound
+    private val silencesBeforeStop: StateFlow<Int>
     private var sttInputDevice: SttInputDevice?
 
     // null means that the user has not enabled any STT input device
@@ -75,6 +77,8 @@ class SttInputDeviceWrapperImpl(
 
         inputDeviceSetting = firstSettings.first
         sttPlaySoundSetting = firstSettings.second
+        silencesBeforeStop = dataStore.data.map(SttInputDevice::getSttSilenceDurationOrDefault)
+            .toStateFlowDistinctBlockingFirst(scope)
         sttInputDevice = buildInputDevice(inputDeviceSetting)
         scope.launch {
             restartUiStateJob()
@@ -102,7 +106,7 @@ class SttInputDeviceWrapperImpl(
         return when (setting) {
             UNRECOGNIZED,
             INPUT_DEVICE_UNSET,
-            INPUT_DEVICE_VOSK -> VoskInputDevice(appContext, okHttpClient, localeManager)
+            INPUT_DEVICE_VOSK -> VoskInputDevice(appContext, okHttpClient, localeManager, silencesBeforeStop)
             INPUT_DEVICE_EXTERNAL_POPUP ->
                 ExternalPopupInputDevice(appContext, activityForResultManager, localeManager)
             INPUT_DEVICE_NOTHING -> null

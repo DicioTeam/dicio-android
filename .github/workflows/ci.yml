@@ -1,0 +1,59 @@
+name: Continuous integration
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches:
+      - master
+      - main
+    paths-ignore:
+      - 'README.md'
+      - 'fastlane/**'
+      - 'meta/**'
+      - '.github/**/*.md'
+      - '.github/FUNDING.yml'
+      - '.github/ISSUE_TEMPLATE/**'
+  push:
+    branches:
+      - master
+      - main
+    paths-ignore:
+      - 'README.md'
+      - 'fastlane/**'
+      - 'meta/**'
+      - '.github/**/*.md'
+      - '.github/FUNDING.yml'
+      - '.github/ISSUE_TEMPLATE/**'
+
+jobs:
+  build-and-test-jvm:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Make sure Gradle wrapper is legitimate
+        uses: gradle/actions/wrapper-validation@v5
+
+      - name: Create and checkout branch that will be used as app name
+        # push events already checked out the branch
+        if: github.event_name == 'pull_request'
+        env:
+          BRANCH: ${{ github.head_ref }}
+        run: git checkout -B "$BRANCH"
+
+      - name: Set up Java JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: 21
+          distribution: "temurin"
+          cache: 'gradle'
+
+      - name: Build debug APK and run jvm tests
+        run: ./gradlew assembleDebug lintDebug testDebugUnitTest --stacktrace
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v6
+        with:
+          name: app
+          path: app/build/outputs/apk/debug/*.apk

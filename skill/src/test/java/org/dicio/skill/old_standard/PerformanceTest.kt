@@ -3,6 +3,7 @@ package org.dicio.skill.old_standard
 import io.kotest.core.annotation.Ignored
 import io.kotest.core.spec.style.FunSpec
 import org.dicio.skill.benchmarkContext
+import org.dicio.skill.context.SkillContext
 import org.dicio.skill.skill.Specificity
 import org.dicio.skill.old_standard_impl.Sentence
 import org.dicio.skill.old_standard_impl.StandardRecognizerData
@@ -31,7 +32,7 @@ class PerformanceTest : FunSpec({
     }
 })
 
-fun scoreFunction(data: StandardRecognizerData): (String) -> Unit = { input ->
+fun scoreFunction(data: StandardRecognizerData): (SkillContext, String) -> Unit = { _, input ->
     val inputWords: List<String> = WordExtractor.extractWords(input)
     val normalizedWordKeys: List<String> = WordExtractor.normalizeWords(inputWords)
     data.score(input, inputWords, normalizedWordKeys)

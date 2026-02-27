@@ -1,0 +1,14 @@
+play:
+  - (şarkı<yı|ya?>|medya<yı|ya?>|parça<yı|ya?>|müzi<k|ği|ğe?>|ses<i|e?>|video<yu|ya?>|dizi<yi|ye?>|yayın<ı|a?>|film<i|e?>) oynat|(devam et<tir?>)|(duraklatmayı kaldır<t?>)|başla<t?>|(yeniden başla<t?>)
+  - oynatıcı<ya|yı?> aç|başlat|(devam ettir)|başla
+
+pause:
+  - (şarkı<yı|ya?>|medya<yı|ya?>|parça<yı|ya?>|müzi<k|ği|ğe?>|ses<i|e?>|video<yu|ya?>|dizi<yi|ye?>|yayın<ı|a?>|film<i|e?>) durdur<t?>|beklet|kapat|(beklemeye|bekletmeye|beklet (koy|bırak)?)
+
+previous:
+  - (bir? önceki)|son|(bir? gerideki) (şarkı<yı|ya?>|medya<yı|ya?>|parça<yı|ya?>|müzi<k|ği|ğe?>|ses<i|e?>|video<yu|ya?>|dizi<yi|ye?>|yayın<ı|a?>|film<i|e?>) (yeniden? oynat)|geri|değiş|dön|(geri sar<dır|dırt?>)|(geri<ye?> git)?
+  - geri sar
+
+next:
+  - (bir? sonraki)|(bir? ilerideki|sıradaki) (şarkı<yı|ya?>|medya<yı|ya?>|parça<yı|ya?>|müzi<k|ği|ğe?>|ses<i|e?>|video<yu|ya?>|dizi<yi|ye?>|yayın<ı|a?>|film<i|e?>) geç|oynat|git|değiş<tir?>|geç|zıpla|(ileri sar<dır|dırt?>)
+  - ileri sar

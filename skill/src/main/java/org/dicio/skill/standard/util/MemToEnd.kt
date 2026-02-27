@@ -24,3 +24,9 @@ fun normalizeMemToEnd(memToEnd: Array<StandardScore>, cumulativeWeight: FloatArr
         )
     }
 }
+
+fun addRefWeightEverywhere(memToEnd: Array<StandardScore>, refWeight: Float) {
+    for (i in memToEnd.indices) {
+        memToEnd[i] = memToEnd[i].plus(refWeight = refWeight)
+    }
+}
