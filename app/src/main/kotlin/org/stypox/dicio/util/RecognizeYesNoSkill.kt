@@ -15,7 +15,7 @@ abstract class RecognizeYesNoSkill(
         ctx: SkillContext,
         input: String
     ): Pair<Score, Boolean> {
-        return data.score(input).let { (score, standardResult) ->
+        return data.score(ctx, input).let { (score, standardResult) ->
             Pair(score, standardResult is UtilYesNo.Yes)
         }
     }

@@ -1,14 +1,14 @@
 stop:
-  - (stopp<e?>|beende das)|(nicht mehr) zuhören|lauschen
+  - (stopp<e?>|beende das)|(nicht mehr) zuhören|(zu hören)|lauschen
   - hör<e?> auf zuzuhören|(zu lauschen)
   - mach<e?>? das? mikro<fon?> aus|stumm<schalten?>
   - hör<e?> mal weg
   - zuhören|lauschen aus|stoppe<n?>|beenden|aufhören|unterlassen
 
 start:
-  - (start<e?>|beginn<e?> das) zuhören
+  - (start<e?>|beginn<e?> das) zuhören|(zu hören)
   - beginn<e?>|(fang an) zuzuhören
   - mach<e?>? das? mikro<fon?> an
-  - hör<e?> mir|uns|mal zu
+  - hör<e?> (mir|uns)? mal? zu
   - zuhören|lauschen an|beginnen|anfangen
-
+  - hör<e?>|wart<e?>|lausch<e?> auf das schlüsselwort|aktivierungswort|wort

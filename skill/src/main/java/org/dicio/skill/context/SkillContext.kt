@@ -4,6 +4,7 @@ import android.content.Context
 import org.dicio.numbers.ParserFormatter
 import org.dicio.skill.skill.SkillOutput
 import java.util.Locale
+import org.dicio.skill.standard.util.MatchHelper
 
 /**
  * An interface for providing access to various services and information to skills. Contains the
@@ -46,4 +47,11 @@ interface SkillContext {
      * The previous output belonging to the same interaction.
      */
     val previousOutput: SkillOutput?
+
+    /**
+     * Used by skills that use [org.dicio.skill.standard.StandardRecognizerData] to cache scoring
+     * information across different skills. Will be `!= null` only while the input is being
+     * processed, i.e. inside the body of [org.dicio.skill.skill.Skill.score].
+     */
+    val standardMatchHelper: MatchHelper?
 }

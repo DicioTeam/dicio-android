@@ -1,0 +1,5 @@
+current:
+  - (.where.<n?><da|de|daki|deki>?)? hava (durumu|tahmini|raporu|durumu) (nedir|nası<l?>|(ne gibi))?
+  - hava (durumu|tahmini|raporu|durumu) (nedir|nası<l?>|(ne gibi))? (.where.<n?><da|de|daki|deki>?)?
+  - dışarıda hava nası<l?>
+  - dışarıda hava soğuk|serin|sıcak|güneşli|yağmurlu|yağmur yağıyor <mu|mı|mi|mü>?

@@ -11,16 +11,21 @@ import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 import kotlin.time.TimeSource
 import kotlin.time.measureTime
+import org.dicio.skill.context.SkillContext
+import org.dicio.skill.standard.util.MatchHelper
 
 const val saveFolder = "benchmarks/999_current"
 
 fun FunSpec.benchmarkContext(
     name: String,
-    scoreFunction: (String) -> Unit,
+    scoreFunction: (SkillContext, String) -> Unit,
     f: suspend BenchmarkRunner.() -> Unit
 ) {
     context(name) {
-        val runner = BenchmarkRunner(this, name, scoreFunction)
+        val runner = BenchmarkRunner(this, name) { skillContext, input ->
+            skillContext.standardMatchHelper = MatchHelper(null, input)
+            scoreFunction(skillContext, input)
+        }
         f(runner)
         runner.saveJson()
     }
@@ -29,14 +34,15 @@ fun FunSpec.benchmarkContext(
 class BenchmarkRunner(
     private val funSpec: FunSpecContainerScope,
     private val name: String,
-    private val scoreFunction: (String) -> Unit,
+    private val scoreFunction: (MockSkillContext, String) -> Unit,
 ) {
     private var incrementalJsonData = "[]"
     private var benchmarksJsonData = ArrayList<String>()
+    private val skillContext = MockSkillContext()
 
     fun warmup(vararg inputs: String) {
         for (input in inputs) {
-            scoreFunction(input)
+            scoreFunction(skillContext, input)
         }
     }
 
@@ -60,7 +66,7 @@ class BenchmarkRunner(
             val wantedPoints = 20
             val results = ArrayList<Pair<Int, Duration>>()
             val input = StringBuilder()
-            results.add(Pair(0, measureTime { scoreFunction("") }))
+            results.add(Pair(0, measureTime { scoreFunction(skillContext, "") }))
 
             var skipUntilSize = 1
             // limit increment initially, since at small values the slope is not reliable
@@ -71,7 +77,7 @@ class BenchmarkRunner(
                     val currSize = input.length
                     val currTime = try {
                         val inputToString = input.toString()
-                        measureTime { scoreFunction(inputToString) }
+                        measureTime { scoreFunction(skillContext, inputToString) }
                     } catch (e: StackOverflowError) {
                         break
                     }
@@ -103,7 +109,7 @@ class BenchmarkRunner(
         val endMark = startMark.plus(2.seconds)
         var times = 0
         while (endMark.hasNotPassedNow()) {
-            scoreFunction(input)
+            scoreFunction(skillContext, input)
             times += 1
         }
 

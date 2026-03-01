@@ -107,7 +107,7 @@ private fun assertRecognized(
     capturingGroups: Map<String, String>
 ) {
     val inputWords = extractWords(input)
-    val (score, result) = sr.score(MockSkillContext, input)
+    val (score, result) = sr.score(MockSkillContext(), input)
     result.sentenceId shouldBe sentenceId
 
     if (a == b) {

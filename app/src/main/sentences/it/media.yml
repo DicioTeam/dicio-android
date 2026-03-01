@@ -1,7 +1,7 @@
 play:
-  - riproduc<i|e>
+  - riproduc<i|e>|riprend<i|e>
   - togli (il|lo|l|la? canzone|traccia|musica|audio|brano|video)? dalla|la? pausa
-  - riproduc<i|e>|((fai partire|andare)|avvia (la riproduzione)?)|metti|(continua|riprendi (a suonare|riprodurre)?) un<o|a?>|(di un<o|a?>)|del<l|la?>|il|lo|l|la? canzone|traccia|musica|audio|brano|video
+  - riproduc<i|e>|riprend<i|e>|((fai partire|andare)|avvia (la riproduzione)?)|metti|(continua|riprendi (a suonare|riprodurre)?) un<o|a?>|(di un<o|a?>)|del<l|la?>|il|lo|l|la? canzone|traccia|musica|audio|brano|video
 
 pause:
   - (metti (il|lo|l|la? canzone|traccia|musica|audio|brano|video)? in)? pausa

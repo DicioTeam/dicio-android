@@ -11,6 +11,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.ActivityResultLauncher
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.remember
 import androidx.datastore.core.DataStore
 import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.EntryPointAccessors
@@ -45,6 +46,7 @@ abstract class BaseActivity : ComponentActivity() {
         for (resources in sequenceOf(resources, applicationContext.resources)) {
             val configuration = resources.configuration
             configuration.setLocale(locale)
+            @Suppress("DEPRECATION") // there is no other way to do this
             resources.updateConfiguration(configuration, resources.displayMetrics)
         }
     }
@@ -87,8 +89,10 @@ abstract class BaseActivity : ComponentActivity() {
      */
     fun composeSetContent(content: @Composable () -> Unit) {
         setContent {
-            val theme = dataStore.data
-                .map { Pair(it.theme, it.dynamicColors) }
+            val theme = remember {
+                dataStore.data
+                    .map { Pair(it.theme, it.dynamicColors) }
+            }
                 .collectAsState(
                     // run blocking, because we can't start the app if we don't know the theme
                     initial = runBlocking {

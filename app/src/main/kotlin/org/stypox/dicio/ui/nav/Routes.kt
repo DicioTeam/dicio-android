@@ -10,3 +10,6 @@ object MainSettings
 
 @Serializable
 object SkillSettings
+
+@Serializable
+object About

@@ -9,6 +9,7 @@ import androidx.compose.material.icons.filled.Cloud
 import androidx.compose.material.icons.filled.ColorLens
 import androidx.compose.material.icons.filled.DarkMode
 import androidx.compose.material.icons.filled.Hearing
+import androidx.compose.material.icons.filled.HourglassEmpty
 import androidx.compose.material.icons.filled.InvertColors
 import androidx.compose.material.icons.filled.KeyboardAlt
 import androidx.compose.material.icons.filled.Language
@@ -30,6 +31,7 @@ import org.stypox.dicio.settings.datastore.SttPlaySound
 import org.stypox.dicio.settings.datastore.Theme
 import org.stypox.dicio.settings.datastore.WakeDevice
 import org.stypox.dicio.settings.ui.BooleanSetting
+import org.stypox.dicio.settings.ui.IntSetting
 import org.stypox.dicio.settings.ui.ListSetting
 
 
@@ -54,6 +56,7 @@ fun languageSetting() = ListSetting(
         ListSetting.Value(Language.LANGUAGE_SL, "Slovenščina"),
         ListSetting.Value(Language.LANGUAGE_SV, "Svenska"),
         ListSetting.Value(Language.LANGUAGE_UK, "Українська"),
+        ListSetting.Value(Language.LANGUAGE_TR, "Türkçe"),
     ),
 )
 
@@ -168,6 +171,15 @@ fun speechOutputDevice() = ListSetting(
             name = stringResource(R.string.pref_speech_output_method_nothing),
         ),
     ),
+)
+
+@Composable
+fun sttSilenceDuration() = IntSetting(
+    title = stringResource(R.string.pref_stt_silence_duration_title),
+    icon = Icons.Default.HourglassEmpty,
+    description = @Composable { stringResource(R.string.pref_stt_silence_duration_description, it) },
+    minimum = 1,
+    maximum = 7,
 )
 
 @Composable

@@ -2,8 +2,8 @@ package org.dicio.skill.standard
 
 import org.dicio.skill.skill.Score
 import org.dicio.skill.standard.capture.Capture
-import org.dicio.skill.standard.capture.NamedCapture
-import org.dicio.skill.standard.capture.StringRangeCapture
+import org.dicio.skill.standard.capture.ParsedDataCapture
+import org.dicio.skill.standard.capture.StringCapture
 
 data class StandardScore(
     val userMatched: Float,
@@ -48,7 +48,7 @@ data class StandardScore(
         }
     }
 
-    fun exploreCapturingGroupsTree(node: Any?, name: String): NamedCapture? {
+    fun exploreCapturingGroupsTree(node: Any?, name: String): Capture? {
         return when (node) {
             null ->
                 null
@@ -57,7 +57,7 @@ data class StandardScore(
                 exploreCapturingGroupsTree(node.first, name)
                     ?: exploreCapturingGroupsTree(node.second, name)
 
-            is NamedCapture ->
+            is Capture ->
                 if (node.name == name) node else null
 
             else ->
@@ -71,16 +71,15 @@ data class StandardScore(
 
     inline fun <reified T> getCapturingGroup(userInput: String, name: String): T? {
         val result = exploreCapturingGroupsTree(capturingGroups, name) ?: return null
-        return when {
-            result is Capture && result.value is T ->
-                result.value
-
-            result is StringRangeCapture && T::class == String::class ->
+        return when (result) {
+            is StringCapture if T::class == String::class ->
                 userInput.subSequence(result.start, result.end) as T
 
-            else ->
-                throw IllegalArgumentException("Capturing group \"$name\" has wrong type: expectedType=${
-                    T::class.simpleName}, actualType=${result::class.simpleName}, actualValue=\"$result\"")
+            is ParsedDataCapture<*> if result.parsedData is T ->
+                result.parsedData
+
+            else -> throw IllegalArgumentException("Capturing group \"$name\" has wrong type: expectedType=${
+                T::class.simpleName}, actualType=${result::class.simpleName}, actualValue=\"$result\"")
         }
     }
 

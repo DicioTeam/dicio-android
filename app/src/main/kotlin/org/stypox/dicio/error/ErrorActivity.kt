@@ -99,7 +99,7 @@ class ErrorActivity : BaseActivity() {
         val CURRENT_TIMESTAMP_FORMATTER: DateTimeFormatter =
             DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
 
-        private fun getOsInfo(): String {
+        fun getOsInfo(): String {
             val osBase = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
                 Build.VERSION.BASE_OS
             else

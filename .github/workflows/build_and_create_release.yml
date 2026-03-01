@@ -77,7 +77,7 @@ jobs:
           "$APKSIGNER" sign --ks ./keystore.jks --ks-key-alias "$KEY_ALIAS" --ks-pass "pass:$KEYSTORE_PASSWORD" "./apks/Dicio_${VERSION}.apk"
 
       - name: Upload artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: apks
           path: apks

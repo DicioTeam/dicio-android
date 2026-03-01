@@ -20,6 +20,7 @@ import org.stypox.dicio.R
 import org.stypox.dicio.io.input.stt_popup.SttPopupActivity
 import org.stypox.dicio.settings.MainSettingsScreen
 import org.stypox.dicio.settings.SkillSettingsScreen
+import org.stypox.dicio.ui.about.AboutScreen
 import org.stypox.dicio.ui.home.HomeScreen
 
 @Composable
@@ -41,6 +42,7 @@ fun Navigation() {
             val context = LocalContext.current
             ScreenWithDrawer(
                 onSettingsClick = { navController.navigate(MainSettings) },
+                onAboutClick = { navController.navigate(About) },
                 onSpeechToTextPopupClick = {
                     val intent = Intent(context, SttPopupActivity::class.java)
                     context.startActivity(intent)
@@ -60,12 +62,17 @@ fun Navigation() {
         composable<SkillSettings> {
             SkillSettingsScreen(navigationIcon = backIcon)
         }
+
+        composable<About> {
+            AboutScreen(navigationIcon = backIcon)
+        }
     }
 }
 
 @Composable
 fun ScreenWithDrawer(
     onSettingsClick: () -> Unit,
+    onAboutClick: () -> Unit,
     onSpeechToTextPopupClick: () -> Unit,
     screen: @Composable (navigationIcon: @Composable () -> Unit) -> Unit
 ) {
@@ -77,6 +84,7 @@ fun ScreenWithDrawer(
         drawerContent = {
             DrawerContent(
                 onSettingsClick = onSettingsClick,
+                onAboutClick = onAboutClick,
                 onSpeechToTextPopupClick = onSpeechToTextPopupClick,
                 closeDrawer = {
                     scope.launch {

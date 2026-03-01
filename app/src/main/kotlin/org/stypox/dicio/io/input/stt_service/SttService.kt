@@ -42,7 +42,7 @@ class SttService : RecognitionService() {
         // "und" is "Undetermined", see https://www.loc.gov/standards/iso639-2/php/code_list.php
         if (wantedLanguageExtra != null && wantedLanguageExtra != "und") {
             val appLanguage = localeManager.locale.value.language
-            val wantedLanguage = Locale(wantedLanguageExtra).language
+            val wantedLanguage = Locale.forLanguageTag(wantedLanguageExtra).language
             if (appLanguage != wantedLanguage) {
                 Log.e(TAG, "Unsupported language: app=$appLanguage wanted=$wantedLanguageExtra")
                 // From the javadoc of ERROR_LANGUAGE_UNAVAILABLE: Requested language is supported,

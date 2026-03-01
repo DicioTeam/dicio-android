@@ -23,10 +23,18 @@ class NavigationSkill(correspondingSkillInfo: SkillInfo, data: StandardRecognize
             // No number parser available, feed the spoken input directly to the map application.
             placeToNavigate.trim { it <= ' ' }
         } else {
-            val textWithNumbers: List<Any> = npf
+            val strNums: List<Any> = npf
                 .extractNumber(placeToNavigate)
                 .preferOrdinal(true)
-                .mixedWithText
+                .parseMixedWithText()
+                .flatMap { item ->
+                    if (item is String) {
+                        // allows checking whether there are two single letters next to each other
+                        splitWordsAndKeepInBetween.findAll(item).map { it.value }
+                    } else {
+                        sequenceOf(item)
+                    }
+                }
 
             // Given an address of "9546 19 avenue", the building number is 9546 and the street
             // number is 19.
@@ -41,15 +49,27 @@ class NavigationSkill(correspondingSkillInfo: SkillInfo, data: StandardRecognize
             // Based on these known issues, for the example address given above, the speech provided
             // by the user should be "nine thousand five hundred forty six nineteen(th) avenue".
             val placeToNavigateSB = StringBuilder()
-            for (currentItem in textWithNumbers) {
-                if (currentItem is String) {
-                    placeToNavigateSB.append(currentItem)
-                } else if (currentItem is Number) {
-                    if (currentItem.isInteger) {
-                        placeToNavigateSB.append(currentItem.integerValue())
-                    } else {
-                        placeToNavigateSB.append(currentItem.decimalValue())
+            for (i in strNums.indices) {
+                val curr = strNums[i]
+                if (curr is String) {
+                    if (i in 1..<(strNums.size - 1)
+                        && isSingleDigit(strNums[i - 1])
+                        && curr.isBlank()
+                        && isSingleDigit(strNums[i + 1])
+                    ) {
+                        // two consecutive digits or single letters likely go together,
+                        // so don't add the space
+                        continue
                     }
+                    placeToNavigateSB.append(curr)
+                } else if (curr is Number) {
+                    if (curr.isInteger) {
+                        placeToNavigateSB.append(curr.integerValue())
+                    } else {
+                        placeToNavigateSB.append(curr.decimalValue())
+                    }
+                } else {
+                    throw RuntimeException("Item $curr is neither String nor Number")
                 }
             }
             placeToNavigateSB.toString().trim { it <= ' ' }
@@ -61,5 +81,17 @@ class NavigationSkill(correspondingSkillInfo: SkillInfo, data: StandardRecognize
         ctx.android.startActivity(launchIntent)
 
         return NavigationOutput(cleanPlaceToNavigate)
+    }
+
+    companion object {
+        val splitWordsAndKeepInBetween = Regex("""\p{L}+|[^\p{L}]""")
+
+        fun isSingleDigit(strOrNum: Any): Boolean {
+            return when (strOrNum) {
+                is String -> strOrNum.length <= 1
+                is Number -> strOrNum.isInteger && strOrNum.integerValue() in 0..<10
+                else -> throw RuntimeException("Item $strOrNum is neither String nor Number")
+            }
+        }
     }
 }

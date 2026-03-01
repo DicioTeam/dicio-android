@@ -323,6 +323,7 @@ class WakeService : Service() {
          * 11+ use [createNotificationToStartLater] instead.
          */
         fun start(context: Context) {
+            Log.d(TAG, "WakeService.start() called from ${Throwable().stackTrace[1]}")
             val intent = Intent(context, WakeService::class.java)
             ContextCompat.startForegroundService(context, intent)
         }

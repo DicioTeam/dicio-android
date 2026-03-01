@@ -13,15 +13,21 @@ android {
     defaultConfig {
         minSdk = libs.versions.minSdk.get().toInt()
     }
+
     compileOptions {
+        // Flag to enable support for the new language APIs (needed for dicio-numbers LocalDateTime)
+        isCoreLibraryDesugaringEnabled = true
+
         sourceCompatibility = JavaVersion.toVersion(libs.versions.java.get())
         targetCompatibility = JavaVersion.toVersion(libs.versions.java.get())
     }
+
     kotlin {
         compilerOptions {
             jvmTarget = JvmTarget.fromTarget(libs.versions.java.get())
         }
     }
+
     buildFeatures {
         compose = true
     }
@@ -32,6 +38,9 @@ tasks.withType<Test>().configureEach {
 }
 
 dependencies {
+    // Desugaring (needed for dicio-numbers LocalDateTime)
+    coreLibraryDesugaring(libs.desugar.jdk.libs)
+
     // dicio-numbers is needed to bring ParserFormatter into the classpath
     implementation(libs.dicio.numbers)
 

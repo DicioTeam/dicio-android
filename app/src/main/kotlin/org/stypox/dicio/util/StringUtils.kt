@@ -8,25 +8,16 @@ import kotlin.math.max
 object StringUtils {
     private val PUNCTUATION_PATTERN = Pattern.compile("\\p{Punct}")
     private val WORD_DELIMITERS_PATTERN = Pattern.compile("[^\\p{L}\\d]")
+    const val DEFAULT_SEPARATOR = " • "
 
     /**
      * Joins strings using delimiter
-     * @param delimiter what to put in between strings
-     * @param strings a list of strings to join
-     * @return `string1 + delimiter + string2 + delimiter + ...
-     * + delimiter + stringN-1 + delimiter + stringN`
+     * @param separator what to put in between strings
+     * @param strings a list of strings to join; only the non-blank ones will be considered
+     * @return `string1 + separator + string2 + separator + ... + separator + stringN`
      */
-    fun join(strings: List<String>, delimiter: String = " "): String {
-        val builder = StringBuilder()
-        val iterator = strings.iterator()
-        if (iterator.hasNext()) {
-            builder.append(iterator.next())
-        }
-        while (iterator.hasNext()) {
-            builder.append(delimiter)
-            builder.append(iterator.next())
-        }
-        return builder.toString()
+    fun joinNonBlank(vararg strings: String?, separator: CharSequence = DEFAULT_SEPARATOR): String {
+        return strings.filter { !it.isNullOrBlank() }.joinToString(separator)
     }
 
     /**

@@ -1,0 +1,11 @@
+stop:
+  - arrête|cesse d<e?>? m? écouter
+  - (n écoute)|(ne m écoute) pas|plus
+  - (tais toi)|silence
+  - mute|coupe|désactive|éteins le? (micro phone?)|microphone
+  - coupe|désactive|éteins toi|(le son)
+
+start:
+  - commence|(mets toi)|recommence à? écouter
+  - <ré?>active|ouvre|rallume|démute le? (micro phone?)|microphone
+  - écoute le? (mot de? réveil)|(wake word)

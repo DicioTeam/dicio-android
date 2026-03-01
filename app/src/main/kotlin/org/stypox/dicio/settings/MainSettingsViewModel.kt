@@ -46,14 +46,14 @@ class MainSettingsViewModel @Inject constructor(
     fun addOwwUserWakeFile(uri: Uri) {
         viewModelScope.launch {
             OpenWakeWordDevice.addUserWakeFile(getApplication(), uri)
-            wakeDeviceWrapper?.reinitializeToReleaseResources()
+            wakeDeviceWrapper?.reinitialize()
         }
     }
 
     fun removeOwwUserWakeFile() {
         viewModelScope.launch {
             OpenWakeWordDevice.removeUserWakeFile(getApplication())
-            wakeDeviceWrapper?.reinitializeToReleaseResources()
+            wakeDeviceWrapper?.reinitialize()
         }
     }
 
@@ -71,6 +71,8 @@ class MainSettingsViewModel @Inject constructor(
         updateData { it.setSpeechOutputDevice(value) }
     fun setSttPlaySound(value: SttPlaySound) =
         updateData { it.setSttPlaySound(value) }
+    fun setSttSilenceDuration(value: Int) =
+        updateData { it.setSttSilenceDuration(value) }
     fun setAutoFinishSttPopup(value: Boolean) =
         updateData { it.setAutoFinishSttPopup(value) }
 }

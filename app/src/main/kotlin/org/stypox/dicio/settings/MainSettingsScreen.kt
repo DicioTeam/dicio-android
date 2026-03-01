@@ -32,6 +32,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import org.stypox.dicio.R
+import org.stypox.dicio.io.input.SttInputDevice
 import org.stypox.dicio.settings.datastore.InputDevice
 import org.stypox.dicio.settings.datastore.Language
 import org.stypox.dicio.settings.datastore.SpeechOutputDevice
@@ -185,6 +186,12 @@ private fun MainSettingsScreen(
                     else -> sttPlaySound
                 },
                 viewModel::setSttPlaySound
+            )
+        }
+        item {
+            sttSilenceDuration().Render(
+                SttInputDevice.getSttSilenceDurationOrDefault(settings),
+                viewModel::setSttSilenceDuration
             )
         }
         item {

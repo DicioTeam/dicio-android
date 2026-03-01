@@ -9,7 +9,7 @@ data class WordConstruct(
     private val text: String,
     private val isRegex: Boolean,
     private val isDiacriticsSensitive: Boolean,
-    private val weight: Float,
+    private val weight: Float = 1.0f,
 ) : Construct {
     private val compiledRegex = if (isRegex) Regex(text) else null
 

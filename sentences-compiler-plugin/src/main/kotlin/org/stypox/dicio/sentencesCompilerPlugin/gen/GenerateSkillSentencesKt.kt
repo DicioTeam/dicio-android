@@ -19,6 +19,7 @@ import org.stypox.dicio.sentencesCompilerPlugin.util.CLASS_NAME
 import org.stypox.dicio.sentencesCompilerPlugin.util.FILE_COMMENT
 import org.stypox.dicio.sentencesCompilerPlugin.util.PACKAGE_NAME
 import java.io.File
+import org.stypox.dicio.sentencesCompilerPlugin.data.correspondingSentenceDefinition
 
 fun generateSkillSentencesKt(parsedData: ParsedData, outputDirFile: File) {
     val baseObj = TypeSpec.objectBuilder(CLASS_NAME)
@@ -71,7 +72,6 @@ private fun generateSkillObject(skill: ParsedSkill): TypeSpec {
 }
 
 private fun generateResultTypes(skill: ParsedSkill, superinterface: ClassName): List<TypeSpec> {
-    val nullableStringType = String::class.asTypeName().copy(nullable = true)
     val resultTypes = ArrayList<TypeSpec>()
 
     for (definition in skill.sentenceDefinitions) {
@@ -83,13 +83,13 @@ private fun generateResultTypes(skill: ParsedSkill, superinterface: ClassName): 
                 .primaryConstructor(
                     FunSpec.constructorBuilder()
                         .addParameters(definition.captures.map {
-                            ParameterSpec.builder(it.id.toCamelCase(), nullableStringType).build()
+                            ParameterSpec.builder(it.id.toCamelCase(), getTypeName(it).copy(nullable = true)).build()
                         })
                         .build()
                 )
                 .addProperties(definition.captures.map {
                     PropertySpec
-                        .builder(it.id.toCamelCase(), nullableStringType)
+                        .builder(it.id.toCamelCase(), getTypeName(it).copy(nullable = true))
                         .initializer(it.id.toCamelCase())
                         .build()
                 })
@@ -124,12 +124,12 @@ private fun generateResultFromMatchFunction(skill: ParsedSkill, returnType: Clas
                         .repeat(definition.captures.size)
                 })",
                 definition.id,
-                *definition.captures.flatMap { sequenceOf(String::class, it.id) }.toTypedArray()
+                *definition.captures.flatMap { sequenceOf(getTypeName(it), it.id) }.toTypedArray()
             )
         }
     }
 
-    fromStandardResultFun.addStatement("else -> throw IllegalArgumentException(\"Unknown sentence id \$sentenceId\")")
+    fromStandardResultFun.addStatement($$"""else -> throw IllegalArgumentException("Unknown sentence id $sentenceId")""")
     fromStandardResultFun.endControlFlow()
     return fromStandardResultFun.build()
 }
@@ -161,9 +161,10 @@ private fun generateLanguageToDataProperty(skill: ParsedSkill, resultType: Class
                         skill.specificity.name,
                         "::fromStandardScore",
                         *sentences.flatMap { sentence ->
+                            val definition = correspondingSentenceDefinition(skill, sentence)
                             sequenceOf(
                                 sentence.id,
-                                generateConstruct(sentence.constructs),
+                                generateConstruct(sentence.constructs, definition),
                             )
                         }.toTypedArray()
                     )

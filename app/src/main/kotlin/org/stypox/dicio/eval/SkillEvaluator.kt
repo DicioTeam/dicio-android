@@ -24,6 +24,7 @@ import org.stypox.dicio.ui.home.InteractionLog
 import org.stypox.dicio.ui.home.PendingQuestion
 import org.stypox.dicio.ui.home.QuestionAnswer
 import javax.inject.Singleton
+import org.dicio.skill.standard.util.MatchHelper
 
 interface SkillEvaluator {
     val state: StateFlow<InteractionLog>
@@ -97,6 +98,7 @@ class SkillEvaluatorImpl(
     private suspend fun evaluateMatchingSkill(utterances: List<String>) {
         val (chosenInput, chosenSkill) = try {
             utterances.firstNotNullOfOrNull { input: String ->
+                skillContext.standardMatchHelper = MatchHelper(skillContext.parserFormatter, input)
                 skillRanker.getBest(skillContext, input)?.let { skillWithResult ->
                     Pair(input, skillWithResult)
                 }
@@ -104,6 +106,11 @@ class SkillEvaluatorImpl(
         } catch (throwable: Throwable) {
             addErrorInteractionFromPending(throwable)
             return
+        } finally {
+            // standardMatchHelper only needs to be set while calling score() on skills, so once
+            // all matching and scoring is done, free up the memory it uses (which may be
+            // significant since the purpose of MatchHelper is to cache information about the input)
+            skillContext.standardMatchHelper = null
         }
         val skillInfo = chosenSkill.skill.correspondingSkillInfo
 

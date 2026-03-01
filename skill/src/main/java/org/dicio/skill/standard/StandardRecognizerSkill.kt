@@ -14,10 +14,7 @@ abstract class StandardRecognizerSkill<T>(
     specificity: Specificity = data.specificity,
 ) : Skill<T>(correspondingSkillInfo, specificity) {
 
-    override fun score(
-        ctx: SkillContext,
-        input: String
-    ): Pair<Score, T> {
-        return data.score(input)
+    override fun score(ctx: SkillContext, input: String): Pair<Score, T> {
+        return data.score(ctx, input)
     }
 }

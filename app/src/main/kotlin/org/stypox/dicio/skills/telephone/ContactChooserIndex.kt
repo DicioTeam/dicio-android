@@ -1,6 +1,5 @@
 package org.stypox.dicio.skills.telephone
 
-import org.dicio.numbers.unit.Number
 import org.dicio.skill.context.SkillContext
 import org.dicio.skill.skill.AlwaysBestScore
 import org.dicio.skill.skill.AlwaysWorstScore
@@ -19,14 +18,11 @@ class ContactChooserIndex internal constructor(private val contacts: List<Pair<S
         val index = ctx.parserFormatter!!
             .extractNumber(input)
             .preferOrdinal(true)
-            .mixedWithText
-            .asSequence()
-            .filter { obj -> (obj as? Number)?.isInteger == true }
-            .map { obj -> (obj as Number).integerValue().toInt() }
-            .firstOrNull() ?: 0
+            .integerOnly(true)
+            .parseFirstIfInteger() ?: 0
         return Pair(
             if (index <= 0 || index > contacts.size) AlwaysWorstScore else AlwaysBestScore,
-            index
+            index.toInt()
         )
     }
 

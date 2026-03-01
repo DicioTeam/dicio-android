@@ -122,7 +122,7 @@ fun AppBarTextField(
     )
 
     // request focus when this composable is first initialized
-    val focusRequester = FocusRequester()
+    val focusRequester = remember { FocusRequester() }
     SideEffect {
         focusRequester.requestFocus()
     }

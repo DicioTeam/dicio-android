@@ -4,23 +4,25 @@ import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
 import org.stypox.dicio.util.StringUtils.contactStringDistance
 import org.stypox.dicio.util.StringUtils.customStringDistance
-import org.stypox.dicio.util.StringUtils.join
+import org.stypox.dicio.util.StringUtils.joinNonBlank
 import org.stypox.dicio.util.StringUtils.levenshteinDistance
 import org.stypox.dicio.util.StringUtils.removePunctuation
 
 class StringUtilsTest : StringSpec({
-    "join with default parameters" {
-        join(mutableListOf("a", "b", "c")) shouldBe "a b c"
-        join(emptyList()) shouldBe ""
-        join(listOf("abc")) shouldBe "abc"
-        join(mutableListOf("", "")) shouldBe " "
+    "joinNonBlank with default parameters" {
+        joinNonBlank("a", "b", "c") shouldBe "a • b • c"
+        joinNonBlank() shouldBe ""
+        joinNonBlank("abc") shouldBe "abc"
+        joinNonBlank("", "") shouldBe ""
+        joinNonBlank("a", "", "c", null, "", "k", " ", "\t", "d") shouldBe "a • c • k • d"
     }
 
-    "join" {
-        join(mutableListOf("a", "b", "c"), "-") shouldBe "a-b-c"
-        join(emptyList(), "-") shouldBe ""
-        join(listOf("abc"), "-") shouldBe "abc"
-        join(mutableListOf("", ""), "-") shouldBe "-"
+    "joinNonBlank" {
+        joinNonBlank("a", "b", "c", separator = "-") shouldBe "a-b-c"
+        joinNonBlank(separator = "-") shouldBe ""
+        joinNonBlank("abc", separator = "-") shouldBe "abc"
+        joinNonBlank("", "", separator = "-") shouldBe ""
+        joinNonBlank("a", "", "c", null, "", "k", " ", "\t", "d", separator = "-") shouldBe "a-c-k-d"
     }
 
     "remove punctuation" {

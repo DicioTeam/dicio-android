@@ -1,0 +1,3 @@
+notifications:
+  - (read|speak|(tell me?) (out loud)?)? what|(what s|is|are)|whats my|the? notification<s?> (I got|received)?
+  - (read|speak|(tell me?) (out loud)?) my|the? notification<s?> (I got|received)?

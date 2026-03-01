@@ -74,7 +74,9 @@ android {
     kotlin {
         compilerOptions {
             jvmTarget = JvmTarget.fromTarget(libs.versions.java.get())
-            freeCompilerArgs = listOf("-XXLanguage:+PropertyParamAnnotationDefaultTargetMode")
+            // Just to opt in to future behavior and fix a warning; remove once the future behavior
+            // becomes the default behavior. This is about @Annotations on data class fields.
+            freeCompilerArgs = listOf("-Xannotation-default-target=param-property")
         }
     }
 

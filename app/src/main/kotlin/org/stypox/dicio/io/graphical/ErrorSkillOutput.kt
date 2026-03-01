@@ -1,8 +1,7 @@
 package org.stypox.dicio.io.graphical
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.height
 import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -41,7 +40,10 @@ data class ErrorSkillOutput(
     @Composable
     override fun GraphicalOutput(ctx: SkillContext) {
         if (isNetworkError) {
-            Column {
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(4.dp)
+            ) {
                 Headline(text = stringResource(id = R.string.eval_network_error))
                 Subtitle(text = stringResource(id = R.string.eval_network_error_description))
             }
@@ -57,31 +59,30 @@ data class ErrorSkillOutput(
 
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(4.dp)
             ) {
                 Headline(text = getSpeechOutput(ctx))
-                Spacer(modifier = Modifier.height(4.dp))
                 Subtitle(text = errorMessage)
-                Spacer(modifier = Modifier.height(4.dp))
-
-                val context = LocalContext.current
-                ElevatedButton(
-                    onClick = {
-                        ErrorUtils.openActivity(
-                            context,
-                            ErrorInfo(
-                                throwable,
-                                if (fromSkillEvaluation)
-                                    UserAction.SKILL_EVALUATION
-                                else
-                                    UserAction.GENERIC_EVALUATION
-                            )
-                        )
-                    },
-                ) {
-                    Text(text = stringResource(R.string.error_report))
-                }
+                ReportButton(
+                    throwable = throwable,
+                    userAction = if (fromSkillEvaluation)
+                        UserAction.SKILL_EVALUATION
+                    else
+                        UserAction.GENERIC_EVALUATION
+                )
             }
         }
+    }
+}
+
+@Composable
+fun ReportButton(throwable: Throwable, userAction: UserAction, modifier: Modifier = Modifier) {
+    val context = LocalContext.current
+    ElevatedButton(
+        onClick = { ErrorUtils.openActivity(context, ErrorInfo(throwable, userAction)) },
+        modifier = modifier,
+    ) {
+        Text(text = stringResource(R.string.error_report))
     }
 }
 
