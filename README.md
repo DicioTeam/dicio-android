@@ -41,7 +41,8 @@ Currently Dicio answers questions about:
 - **media**: play, pause, previous, next song
 - **translation**: translate from/to any language with **Lingva** - _How do I say Football in German?_
 - **wake word control**: turn on/off the wakeword - _Stop listening_
-- **home assistant**: query and control **Home Assistant** entities - _Turn living room light on_
+- **home assistant**: query and control **Home Assistant** entities - _Turn living room light on_, _Turn kitchen radio to BBC Radio 2_
+  - Note: Media source selection with number homophones (e.g., "too" → "2") is currently English-only
 
 ## Speech to text
 
