@@ -1,0 +1,16 @@
+play:
+  - játsz<d?>|indítsd|folytasd az? dal<t?>|zené<t?>|médiá<t?>|audió<t?>|videó<t?>|filmet
+  - kapcsold be a? lejátszó<t?>
+  - folytasd a lejátszás<t?> (az? dal<t?>|zené<t?>|médiá<t?>)?
+
+pause:
+  - szüneteltesd|állítsd meg|állj az? dal<t?>|zené<t?>|médiá<t?>|audió<t?>|videó<t?>|filmet
+  - tedd szünetr<e?> az? dal<t?>|zené<t?>|médiá<t?>
+
+previous:
+  - játszd újra|(menj|válts|lépj) az? előző<re?> dal<t?>|zené<t?>|médiá<t?>|audió<t?>|videó<t?>
+  - tekerj vissza
+
+next:
+  - (ugord át)|(lépj tovább) az? dal<t?>|zené<t?>|médiá<t?>
+  - játszd|(válts|ugorj|lépj) a? következő<re?> dal<t?>|zené<t?>|médiá<t?>|audió<t?>|videó<t?>
