@@ -16,3 +16,19 @@ next:
   - vai|butta? in? avanti di una canzone|traccia|musica|audio|brano|video
   - (metti il|la)|(passa|vai al<la?>)? canzone|traccia|musica|audio|brano|video successiv<a|o>|dopo
   - (metti il|la)|(passa|vai al<la?>)? successiv<a|o>|prossim<a|o> canzone|traccia|musica|audio|brano|video
+
+volume_up:
+  - alza|aumenta|incrementa il|l<o|a?>? volume|suono|audio
+  - volume su|(più alto|forte)
+
+volume_down:
+  - abbassa|diminuisci|riduci il|l<o|a?>? volume|suono|audio
+  - volume giù|(più basso|silenzioso)
+
+volume_up_times:
+  - alza|aumenta|incrementa il|l<o|a?>? volume|suono|audio di? .times. volte|passi|tacche|livelli?
+  - volume su|(più alto|forte) di? .times. volte|passi|tacche|livelli?
+
+volume_down_times:
+  - abbassa|diminuisci|riduci il|l<o|a?>? volume|suono|audio di? .times. volte|passi|tacche|livelli?
+  - volume giù|(più basso|silenzioso) di? .times. volte|passi|tacche|livelli?
