@@ -98,6 +98,17 @@ sealed interface SttState {
     data object Listening : SttState
 
     /**
+     * Speech has ended and silence was detected. This state is expected to be very short-lived
+     * and acts as user feedback before the final inference starts.
+     */
+    data object SilenceDetected : SttState
+
+    /**
+     * The model is processing recorded audio and generating the final recognition result.
+     */
+    data object Thinking : SttState
+
+    /**
      * An external Android app has been asked to listen (e.g. through
      * `RecognizerIntent.ACTION_RECOGNIZE_SPEECH`), and may be listening but we don't know for
      * sure (maybe it's still loading). Therefore in the UI a "Waiting..." message should be shown

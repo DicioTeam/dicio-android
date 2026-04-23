@@ -177,7 +177,10 @@ dependencies {
     implementation(libs.jna) { artifact { type = "aar" } }
     implementation(libs.vosk.android)
 
-    // LiteRT / Tensorflow Lite
+    // ONNX Runtime for Android (runs the Parakeet encoder and TDT decoder)
+    implementation(libs.onnxruntime.android)
+
+    // LiteRT / Tensorflow Lite (used by OpenWakeWord)
     implementation(libs.litert)
 
     // OkHttp

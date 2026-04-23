@@ -141,7 +141,9 @@ private fun SttPopupBottomSheet(
             value = textFieldValue,
             onValueChange = onTextFieldChange,
             customHint = customHint,
-            enabled = sttState != SttState.Listening,
+            enabled = sttState != SttState.Listening &&
+                sttState != SttState.SilenceDetected &&
+                sttState != SttState.Thinking,
             modifier = Modifier
                 .padding(horizontal = 16.dp)
                 .fillMaxWidth(),

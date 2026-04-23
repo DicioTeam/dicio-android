@@ -20,5 +20,7 @@ message UserSettings {
     map<string, bool> enabled_skills = 7;
     WakeDevice wake_device = 8;
     SttPlaySound stt_play_sound = 9;
-    int32 stt_silence_duration = 10;
+    reserved 10;
+    reserved "stt_silence_duration";
+    string scribe_api_key = 11;
 }
