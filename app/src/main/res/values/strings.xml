@@ -278,4 +278,8 @@
     <string name="about_privacy_title">Privacy policy</string>
     <string name="about_privacy_description">Dicio connects to external services only when a skill is expected to do so, or to download machine learning models during setup. All speech processing is performed locally on-device, and most skills can be used offline.</string>
     <string name="about_privacy_link" translatable="false">https://stypox.org/dicio-privacy-policy.html</string>
+    <string name="skill_music_no_app_found">No music player found</string>
+    <string name="skill_music_playing">Playing %1$s on %2$s</string>
+    <string name="skill_name_music">Play music</string>
+    <string name="skill_sentence_example_music">Play We will rock you by Queen</string>
 </resources>
