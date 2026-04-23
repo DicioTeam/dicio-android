@@ -1,0 +1,26 @@
+get_status:
+  - (get|what is|whats|check) (the )?status (of|for) .entity_name.
+  - (get|what is|whats|check) (the )?.entity_name.
+
+get_person_location:
+  - (whats|what is) .person_name. location
+  - (where is|wheres) the person .person_name.
+
+set_state_on:
+  - (turn|switch) (the )?.entity_name. on
+
+set_state_off:
+  - (turn|switch) (the )?.entity_name. off
+
+set_state_toggle:
+  - (turn|switch) (the )?.entity_name. toggle
+
+select_source:
+  - (turn|switch|set|tune|change) (the )?.entity_name. to .source_name.
+  - (tune|set) (the )?.entity_name. on .source_name.
+
+get_help:
+  - home assistant help
+  - (help|how) (with|for) home assistant
+  - what can (i|you) do with home assistant
+  - home assistant commands

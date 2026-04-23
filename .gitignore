@@ -15,3 +15,6 @@
 fastlane/report.xml
 fastlane/README.md
 fastlane_config.txt
+
+# Kiro specs (local only)
+.kiro/

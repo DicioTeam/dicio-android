@@ -198,6 +198,9 @@ dependencies {
 
     // Used by skills
     implementation(libs.exp4j)
+    
+    // YAML processing
+    implementation("org.yaml:snakeyaml:2.0")
 
     // Testing
     testImplementation(libs.kotest.runner.junit5)

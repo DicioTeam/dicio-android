@@ -134,3 +134,34 @@ skills:
             type: string
           - id: target
             type: string
+
+  - id: home_assistant
+    specificity: high
+    sentences:
+      - id: get_status
+        captures:
+          - id: entity_name
+            type: string
+      - id: get_person_location
+        captures:
+          - id: person_name
+            type: string
+      - id: set_state_on
+        captures:
+          - id: entity_name
+            type: string
+      - id: set_state_off
+        captures:
+          - id: entity_name
+            type: string
+      - id: set_state_toggle
+        captures:
+          - id: entity_name
+            type: string
+      - id: select_source
+        captures:
+          - id: entity_name
+            type: string
+          - id: source_name
+            type: string
+      - id: get_help
