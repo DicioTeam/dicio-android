@@ -38,4 +38,14 @@ sealed interface JokeOutput : SkillOutput {
             val ENDS_WITH_PUNCTUATION_REGEX = ".*\\p{Punct}$".toRegex()
         }
     }
+
+    class Failed : JokeOutput {
+        override fun getSpeechOutput(ctx: SkillContext): String =
+            ctx.getString(R.string.skill_joke_failed)
+
+        @Composable
+        override fun GraphicalOutput(ctx: SkillContext) {
+            Body(text = getSpeechOutput(ctx))
+        }
+    }
 }

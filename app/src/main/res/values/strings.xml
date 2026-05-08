@@ -142,6 +142,7 @@
     <string name="skill_sentence_example_media">Next song</string>
     <string name="skill_name_joke">Joke</string>
     <string name="skill_sentence_example_joke">Tell me a joke</string>
+    <string name="skill_joke_failed">Sorry, jokes are not available for this language</string>
     <string name="skill_name_calculator">Calculator</string>
     <string name="skill_sentence_example_calculator">What is five times four minus a million?</string>
     <string name="skill_name_navigation">Navigation</string>

@@ -13,9 +13,8 @@ import org.stypox.dicio.util.LocaleUtils
 class JokeSkill(correspondingSkillInfo: SkillInfo, data: StandardRecognizerData<Joke>)
     : StandardRecognizerSkill<Joke>(correspondingSkillInfo, data) {
     override suspend fun generateOutput(ctx: SkillContext, inputData: Joke): SkillOutput {
-        // we can use !! because the JokeInfo would have declared this skill unavailable
-        // if the current locale was not among the supported ones
-        val locale = LocaleUtils.resolveSupportedLocale(ctx.locale, JOKE_SUPPORTED_LOCALES)!!
+        val locale = LocaleUtils.resolveSupportedLocale(ctx.locale, JOKE_SUPPORTED_LOCALES)
+            ?: return JokeOutput.Failed()
 
         if (locale == "en") {
             val joke: JSONObject = ConnectionUtils.getPageJson(RANDOM_JOKE_URL_EN)
