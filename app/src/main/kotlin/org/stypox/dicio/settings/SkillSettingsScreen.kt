@@ -114,9 +114,18 @@ fun SkillSettingsScreen(
             }
         }
         items(skills) { skill ->
+            // enabledSkillsInfo contains skills that are both enabled AND available.
+            // A skill is "available" if:
+            // - it's in enabledSkillsInfo (enabled + buildable), OR
+            // - it's disabled by the user (we can't tell availability from the list,
+            //   so we assume available — the worst case is a disabled skill shows as
+            //   available, which is fine since it's toggled off anyway)
+            val isDisabledByUser = !enabledSkills.getOrDefault(skill.id, true)
+            val isAvailable = isDisabledByUser
+                || enabledSkillsInfo?.contains(skill) != false
             SkillSettingsItem(
                 skill = skill,
-                isAvailable = enabledSkillsInfo?.contains(skill) != false,
+                isAvailable = isAvailable,
                 enabled = enabledSkills.getOrDefault(skill.id, true),
                 setEnabled = { enabled -> viewModel.setSkillEnabled(skill.id, enabled) }
             )
