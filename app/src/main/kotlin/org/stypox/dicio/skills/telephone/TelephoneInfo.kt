@@ -32,8 +32,8 @@ object TelephoneInfo : SkillInfo("telephone") {
             = listOf(PERMISSION_READ_CONTACTS, PERMISSION_CALL_PHONE)
 
     override fun build(ctx: SkillContext): Skill<*>? {
-        if (Sentences.Telephone[ctx.sentencesLanguage] == null ||
-            Sentences.UtilYesNo[ctx.sentencesLanguage] == null) return null
-        return TelephoneSkill(TelephoneInfo, Sentences.Telephone[ctx.sentencesLanguage]!!)
+        val data = Sentences.Telephone[ctx.sentencesLanguage] ?: return null
+        Sentences.UtilYesNo[ctx.sentencesLanguage] ?: return null
+        return TelephoneSkill(TelephoneInfo, data)
     }
 }

@@ -89,6 +89,7 @@ fun SkillSettingsScreen(
 ) {
     val skills = viewModel.skills
     val enabledSkills by viewModel.enabledSkills.collectAsState()
+    val enabledSkillsInfo by viewModel.enabledSkillsInfo.collectAsState()
 
     LazyColumn(
         contentPadding = PaddingValues(top = 4.dp, bottom = 4.dp),
@@ -115,7 +116,7 @@ fun SkillSettingsScreen(
         items(skills) { skill ->
             SkillSettingsItem(
                 skill = skill,
-                isAvailable = skill.build(viewModel.skillContext) != null,
+                isAvailable = enabledSkillsInfo?.contains(skill) != false,
                 enabled = enabledSkills.getOrDefault(skill.id, true),
                 setEnabled = { enabled -> viewModel.setSkillEnabled(skill.id, enabled) }
             )

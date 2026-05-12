@@ -25,9 +25,9 @@ object TimerInfo : SkillInfo("timer") {
         rememberVectorPainter(Icons.Default.Timer)
 
     override fun build(ctx: SkillContext): Skill<*>? {
-        if (Sentences.Timer[ctx.sentencesLanguage] == null ||
-            Sentences.UtilYesNo[ctx.sentencesLanguage] == null ||
-            ctx.parserFormatter == null) return null
-        return TimerSkill(TimerInfo, Sentences.Timer[ctx.sentencesLanguage]!!)
+        val data = Sentences.Timer[ctx.sentencesLanguage] ?: return null
+        Sentences.UtilYesNo[ctx.sentencesLanguage] ?: return null
+        if (ctx.parserFormatter == null) return null
+        return TimerSkill(TimerInfo, data)
     }
 }

@@ -23,9 +23,9 @@ object CalculatorInfo : SkillInfo("calculator") {
         rememberVectorPainter(Icons.Default.Calculate)
 
     override fun build(ctx: SkillContext): Skill<*>? {
-        if (Sentences.Calculator[ctx.sentencesLanguage] == null ||
-            Sentences.CalculatorOperators[ctx.sentencesLanguage] == null ||
-            ctx.parserFormatter == null) return null
-        return CalculatorSkill(CalculatorInfo, Sentences.Calculator[ctx.sentencesLanguage]!!)
+        val sentences = Sentences.Calculator[ctx.sentencesLanguage] ?: return null
+        val operators = Sentences.CalculatorOperators[ctx.sentencesLanguage] ?: return null
+        if (ctx.parserFormatter == null) return null
+        return CalculatorSkill(CalculatorInfo, sentences, operators)
     }
 }

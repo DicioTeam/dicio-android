@@ -8,16 +8,14 @@ import org.dicio.skill.standard.StandardRecognizerSkill
 import org.json.JSONObject
 import org.stypox.dicio.sentences.Sentences.Joke
 import org.stypox.dicio.util.ConnectionUtils
-import org.stypox.dicio.util.LocaleUtils
 
-class JokeSkill(correspondingSkillInfo: SkillInfo, data: StandardRecognizerData<Joke>)
-    : StandardRecognizerSkill<Joke>(correspondingSkillInfo, data) {
+class JokeSkill(
+    correspondingSkillInfo: SkillInfo,
+    data: StandardRecognizerData<Joke>,
+    private val resolvedLocale: String,
+) : StandardRecognizerSkill<Joke>(correspondingSkillInfo, data) {
     override suspend fun generateOutput(ctx: SkillContext, inputData: Joke): SkillOutput {
-        // safe to use !! because build() returns null if the locale is not supported,
-        // so this skill instance can only exist when the locale is in JOKE_SUPPORTED_LOCALES
-        val locale = LocaleUtils.resolveSupportedLocale(ctx.locale, JOKE_SUPPORTED_LOCALES)!!
-
-        if (locale == "en") {
+        if (resolvedLocale == "en") {
             val joke: JSONObject = ConnectionUtils.getPageJson(RANDOM_JOKE_URL_EN)
             return JokeOutput.Success(
                 setup = joke.getString("setup"),
@@ -25,7 +23,7 @@ class JokeSkill(correspondingSkillInfo: SkillInfo, data: StandardRecognizerData<
             )
         } else {
             val joke: JSONObject = ConnectionUtils.getPageJson(
-                "$RANDOM_JOKE_URL?lang=$locale&safe-mode&type=twopart"
+                "$RANDOM_JOKE_URL?lang=$resolvedLocale&safe-mode&type=twopart"
             )
             return JokeOutput.Success(
                 setup = joke.getString("setup"),

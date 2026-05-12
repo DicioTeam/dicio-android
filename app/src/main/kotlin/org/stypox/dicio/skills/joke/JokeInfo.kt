@@ -25,8 +25,8 @@ object JokeInfo : SkillInfo("Joke") {
 
     override fun build(ctx: SkillContext): Skill<*>? {
         val data = Sentences.Joke[ctx.sentencesLanguage] ?: return null
-        if (!LocaleUtils.isLocaleSupported(ctx.locale, JokeSkill.JOKE_SUPPORTED_LOCALES))
-            return null
-        return JokeSkill(JokeInfo, data)
+        val locale = LocaleUtils.resolveSupportedLocale(ctx.locale, JokeSkill.JOKE_SUPPORTED_LOCALES)
+            ?: return null
+        return JokeSkill(JokeInfo, data, locale)
     }
 }

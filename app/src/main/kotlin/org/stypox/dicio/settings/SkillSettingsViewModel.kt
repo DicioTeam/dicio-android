@@ -7,7 +7,6 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
-import org.dicio.skill.context.SkillContext
 import org.dicio.skill.skill.SkillInfo
 import org.stypox.dicio.di.SkillContextInternal
 import org.stypox.dicio.settings.datastore.UserSettings
@@ -25,6 +24,8 @@ class SkillSettingsViewModel @Inject constructor(
 ) : AndroidViewModel(application) {
 
     val skills: List<SkillInfo> get() = skillHandler.allSkillInfoList
+
+    val enabledSkillsInfo = skillHandler.enabledSkillsInfo
 
     // run blocking because the settings screen cannot start if settings have not been loaded yet
     val enabledSkills = dataStore.data
