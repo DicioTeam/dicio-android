@@ -12,6 +12,8 @@ import org.stypox.dicio.R
 import org.stypox.dicio.sentences.Sentences
 
 object MediaInfo : SkillInfo("media") {
+    override val categoryNameRes = R.string.category_media
+
     override fun name(context: Context) =
         context.getString(R.string.skill_name_media)
 

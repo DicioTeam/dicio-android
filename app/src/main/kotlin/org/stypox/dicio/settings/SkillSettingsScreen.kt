@@ -47,6 +47,8 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import dev.shreyaspatil.permissionflow.compose.rememberPermissionFlowRequestLauncher
+import java.text.Collator
+import java.util.Locale
 import org.dicio.skill.skill.SkillInfo
 import org.stypox.dicio.R
 import org.stypox.dicio.di.SkillContextImpl
@@ -87,8 +89,31 @@ fun SkillSettingsScreen(
     viewModel: SkillSettingsViewModel,
     modifier: Modifier = Modifier,
 ) {
+    val context = LocalContext.current
     val skills = viewModel.skills
     val enabledSkills by viewModel.enabledSkills.collectAsState()
+
+    // Get current locale for proper collation
+    val locale = context.resources.configuration.locales.get(0) ?: Locale.getDefault()
+    val collator = Collator.getInstance(locale)
+
+    // Group skills by category and sort
+    val categorizedSkills = skills
+        .groupBy { skill ->
+            val categoryRes = skill.categoryNameRes
+            if (categoryRes == 0) {
+                context.getString(R.string.category_other)
+            } else {
+                context.getString(categoryRes)
+            }
+        }
+        .mapValues { (_, skillsList) ->
+            // Sort skills alphabetically by localized name within each category
+            skillsList.sortedWith(compareBy(collator) { it.name(context) })
+        }
+        .toList()
+        // Sort categories alphabetically by localized name
+        .sortedWith(compareBy(collator) { it.first })
 
     LazyColumn(
         contentPadding = PaddingValues(top = 4.dp, bottom = 4.dp),
@@ -96,10 +121,10 @@ fun SkillSettingsScreen(
     ) {
         if (viewModel.numberLibraryNotAvailable) {
             item {
-                val context = LocalContext.current
+                val ctx = LocalContext.current
                 Card(
                     modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
-                    onClick = { ShareUtils.openUrlInBrowser(context, DICIO_NUMBERS_LINK) },
+                    onClick = { ShareUtils.openUrlInBrowser(ctx, DICIO_NUMBERS_LINK) },
                 ) {
                     Text(
                         text = stringResource(R.string.pref_skill_number_library_not_available),
@@ -112,13 +137,29 @@ fun SkillSettingsScreen(
                 }
             }
         }
-        items(skills) { skill ->
-            SkillSettingsItem(
-                skill = skill,
-                isAvailable = skill.isAvailable(viewModel.skillContext),
-                enabled = enabledSkills.getOrDefault(skill.id, true),
-                setEnabled = { enabled -> viewModel.setSkillEnabled(skill.id, enabled) }
-            )
+        
+        // Display skills grouped by category
+        for ((category, categorySkills) in categorizedSkills) {
+            item(key = "category_header_$category") {
+                Text(
+                    text = category,
+                    style = MaterialTheme.typography.titleLarge,
+                    fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.colorScheme.secondary,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(start = 16.dp, end = 16.dp, top = 16.dp, bottom = 8.dp),
+                )
+            }
+            
+            items(categorySkills, key = { it.id }) { skill ->
+                SkillSettingsItem(
+                    skill = skill,
+                    isAvailable = skill.isAvailable(viewModel.skillContext),
+                    enabled = enabledSkills.getOrDefault(skill.id, true),
+                    setEnabled = { enabled -> viewModel.setSkillEnabled(skill.id, enabled) }
+                )
+            }
         }
     }
 }

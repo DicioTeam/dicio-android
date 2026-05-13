@@ -28,6 +28,7 @@
     <string name="start_listening">Start listening</string>
     <string name="downloaded">Downloaded</string>
     <string name="loaded">Loaded</string>
+    <string name="ready_to_help">Hi, how can I help?</string>
     <string name="here_is_what_i_can_do">Here is what I can do!</string>
     <string name="all_skills_disabled_title">All skills are disabled</string>
     <string name="all_skills_disabled_description">Please enable some skills from settings, otherwise Dicio will not be able to do anything</string>
@@ -58,12 +59,21 @@
     <string name="error_report_notification_toast">An error occurred, see the notification</string>
     <string name="error_report_channel_name">Error report notification</string>
     <string name="error_report_channel_description">Notifications to report errors</string>
+    <!-- Category Names -->
+    <string name="category_communication">Communication</string>
+    <string name="category_entertainment">Entertainment</string>
+    <string name="category_information">Information</string>
+    <string name="category_media">Media</string>
+    <string name="category_other">Other</string>
+    <string name="category_productivity">Productivity</string>
+    <string name="category_utilities">Utilities</string>
     <!-- settings_header -->
     <string name="pref_io">Input and output methods</string>
     <string name="pref_general">General</string>
     <string name="pref_appearance">Appearance</string>
     <string name="pref_skills_title">Skills</string>
     <string name="pref_skills_summary">Enable/disable skills and tune their behavior</string>
+    <string name="skills_count">%1$d skills</string>
     <string name="expand">Expand</string>
     <string name="reduce">Reduce</string>
     <string name="pref_theme">Theme</string>

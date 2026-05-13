@@ -18,6 +18,8 @@ import org.stypox.dicio.util.PERMISSION_CALL_PHONE
 import org.stypox.dicio.util.PERMISSION_READ_CONTACTS
 
 object TelephoneInfo : SkillInfo("telephone") {
+    override val categoryNameRes = R.string.category_communication
+
     override fun name(context: Context) =
         context.getString(R.string.skill_name_telephone)
 

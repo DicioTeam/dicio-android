@@ -12,6 +12,8 @@ import org.stypox.dicio.R
 import org.stypox.dicio.sentences.Sentences
 
 object CurrentTimeInfo : SkillInfo("current_time") {
+    override val categoryNameRes = R.string.category_information
+
     override fun name(context: Context) =
         context.getString(R.string.skill_name_current_time)
 
