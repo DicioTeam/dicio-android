@@ -1,5 +1,6 @@
 package org.stypox.dicio.skills.flashlight
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.pm.PackageManager
 import androidx.compose.material.icons.Icons
@@ -23,6 +24,7 @@ object FlashlightInfo : SkillInfo("flashlight") {
     override fun icon() =
         rememberVectorPainter(Icons.Default.FlashlightOn)
 
+    @SuppressLint("NewApi") // FlashlightSkill uses API 23+; guarded by FEATURE_CAMERA_FLASH check
     override fun build(ctx: SkillContext): Skill<*>? {
         val data = Sentences.Flashlight[ctx.sentencesLanguage] ?: return null
         if (!ctx.android.packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH))
