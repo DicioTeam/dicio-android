@@ -15,6 +15,7 @@ Dicio answers questions about:
 <li><b>media</b>: play, pause, previous, next song - <i>Next Song</i></li>
 <li><b>translation</b>: translate from/to any language with <b>Lingva</b> - <i>How do I say Football in German?</i></li>
 <li><b>wake word control</b>: turn on/off the wakeword - <i>Stop listening</i></li>
+<li><b>home assistant</b>: query and control <b>Home Assistant</b> entities - <i>Turn living room light on</i></li>
 <li><b>notifications</b>: reads all notifications currently in the status bar - <i>What are my notifications?</i></li>
 <li><b>flashlight</b>: turn on/off the phone's flashlight - <i>Turn on the light</i></li>
 </ul>
