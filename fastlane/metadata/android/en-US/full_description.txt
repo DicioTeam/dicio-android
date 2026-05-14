@@ -8,6 +8,7 @@ Dicio answers questions about:
 <li><b>open</b>: opens an app on your device - <i>Open NewPipe</i></li>
 <li><b>calculator</b>: evaluates basic calculations - <i>What is four thousand and two times three minus a million divided by three hundred?</i></li>
 <li><b>telephone</b>: view and call contacts - <i>Call Tom</i></li>
+<li><b>sms</b>: send SMS messages to contacts - <i>Send a text to Jenna saying I got us reservations for dinner</i></li>
 <li><b>timer</b>: set, query and cancel timers - <i>Set a timer for eleven minutes</i></li>
 <li><b>current time</b>: query current time - <i>What time is it?</i></li>
 <li><b>navigation</b>: opens the navigation app at the requested position - <i>Take me to New York, fifteenth avenue</i></li>
