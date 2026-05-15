@@ -1,0 +1,17 @@
+addition:
+  - plusz|meg|(hozzáadva|hozzáadni|összeadva|összeadni|összeg)
+
+subtraction:
+  - mínusz|(kivonva|kivonni|különbség)
+
+multiplication:
+  - szorozva|szor|(szorozni|szorzat)
+
+division:
+  - osztva|per|(osztani|osztva|hányadosa?)
+
+power:
+  - a? hatvány<a|án|ra?>
+
+square_root:
+  - négyzetgyök<e|ét?>

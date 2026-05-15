@@ -1,5 +1,6 @@
 package org.stypox.dicio.settings
 
+import android.os.Build
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.Send
 import androidx.compose.material.icons.filled.Alarm
@@ -9,7 +10,6 @@ import androidx.compose.material.icons.filled.Cloud
 import androidx.compose.material.icons.filled.ColorLens
 import androidx.compose.material.icons.filled.DarkMode
 import androidx.compose.material.icons.filled.Hearing
-import androidx.compose.material.icons.filled.HourglassEmpty
 import androidx.compose.material.icons.filled.InvertColors
 import androidx.compose.material.icons.filled.KeyboardAlt
 import androidx.compose.material.icons.filled.Language
@@ -31,8 +31,10 @@ import org.stypox.dicio.settings.datastore.SttPlaySound
 import org.stypox.dicio.settings.datastore.Theme
 import org.stypox.dicio.settings.datastore.WakeDevice
 import org.stypox.dicio.settings.ui.BooleanSetting
-import org.stypox.dicio.settings.ui.IntSetting
 import org.stypox.dicio.settings.ui.ListSetting
+import org.stypox.dicio.settings.ui.StringSetting
+
+private val isParakeetSupported = Build.VERSION.SDK_INT >= Build.VERSION_CODES.N
 
 
 @Composable
@@ -49,6 +51,7 @@ fun languageSetting() = ListSetting(
         ListSetting.Value(Language.LANGUAGE_ES, "Español"),
         ListSetting.Value(Language.LANGUAGE_EL, "Ελληνικά"),
         ListSetting.Value(Language.LANGUAGE_FR, "Français"),
+        ListSetting.Value(Language.LANGUAGE_HU, "Magyar"),
         ListSetting.Value(Language.LANGUAGE_IT, "Italiano"),
         ListSetting.Value(Language.LANGUAGE_NL, "Nederlands"),
         ListSetting.Value(Language.LANGUAGE_PL, "Polski"),
@@ -107,25 +110,57 @@ fun inputDevice() = ListSetting(
     title = stringResource(R.string.pref_input_method),
     icon = Icons.Default.Mic,
     description = stringResource(R.string.pref_input_method_summary),
-    possibleValues = listOf(
-        ListSetting.Value(
-            value = InputDevice.INPUT_DEVICE_VOSK,
-            name = stringResource(R.string.pref_input_method_vosk),
-            description = stringResource(R.string.pref_input_method_vosk_summary),
-            icon = Icons.Default.Mic,
-        ),
-        ListSetting.Value(
-            value = InputDevice.INPUT_DEVICE_EXTERNAL_POPUP,
-            name = stringResource(R.string.pref_input_method_external_popup),
-            description = stringResource(R.string.pref_input_method_external_popup_summary),
-            icon = Icons.Default.PictureInPictureAlt,
-        ),
-        ListSetting.Value(
-            value = InputDevice.INPUT_DEVICE_NOTHING,
-            name = stringResource(R.string.pref_input_method_text),
-            icon = Icons.Default.KeyboardAlt,
-        ),
-    ),
+possibleValues = buildList {
+        add(
+            ListSetting.Value(
+                value = InputDevice.INPUT_DEVICE_VOSK,
+                name = stringResource(R.string.pref_input_method_vosk),
+                description = stringResource(R.string.pref_input_method_vosk_summary),
+                icon = Icons.Default.Mic,
+            )
+        )
+        if (isParakeetSupported) {
+            add(
+                ListSetting.Value(
+                    value = InputDevice.INPUT_DEVICE_PARAKEET,
+                    name = stringResource(R.string.pref_input_method_parakeet),
+                    description = stringResource(R.string.pref_input_method_parakeet_summary),
+                    icon = Icons.Default.Mic,
+                )
+            )
+        }
+        add(
+            ListSetting.Value(
+                value = InputDevice.INPUT_DEVICE_SCRIBE_REALTIME,
+                name = stringResource(R.string.pref_input_method_scribe_realtime),
+                description = stringResource(R.string.pref_input_method_scribe_realtime_summary),
+                icon = Icons.Default.Cloud,
+            )
+        )
+        add(
+            ListSetting.Value(
+                value = InputDevice.INPUT_DEVICE_EXTERNAL_POPUP,
+                name = stringResource(R.string.pref_input_method_external_popup),
+                description = stringResource(R.string.pref_input_method_external_popup_summary),
+                icon = Icons.Default.PictureInPictureAlt,
+            )
+        )
+        add(
+            ListSetting.Value(
+                value = InputDevice.INPUT_DEVICE_NOTHING,
+                name = stringResource(R.string.pref_input_method_text),
+                icon = Icons.Default.KeyboardAlt,
+            )
+        )
+    },
+)
+
+@Composable
+fun scribeApiKeySetting() = StringSetting(
+    title = stringResource(R.string.pref_input_method_scribe_api_key),
+    icon = Icons.Default.Cloud,
+    descriptionWhenEmpty = stringResource(R.string.pref_input_method_scribe_api_key_description_when_empty),
+    description = stringResource(R.string.pref_input_method_scribe_api_key_summary),
 )
 
 @Composable
@@ -171,15 +206,6 @@ fun speechOutputDevice() = ListSetting(
             name = stringResource(R.string.pref_speech_output_method_nothing),
         ),
     ),
-)
-
-@Composable
-fun sttSilenceDuration() = IntSetting(
-    title = stringResource(R.string.pref_stt_silence_duration_title),
-    icon = Icons.Default.HourglassEmpty,
-    description = @Composable { stringResource(R.string.pref_stt_silence_duration_description, it) },
-    minimum = 1,
-    maximum = 7,
 )
 
 @Composable

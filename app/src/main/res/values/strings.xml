@@ -24,6 +24,8 @@
     <string name="stt_download">Download Speech to Text</string>
     <string name="stt_unzip">Unzip Speech to Text</string>
     <string name="listening">Listening…</string>
+    <string name="silence_detected">Silence detected</string>
+    <string name="thinking">Thinking…</string>
     <string name="waiting">Waiting…</string>
     <string name="start_listening">Start listening</string>
     <string name="downloaded">Downloaded</string>
@@ -42,6 +44,12 @@
     <string name="vosk_model_download_error">Downloading Vosk model failed</string>
     <string name="vosk_model_extraction_error">Extracting Vosk model from Zip failed</string>
     <string name="vosk_model_ready">Vosk model ready</string>
+    <string name="parakeet_model_notification_title">Parakeet model</string>
+    <string name="parakeet_model_notification_description">Multilingual (25 languages)</string>
+    <string name="parakeet_model_unsupported_language">No Parakeet model available for the current language</string>
+    <string name="parakeet_model_downloading">Downloading Parakeet model…</string>
+    <string name="parakeet_model_download_error">Downloading Parakeet model failed</string>
+    <string name="parakeet_model_ready">Parakeet model ready</string>
     <string name="android_tts_unsupported_language">The current language is not supported by the Android text to speech engine</string>
     <string name="android_tts_error">An error occurred while initializing the Android text to speech engine</string>
     <string name="settings">Settings</string>
@@ -80,7 +88,16 @@
     <string name="pref_input_method_summary">Choose the service to use to talk to Dicio</string>
     <string name="pref_input_method_text">Only text box</string>
     <string name="pref_input_method_vosk">Vosk offline speech recognition</string>
-    <string name="pref_input_method_vosk_summary">Downloads and runs a Vosk SpeechToText model offline inside Dicio</string>
+    <string name="pref_input_method_vosk_summary">Downloads and runs a Vosk SpeechToText model offline inside Dicio. Not available for all languages (e.g. Hungarian).</string>
+    <string name="pref_input_method_parakeet">NVIDIA Parakeet offline speech recognition</string>
+    <string name="pref_input_method_parakeet_summary">Downloads and runs a quantized NVIDIA Parakeet v3 multilingual SpeechToText model offline inside Dicio; supports 25 European languages including Hungarian</string>
+    <string name="pref_input_method_scribe_realtime">ElevenLabs Scribe v2 realtime</string>
+    <string name="pref_input_method_scribe_realtime_summary">Streams microphone audio to ElevenLabs and receives low-latency partial and final transcriptions in realtime</string>
+    <string name="pref_input_method_scribe_api_key">ElevenLabs API key</string>
+    <string name="pref_input_method_scribe_api_key_summary">Required for Scribe v2 realtime input</string>
+    <string name="pref_input_method_scribe_api_key_description_when_empty">Set your ElevenLabs API key to use Scribe v2 realtime</string>
+    <string name="pref_input_method_scribe_api_key_warning_title">Scribe realtime is not ready</string>
+    <string name="pref_input_method_scribe_api_key_warning_description">Enter your ElevenLabs API key above before using this input method.</string>
     <string name="pref_input_method_external_popup">External SpeechToText popup</string>
     <string name="pref_input_method_external_popup_summary">Opens the UI of another app through ACTION\u200B_\u200BRECOGNIZE\u200B_\u200BSPEECH, for example whisperIME, Kõnele, Futo Voice Input</string>
     <string name="pref_speech_output_method">Speech output method</string>
@@ -105,8 +122,6 @@
     <string name="pref_search_engine_duckduckgo" translatable="false">DuckDuckGo</string>
     <string name="pref_weather_default_city">Default city</string>
     <string name="pref_weather_default_city_using_ip_info">Set the city to use for weather when you do not explicitly say one. The current behaviour is to get the location from IP info.</string>
-    <string name="pref_stt_silence_duration_title">Maximum silence before start of speech</string>
-    <string name="pref_stt_silence_duration_description">Give up listening after %1$d silent intervals</string>
     <string name="pref_stt_auto_finish_title">Directly send result of speech to text popup</string>
     <string name="pref_stt_auto_finish_summary_on">Automatically send speech result to requesting app when listening finishes</string>
     <string name="pref_stt_auto_finish_summary_off">Wait for manual confirmation before sending speech result to requesting app</string>

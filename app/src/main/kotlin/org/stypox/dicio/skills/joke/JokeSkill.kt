@@ -21,6 +21,13 @@ class JokeSkill(
                 setup = joke.getString("setup"),
                 delivery = joke.getString("punchline")
             )
+        // Hungarian API uses "title" / "text" instead of "setup" / "delivery"
+        } else if (locale == "hu") {
+            val joke: JSONObject = ConnectionUtils.getPageJson(RANDOM_JOKE_URL_HU)
+            return JokeOutput.Success(
+                setup = joke.getString("title"),
+                delivery = joke.getString("text")
+            )
         } else {
             val joke: JSONObject = ConnectionUtils.getPageJson(
                 "$RANDOM_JOKE_URL?lang=$resolvedLocale&safe-mode&type=twopart"
@@ -35,8 +42,9 @@ class JokeSkill(
     companion object {
         private const val RANDOM_JOKE_URL = "https://v2.jokeapi.dev/joke/Any"
         private const val RANDOM_JOKE_URL_EN = "https://official-joke-api.appspot.com/random_joke"
+        private const val RANDOM_JOKE_URL_HU = "https://viccgyujt-api.anoim.workers.dev/random-vicc"
         val JOKE_SUPPORTED_LOCALES = listOf(
-            "cs", "de", "en", "es", "fr", "pt"
+            "cs", "de", "en", "es", "fr", "hu", "pt"
         )
     }
 }
