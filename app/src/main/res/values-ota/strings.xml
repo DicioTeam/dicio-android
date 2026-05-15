@@ -1,2 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="share">پایلاش</string>
+    <string name="settings">عیارلر</string>
+    <string name="error_report">بیلدر</string>
+    <string name="error_details_headline">آیریندیلر:</string>
+    <string name="pref_appearance">گورونم</string>
+    <string name="pref_theme_light">آچیق</string>
+    <string name="pref_theme_dark">قویو</string>
+    <string name="pref_language">دیل</string>
+    <string name="pref_speech_output_method_nothing">هیچبیر شئ</string>
+    <string name="pref_skill_grant_permissions">ایزین ور</string>
+    <string name="skill_name_search">آرا</string>
+    <string name="skill_name_weather">هوا دورومی</string>
+    <string name="skill_name_calculator">حساب ماكنەسی</string>
+    <string name="skill_name_navigation">ناویگاسیون</string>
+    <string name="skill_name_telephone">تلەفون</string>
+    <string name="skill_name_timer">زمانلاییجی</string>
+    <string name="back">گری</string>
+    <string name="clear">تمیزلە</string>
+    <string name="done">بیتدی</string>
+    <string name="unzipping">چیقاردیلییور…</string>
+    <string name="download">ایندر</string>
+    <string name="downloaded">ایندرلدی</string>
+    <string name="loaded">یوكلەندی</string>
+    <string name="pref_general">گنل</string>
+    <string name="expand">گنیشلەت</string>
+    <string name="pref_theme_black">سیاه</string>
+</resources>

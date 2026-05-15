@@ -203,4 +203,5 @@
     <string name="skill_media_no_media_session">Nenhuma sessão de mídia está ativa</string>
     <string name="wake_custom_service_foreground_notification">Ouvindo uma palavra de ativação personalizada</string>
     <string name="skill_listening_already_listening">Já estou ouvindo a palavra de despertar</string>
+    <string name="skill_sentence_example_joke">Conte-me uma piada</string>
 </resources>

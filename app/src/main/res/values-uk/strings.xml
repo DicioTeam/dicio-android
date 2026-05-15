@@ -241,9 +241,10 @@
     <string name="skill_translation_unknown_language">Я не розпізнаю мову %1$s</string>
     <string name="skill_translation_unsupported_language">Мова %1$s (%2$s) не підтримується</string>
     <string name="skill_translation_failed">Не вдалося перекласти ваш запит мовою %1$s</string>
-    <string name="skill_translation_failed_no_query">Я не зрозумів, що ви хотіли перекласти. Чи не могли б ви повторити?</string>
+    <string name="skill_translation_failed_no_query">Я не зрозумів, чи не могли б ви повторити, що ви хочете перекласти?</string>
     <string name="skill_translation_to">до</string>
     <string name="skill_name_translation">Перекласти</string>
     <string name="skill_sentence_example_translation">Перекладіть Hola з іспанської на англійську</string>
     <string name="skill_translation_auto">Авто</string>
+    <string name="skill_search_duckduckgo_recaptcha">DuckDuckGo не надав результатів, запитуючи розв\'язання капчі</string>
 </resources>

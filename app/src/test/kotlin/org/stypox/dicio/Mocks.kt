@@ -29,7 +29,6 @@ object MockSkillInfo : SkillInfo("") {
     override fun name(context: Context): String = mocked()
     override fun sentenceExample(context: Context): String = mocked()
     @Composable override fun icon(): Painter = mocked()
-    override fun isAvailable(ctx: SkillContext) = mocked()
     override fun build(ctx: SkillContext) = mocked()
 }
 

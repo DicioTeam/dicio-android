@@ -23,12 +23,10 @@ object TranslationInfo : SkillInfo("translation") {
     override fun icon() =
         rememberVectorPainter(Icons.Default.Language)
 
-    override fun isAvailable(ctx: SkillContext): Boolean {
-        return (Sentences.Translation[ctx.sentencesLanguage] != null) &&
-                LocaleUtils.isLocaleSupported(ctx.locale, TranslationSkill.TRANSLATE_SUPPORTED_LOCALES)
-    }
-
-    override fun build(ctx: SkillContext): Skill<*> {
-        return TranslationSkill(TranslationInfo, Sentences.Translation[ctx.sentencesLanguage]!!)
+    override fun build(ctx: SkillContext): Skill<*>? {
+        val data = Sentences.Translation[ctx.sentencesLanguage] ?: return null
+        if (!LocaleUtils.isLocaleSupported(ctx.locale, TranslationSkill.TRANSLATE_SUPPORTED_LOCALES))
+            return null
+        return TranslationSkill(TranslationInfo, data)
     }
 }

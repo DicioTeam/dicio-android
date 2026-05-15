@@ -234,4 +234,17 @@
     <string name="skill_listening_not_listening">Я не слушал</string>
     <string name="skill_listening_stop_listening">Хорошо</string>
     <string name="skill_sentence_example_listening">Перестать прослушивать</string>
+    <string name="skill_name_joke">Шутка</string>
+    <string name="skill_sentence_example_joke">Расскажи шутку</string>
+    <string name="skill_translation_success">Переведено на %1$s</string>
+    <string name="skill_translation_unknown_language">Неизвестный язык: %1$s</string>
+    <string name="skill_translation_unsupported_language">Язык %1$s (%2$s) не поддерживается</string>
+    <string name="skill_translation_failed">Не могу перевести запрос на %1$s язык</string>
+    <string name="skill_translation_failed_no_query">Не могу понять, не могли бы вы повторить?</string>
+    <string name="skill_translation_to">на</string>
+    <string name="skill_name_translation">Перевод</string>
+    <string name="skill_sentence_example_translation">Переведи \"Hola\" с испанского на английский</string>
+    <string name="failed_to_copy">Не могу скопировать в буфер обмена</string>
+    <string name="skill_translation_auto">Автоматически</string>
+    <string name="skill_search_duckduckgo_recaptcha">DuckDuckGo не дал результатов, необходимо решить капчу</string>
 </resources>

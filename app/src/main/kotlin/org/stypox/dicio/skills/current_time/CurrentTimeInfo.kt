@@ -22,11 +22,8 @@ object CurrentTimeInfo : SkillInfo("current_time") {
     override fun icon() =
         rememberVectorPainter(Icons.Default.Watch)
 
-    override fun isAvailable(ctx: SkillContext): Boolean {
-        return Sentences.CurrentTime[ctx.sentencesLanguage] != null
-    }
-
-    override fun build(ctx: SkillContext): Skill<*> {
-        return CurrentTimeSkill(CurrentTimeInfo, Sentences.CurrentTime[ctx.sentencesLanguage]!!)
+    override fun build(ctx: SkillContext): Skill<*>? {
+        val data = Sentences.CurrentTime[ctx.sentencesLanguage] ?: return null
+        return CurrentTimeSkill(CurrentTimeInfo, data)
     }
 }

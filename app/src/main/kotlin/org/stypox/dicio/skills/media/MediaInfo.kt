@@ -22,11 +22,8 @@ object MediaInfo : SkillInfo("media") {
     override fun icon() =
         rememberVectorPainter(Icons.AutoMirrored.Filled.QueueMusic)
 
-    override fun isAvailable(ctx: SkillContext): Boolean {
-        return Sentences.Media[ctx.sentencesLanguage] != null
-    }
-
-    override fun build(ctx: SkillContext): Skill<*> {
-        return MediaSkill(MediaInfo, Sentences.Media[ctx.sentencesLanguage]!!)
+    override fun build(ctx: SkillContext): Skill<*>? {
+        val data = Sentences.Media[ctx.sentencesLanguage] ?: return null
+        return MediaSkill(MediaInfo, data)
     }
 }

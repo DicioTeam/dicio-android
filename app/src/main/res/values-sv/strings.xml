@@ -220,4 +220,11 @@
     <string name="skill_sentence_example_media">Nästa låt</string>
     <string name="skill_media_playing">Spelar media…</string>
     <string name="skill_media_pausing">Pausar media…</string>
+    <string name="pref_stt_silence_duration_title">Maximal tystnad före talstart</string>
+    <string name="skill_name_joke">Skämt</string>
+    <string name="skill_sentence_example_joke">Berätta ett skämt</string>
+    <string name="skill_listening_already_listening">Jag lyssnar redan efter väckordet</string>
+    <string name="skill_listening_started_listening">OK, jag lyssnar efter väckordet</string>
+    <string name="skill_listening_not_listening">Jag lyssnade inte</string>
+    <string name="skill_listening_stop_listening">OK</string>
 </resources>
