@@ -7,7 +7,6 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
-import org.dicio.skill.context.SkillContext
 import org.dicio.skill.skill.SkillInfo
 import org.stypox.dicio.di.SkillContextInternal
 import org.stypox.dicio.settings.datastore.UserSettings

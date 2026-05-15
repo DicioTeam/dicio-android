@@ -13,12 +13,15 @@ import org.dicio.skill.skill.Skill
 import org.dicio.skill.context.SkillContext
 import org.dicio.skill.skill.InteractionPlan
 import org.dicio.skill.skill.SkillOutput
+import org.dicio.skill.standard.StandardRecognizerData
 import org.stypox.dicio.R
 import org.stypox.dicio.io.graphical.Headline
+import org.stypox.dicio.sentences.Sentences
 import org.stypox.dicio.util.getString
 
 class TelephoneOutput(
     private val contacts: List<Pair<String, List<String>>>,
+    private val yesNoData: StandardRecognizerData<Sentences.UtilYesNo>,
 ) : SkillOutput {
     override fun getSpeechOutput(ctx: SkillContext): String = if (contacts.isEmpty()) {
         ctx.getString(R.string.skill_telephone_unknown_contact)
@@ -31,7 +34,8 @@ class TelephoneOutput(
             ContactChooserName(
                 // when saying the name, there is no way to distinguish between
                 // different numbers, so just use the first one
-                contacts.map { Pair(it.first, it.second[0]) }
+                contacts.map { Pair(it.first, it.second[0]) },
+                yesNoData,
             )
         )
 
@@ -42,7 +46,8 @@ class TelephoneOutput(
                         contact.second.map { number ->
                             Pair(contact.first, number)
                         }
-                    }
+                    },
+                    yesNoData,
                 )
             )
         }

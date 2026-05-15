@@ -13,6 +13,7 @@ import org.dicio.skill.skill.Score
 import org.dicio.skill.skill.Skill
 import org.dicio.skill.skill.SkillOutput
 import org.dicio.skill.skill.Specificity
+import org.dicio.skill.standard.StandardRecognizerData
 import org.stypox.dicio.R
 import org.stypox.dicio.io.graphical.Headline
 import org.stypox.dicio.io.graphical.HeadlineSpeechSkillOutput
@@ -95,14 +96,14 @@ sealed interface TimerOutput : SkillOutput {
     }
 
     class ConfirmCancel(
+        private val yesNoData: StandardRecognizerData<Sentences.UtilYesNo>,
         private val onConfirm: () -> SkillOutput,
     ) : TimerOutput, HeadlineSpeechSkillOutput {
         override fun getSpeechOutput(ctx: SkillContext): String =
             ctx.getString(R.string.skill_timer_confirm_cancel)
 
         override fun getInteractionPlan(ctx: SkillContext): InteractionPlan {
-            val yesNoSentences = Sentences.UtilYesNo[ctx.sentencesLanguage]!!
-            val confirmYesNoSkill = object : RecognizeYesNoSkill(TimerInfo, yesNoSentences) {
+            val confirmYesNoSkill = object : RecognizeYesNoSkill(TimerInfo, yesNoData) {
                 override suspend fun generateOutput(
                     ctx: SkillContext,
                     inputData: Boolean
