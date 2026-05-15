@@ -1,0 +1,8 @@
+create:
+  - (add|create|schedule|make|put|(arrange for?)|book|setup|(set up) ((a|an|the event<s?>|appointment<s?>|meeting<s?> called|named|(with the name)|for?)? .title. to|on|in my|the? calendar|agenda|schedule|timetable)|(a|an|the event<s?>|appointment<s?>|meeting<s?> called|named|(with the name)|for? .title.))|(schedule|(reserve a time? slot for)|(remind me about|of|to?) .title.) (starting|beginning|(that begin<s?>) on|at|for|from? the?)|(on|at|for|from the?)? .begin. and? (for|lasting|(with duration)|(that last<s?>)? .duration.)|(that is .duration. long)|(finishing|(that finish<es?>)|ending|(that end<s?>)|(lasting|(that lasts)? until)|to .end.)?
+  - block|hold|reserve|book .duration. about|of|to|for? .title. (starting|beginning|(that begin<s?>) on|at|for|from? the?)|(on|at|for|from the?) .begin.
+
+query:
+  - (what event<s?>|appointment<s?>|meeting<s?>|plan<s?>? (do|will|did i have)|(are|is|was|(will be) there?))|((do|will|did i have)|(are|is|was|(will be) there?)|(show|tell|list|read me?)? any|my|the|an? event<s?>|appointment<s?>|meeting<s?>|plan<s?> (i have)?) (on|in|inside my|the? calendar|agenda|schedule|timetable)|scheduled|arranged|happening|planned? (on|at|for? the? .when.)? (on|in|inside my|the? calendar|agenda|schedule|timetable)?
+  - (show|tell|list|read me?)|((do|will|did i have)|(is|was there? be?) anything on|in|inside) the|my? calendar|agenda|schedule|timetable (on|at|for? the? .when.)?
+  - ((am i)|(was i)|(will i be) busy|free|occupied)|(do|will|did i have free? time) (on|at|for? the? .when.)?

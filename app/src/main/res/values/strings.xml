@@ -120,6 +120,7 @@
     <string name="pref_stt_play_sound_none">Do not play sound</string>
     <string name="perm_read_contacts">read your contacts</string>
     <string name="perm_call_phone">directly call phone numbers</string>
+    <string name="perm_read_calendar">read your calendar</string>
     <string name="settings_description_with_value">%1$s — %2$s</string>
     <string name="eval_missing_permissions">The skill \"%1$s\" needs these permissions to work: %2$s</string>
     <string name="eval_fatal_error">Could not evaluate your request</string>
@@ -148,6 +149,42 @@
     <string name="skill_sentence_example_navigation">Navigate to Vancouver international airport</string>
     <string name="skill_navigation_specify_where">Specify where you want to navigate to</string>
     <string name="skill_navigation_navigating_to">Navigating to %1$s</string>
+    <string name="skill_name_calendar">Calendar</string>
+    <string name="skill_sentence_example_calendar">Add dentist appointment tomorrow at 3pm</string>
+    <string name="skill_calendar_adding_begin_duration">Adding %1$s on %2$s lasting %3$s</string>
+    <string name="skill_calendar_adding_begin_end">Adding %1$s from %2$s to %3$s</string>
+    <string name="skill_calendar_app_was_instructed">Your calendar app was instructed to add this event:</string>
+    <string name="skill_calendar_duration">Duration: %1$s</string>
+    <string name="skill_calendar_no_app">No calendar app found, please install a calendar app to add events</string>
+    <string name="skill_calendar_title_all_day">%1$s for all day</string>
+    <string name="skill_calendar_title_location_all_day">%1$s in %2$s for all day</string>
+    <string name="skill_calendar_location_all_day">in %1$s for all day</string>
+    <string name="skill_calendar_unnamed_all_day">unnamed event for all day</string>
+    <string name="skill_calendar_title_begin">%1$s at %2$s</string>
+    <string name="skill_calendar_title_location_begin">%1$s in %2$s at %3$s</string>
+    <string name="skill_calendar_location_begin">in %1$s at %2$s</string>
+    <string name="skill_calendar_unnamed_begin">unnamed event at %1$s</string>
+    <string name="skill_calendar_title_unknown_time">%1$s</string>
+    <string name="skill_calendar_title_location_unknown_time">%1$s in %2$s</string>
+    <string name="skill_calendar_location_unknown_time">in %1$s</string>
+    <string name="skill_calendar_unnamed_unknown_time">unnamed event</string>
+    <string name="skill_calendar_on_date_you_have_count_zero">You have nothing scheduled</string>
+    <plurals name="skill_calendar_on_date_you_have_count">
+        <item quantity="one">You have %1$d event: %2$s</item>
+        <item quantity="other">You have %1$d events: %2$s</item>
+    </plurals>
+    <plurals name="skill_calendar_on_date_you_have_count_limited">
+        <item quantity="one">You have %1$d event; the first %2$d are: %3$s</item>
+        <item quantity="other">You have %1$d events; the first %2$d are: %3$s</item>
+    </plurals>
+    <string name="skill_calendar_events_zero">No events found</string>
+    <plurals name="skill_calendar_events">
+        <item quantity="one">%1$d event</item>
+        <item quantity="other">%1$d events</item>
+    </plurals>
+    <string name="skill_calendar_all_day">All day</string>
+    <string name="skill_calendar_no_name">No name</string>
+    <string name="skill_calendar_unknown_time">Unknown time</string>
     <string name="skill_name_telephone">Telephone</string>
     <string name="skill_sentence_example_telephone">Call Tom</string>
     <string name="skill_name_timer">Timer</string>
