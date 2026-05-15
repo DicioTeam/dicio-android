@@ -19,6 +19,9 @@
     <string name="stt_not_available">Beszédből szöveggé alakítás nem elérhető</string>
     <string name="stt_unzip">Beszédből szöveggé alakítása kitömörítése</string>
     <string name="listening">Figyelek…</string>
+    <string name="silence_detected">Csend észlelve</string>
+    <string name="thinking">Gondolkodom…</string>
+    <string name="waiting">Várakozás…</string>
     <string name="downloaded">Letöltve</string>
     <string name="loaded">Betöltve</string>
     <string name="here_is_what_i_can_do">Ezt tudom nyújtani!</string>
@@ -32,7 +35,9 @@
     <string name="vosk_model_extracting">Vosk modell kicsomagolása…</string>
     <string name="vosk_model_download_error">Vosk modell letöltése meghiúsult</string>
     <string name="vosk_model_ready">Vosk modell kész</string>
+    <string name="stt_popup">Beszédből szöveggé felugró ablak</string>
     <string name="settings">Beállítások</string>
+    <string name="about">Névjegy</string>
     <string name="error_report">Jelentés</string>
     <string name="error_title">Hibabejelentés</string>
     <string name="error_sorry">Sajnáljuk, hiba merült fel</string>

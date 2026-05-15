@@ -1,0 +1,11 @@
+set:
+  - időzítő|timer|(szólj nekem) .duration.
+  - állíts be|indíts<d?> (egy? (.duration. időzítő<t?>)|(időzítő<t?> (ennyi<re?>|időre .duration.)? (nevű|néven .name.)?))
+
+cancel:
+  - töröld|állítsd le|kapcsold ki az? (.name.? időzítő<t?>)|(időzítő<t?> néven|nevű .name.)
+  - (halkítsd el)|(kapcsold ki)|(némítsd el) az? (.name.? időzítő<t?>|csengő<t?>|hangjelzés<t?>)|(időzítő<t?>|csengő<t?> nevű|néven .name.)
+
+query:
+  - mennyi (idő|van) (van még)? hátra az? (.name.? időzítő<ből|n?>)|(időzítő<ből|n?> néven|nevű .name.)
+  - mikor jár le az? (.name.? időzítő)|(időzítő néven|nevű .name.)

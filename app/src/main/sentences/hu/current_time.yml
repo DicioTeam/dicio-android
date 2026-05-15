@@ -1,0 +1,5 @@
+query:
+  - mennyi az? idő|óra
+  - hány óra van most?
+  - (mi az idő)|(most hány? óra van)
+  - mondd meg az? idő<t?>
