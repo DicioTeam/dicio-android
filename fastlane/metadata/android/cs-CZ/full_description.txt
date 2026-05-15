@@ -14,6 +14,9 @@ Dicio odpovídá na otázky týkající se:
 <li><b>vtipy</b>: řekne vám vtip - <i>Řekni mi vtip</i></li>
 <li><b>média</b>: přehrání, pozastavení, předchozí, další skladba - <i>Další skladba</i></li>
 <li><b>překlad</b>: překlad z/do jakéhokoli jazyka pomocí služby <b>Lingva</b> - <i>Jak se řekne ahoj v jazyce angličtina?</i></li>
+<li><b>ovládání probouzecího slova</b>: zapněte/vypněte probouzecí slovo - <i>Přestaň poslouchat</i></li>
+<li><b>oznámení</b>: přečte všechna vaše oznámení ve stavové liště - <i>Jaká mám oznámení?</i></li>
+<li><b>svítilna</b>: zapnout/vypnout svítilnu telefonu - <i>Zapni svítilnu</i></li>
 </ul>
 
 Dicio umí přijímat vstupy prostřednictvím textového pole nebo <i>převodu řeči na text</i> pomocí aplikace <a href="https://github.com/alphacep/vosk-api/">Vosk</a> a umí komunikovat pomocí toastů nebo mechanismu <i>syntézy řeči</i> systému Android. <b>Interaktivní grafický výstup</b> poskytují dovednosti, když odpoví na otázku.

@@ -22,13 +22,10 @@ object CalculatorInfo : SkillInfo("calculator") {
     override fun icon() =
         rememberVectorPainter(Icons.Default.Calculate)
 
-    override fun isAvailable(ctx: SkillContext): Boolean {
-        return Sentences.Calculator[ctx.sentencesLanguage] != null &&
-                Sentences.CalculatorOperators[ctx.sentencesLanguage] != null &&
-                ctx.parserFormatter != null
-    }
-
-    override fun build(ctx: SkillContext): Skill<*> {
-        return CalculatorSkill(CalculatorInfo, Sentences.Calculator[ctx.sentencesLanguage]!!)
+    override fun build(ctx: SkillContext): Skill<*>? {
+        val sentences = Sentences.Calculator[ctx.sentencesLanguage] ?: return null
+        val operators = Sentences.CalculatorOperators[ctx.sentencesLanguage] ?: return null
+        if (ctx.parserFormatter == null) return null
+        return CalculatorSkill(CalculatorInfo, sentences, operators)
     }
 }

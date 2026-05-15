@@ -22,11 +22,8 @@ object LyricsInfo : SkillInfo("lyrics") {
     override fun icon() =
         rememberVectorPainter(Icons.Default.MusicNote)
 
-    override fun isAvailable(ctx: SkillContext): Boolean {
-        return Sentences.Lyrics[ctx.sentencesLanguage] != null
-    }
-
-    override fun build(ctx: SkillContext): Skill<*> {
-        return LyricsSkill(LyricsInfo, Sentences.Lyrics[ctx.sentencesLanguage]!!)
+    override fun build(ctx: SkillContext): Skill<*>? {
+        val data = Sentences.Lyrics[ctx.sentencesLanguage] ?: return null
+        return LyricsSkill(LyricsInfo, data)
     }
 }

@@ -1,0 +1,25 @@
+Dicio on <i>tasuta ja avatud lähtekoodiga</i> <b>hääleassistent</b>. Tal on palju erinevaid <b>oskusi</b> ning sisend-/väljundmeetodeid ja vastab küsimustele nii <b>kõnes</b> kui ka <b>pildis</b>. Kõnest tekstiks teisendamiseks on kasutusel <a href="https://github.com/alphacep/vosk-api/">Vosk</a>. Rakendus toetab <b>mitut keelt</b> ning on praegu saadaval tšehhi, hollandi, inglise, prantsuse, saksa, kreeka, itaalia, poola, vene, sloveeni, hispaania, rootsi ja ukraina keeles.
+
+Dicio vastab küsimustele järgmistes valdkondades:
+<ul>
+<li><b>otsing (search)</b>: otsib teavet <b>DuckDuckGo</b>-st (ja tulevikus ka teistest otsingumootoritest) – <i>Otsi Dicio kohta</i></li>
+<li><b>ilm (weather)</b>: otsib välja ilmaennustuse teenusest <b>OpenWeatherMap</b> – <i>Milline on ilm?</i></li>
+<li><b>laulusõnad (lyrics)</b>: kuvab laulusõnu <b>Geniuse</b> teenusest – <i>Mis laul see on, kus kõlab „we will we will rock you?“</i></li>
+<li><b>ava (open)</b>: avab sinu seadmes rakenduse – <i>Ava NewPipe</i></li>
+<li><b>kalkulaator (calculator)</b>: arvutab lihtsaid tehteid – <i>Kui palju on neli tuhat kaks korda kolm miinus miljon jagatud kolmesajaga?</i></li>
+<li><b>telefon (telephone)</b>: vaatab kontakte ja helistab neile – <i>Helista Tommile</i></li>
+<li><b>taimer (timer)</b>: seadista, tuvasta ja tühista taimereid – <i>Määra taimer üheteistkümneks minutiks</i></li>
+<li><b>praegune kellaaeg (current time)</b>: küsi praegust kellaaega – <i>Mis kell on?</i></li>
+<li><b>tee juhatamine (navigation)</b>: avab kaardirakenduse soovitud asukohaga – <i>Vii mind New Yorki, Viieteistkümnendale avenüüle</i></li>
+<li><b>naljad (jokes)</b>: räägib sulle nalja – <i>Räägi mulle üks nali</i></li>
+<li><b>multimeedia (media)</b>: esita, peata, eelmine, järgmine laul – <i>Järgmine laul</i></li>
+<li><b>tõlkimine (translation)</b>: tõlgi mistahes keelest/mistahes keelde teenusega <b>Lingva</b> – <i>Kuidas öelda „football“ saksa keeles?</i></li>
+</ul>
+
+Dicio saab sisendi tekstikasti kaudu või <a href="https://github.com/alphacep/vosk-api/">Vosk</a>-i <i>kõnest tekstiks</i> funktsiooni abil ning võib vastata teavituste või Androidi <i>kõnesünteesi</i> mootori kaudu. <b>Interaktiivne graafiline väljund</b> pakutakse oskuste puhul, kus vastatakse küsimusele.
+
+Iga oskuse saab vastava seadete ekraani kaudu lubada, keelata või kohandada. Saadaval on tume, must ja dünaamiline kujundus.
+
+Kasutaja sisendit tõlgendavad spetsiaalsed, kuid taaskasutatavad teegid: <a href="https://github.com/Stypox/dicio-sentences-compiler">dicio-sentences-compiler</a> ja <a href="https://github.com/Stypox/dicio-numbers">dicio-numbers</a>.
+
+Sellel rakendusel on <i>NonFreeNet</i> anti-omadus, kuna mõned oskused kasutavad kasutaja soovitud teabe hankimiseks mitte-vabu teenuseid. Soovimatud oskused saab seadetes hõlpsasti keelata või valida alternatiivseid teenuseid.

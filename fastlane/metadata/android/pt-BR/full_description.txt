@@ -1,0 +1,49 @@
+Dicio é um <b>assistente de voz</b><i>livre e de código aberto</i> . Ele suporta muitos métodos diferentes <b>funções</b>, entrada/saída, e fornece feedback através <b>fala</b> e <b>graficamente</b> para uma pergunta. Ele usa <a href="https://github.com/alphacep/vosk-api/">Vosk</a> para <i>fala para texto</i>. Tem suporte  <b>multilíngua</b>, e atualmente está disponível em checo, holandês, inglês, francês, alemão, grego, italiano, polonês, russo, esloveno, espanhol, sueco e ucraniano.
+
+
+
+Dicio responde a perguntas sobre:
+
+<ul>
+
+<li><b>search</b>: procura informações sobre <b>DuckDuckGo</b> (e no futuro mais motores) - <i>Procurar por Dicio</i></li>
+
+<li><b>weather</b>: coleta informações meteorológicas de <b>OpenWeatherMap</b> - <i>Como é o clima? </i></li>
+
+<li><b>lyrics</b>: mostra <b>Genius</b> letras para músicas - <i>Qual é a música que vai nós vamos te arrasar? </i></li>
+
+<li><b>open</b>: abre um aplicativo no seu dispositivo - <i>Open NewPipe</i></li>
+
+<li><b>calculator</b>: avalia cálculos básicos - <i>O que é quatro mil e duas vezes três menos um milhão dividido por trezentos? </i></li>
+
+<li><b>telephone</b>: ver e chamar contatos - <i>Ligar para Tom</i></li>
+
+<li><b>timer</b>: definir, consultar e cancelar temporizadores - <i>Defina um temporizador para onze minutos</i></li>
+
+<li><b>current time</b>: consultar a hora atual - <i>Que horas são? </i></li>
+
+<li><b>navegation</b>: abre o aplicativo de navegação na posição solicitada - <i>Leve-me para Nova York, quinze avenue</i></li>
+
+<li><b>jokes</b>: conta uma piada - <i>Conte-me uma piada</i></li>
+
+<li><b>media</b>: play, pause, anterior, próxima canção - <i>Next Song</i></li>
+
+<li><b>translation</b>: traduzir de/para qualquer idioma com <b>Lingua</b> - <i>Como digo Futebol em alemão? </i></li>
+
+</ul>
+
+
+
+O Dicio pode receber comandos através de uma caixa de texto ou através de <a href="https://github.com/alphacep/vosk-api/">Vosk</a> <i>speech to text</i>, e pode falar usando brindes ou o mecanismo Android <i>síntese de voz</i>. <b>Saida gráfica interativa <b> é fornecido por habilidades
+
+
+
+Cada habilidade pode ser ativada, desativada ou personalizada usando a tela de configurações relacionadas. Temas de cores escuros, pretos e dinâmicos estão disponíveis.
+
+
+
+A entrada do usuário é interpretada por bibliotecas específicas, mas reutilizáveis: <a href="https://github.com/Stypox/dicio-sentences-compiler">dicio-sentences-compiler</a> e <a href="https://github.com/Stypox/dicio-numbers">dicio-numbers
+
+
+
+Este aplicativo tem o <i>NonFreeNet</i> anti-recurso porque algumas habilidades usam serviços não-livres para obter as informações solicitadas pelo usuário. Você pode facilmente desativar habilidades indesejadas ou escolher serviços alternativos através de configurações.

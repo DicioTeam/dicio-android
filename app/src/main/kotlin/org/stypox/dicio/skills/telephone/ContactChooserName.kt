@@ -7,9 +7,14 @@ import org.dicio.skill.skill.Score
 import org.dicio.skill.skill.Skill
 import org.dicio.skill.skill.SkillOutput
 import org.dicio.skill.skill.Specificity
+import org.dicio.skill.standard.StandardRecognizerData
+import org.stypox.dicio.sentences.Sentences
 import org.stypox.dicio.util.StringUtils
 
-class ContactChooserName internal constructor(private val contacts: List<Pair<String, String>>) :
+class ContactChooserName internal constructor(
+    private val contacts: List<Pair<String, String>>,
+    private val yesNoData: StandardRecognizerData<Sentences.UtilYesNo>,
+) :
     // use a low specificity to prefer the index-based contact chooser
     Skill<Pair<String, String>?>(TelephoneInfo, Specificity.LOW) {
 
@@ -38,7 +43,7 @@ class ContactChooserName internal constructor(private val contacts: List<Pair<St
 
     override suspend fun generateOutput(ctx: SkillContext, inputData: Pair<String, String>?): SkillOutput {
         return inputData?.let {
-            ConfirmCallOutput(it.first, it.second)
+            ConfirmCallOutput(it.first, it.second, yesNoData)
         }
             // impossible situation
             ?: ConfirmedCallOutput(null)

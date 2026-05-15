@@ -24,13 +24,10 @@ object TimerInfo : SkillInfo("timer") {
     override fun icon() =
         rememberVectorPainter(Icons.Default.Timer)
 
-    override fun isAvailable(ctx: SkillContext): Boolean {
-        return Sentences.Timer[ctx.sentencesLanguage] != null
-                && Sentences.UtilYesNo[ctx.sentencesLanguage] != null
-                && ctx.parserFormatter != null
-    }
-
-    override fun build(ctx: SkillContext): Skill<*> {
-        return TimerSkill(TimerInfo, Sentences.Timer[ctx.sentencesLanguage]!!)
+    override fun build(ctx: SkillContext): Skill<*>? {
+        val data = Sentences.Timer[ctx.sentencesLanguage] ?: return null
+        val yesNoData = Sentences.UtilYesNo[ctx.sentencesLanguage] ?: return null
+        if (ctx.parserFormatter == null) return null
+        return TimerSkill(TimerInfo, data, yesNoData)
     }
 }

@@ -13,14 +13,18 @@ import org.dicio.skill.skill.SkillOutput
 import org.dicio.skill.standard.StandardRecognizerData
 import org.dicio.skill.standard.StandardRecognizerSkill
 import org.stypox.dicio.R
+import org.stypox.dicio.sentences.Sentences
 import org.stypox.dicio.sentences.Sentences.Timer
 import org.stypox.dicio.util.StringUtils
 import org.stypox.dicio.util.getString
 import java.time.Duration
 
 // TODO cleanup this skill and use a service to manage timers
-class TimerSkill(correspondingSkillInfo: SkillInfo, data: StandardRecognizerData<Timer>) :
-    StandardRecognizerSkill<Timer>(correspondingSkillInfo, data) {
+class TimerSkill(
+    correspondingSkillInfo: SkillInfo,
+    data: StandardRecognizerData<Timer>,
+    private val yesNoData: StandardRecognizerData<Sentences.UtilYesNo>,
+) : StandardRecognizerSkill<Timer>(correspondingSkillInfo, data) {
 
     override suspend fun generateOutput(ctx: SkillContext, inputData: Timer): SkillOutput {
         return when (inputData) {
@@ -36,7 +40,7 @@ class TimerSkill(correspondingSkillInfo: SkillInfo, data: StandardRecognizerData
             }
             is Timer.Cancel -> {
                 if (inputData.name == null && SET_TIMERS.size > 1) {
-                    TimerOutput.ConfirmCancel { cancelTimer(ctx, null) }
+                    TimerOutput.ConfirmCancel(yesNoData) { cancelTimer(ctx, null) }
                 } else {
                     cancelTimer(ctx, inputData.name)
                 }

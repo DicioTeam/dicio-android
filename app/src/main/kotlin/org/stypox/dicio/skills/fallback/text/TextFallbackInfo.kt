@@ -21,10 +21,6 @@ object TextFallbackInfo : SkillInfo("text") {
     override fun icon() =
         rememberVectorPainter(Icons.Default.Warning)
 
-    override fun isAvailable(ctx: SkillContext): Boolean {
-        return true
-    }
-
     override fun build(ctx: SkillContext): Skill<*> {
         return TextFallbackSkill(TextFallbackInfo)
     }

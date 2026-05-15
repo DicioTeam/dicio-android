@@ -9,6 +9,7 @@ import androidx.compose.ui.unit.dp
 import org.dicio.skill.context.SkillContext
 import org.dicio.skill.skill.InteractionPlan
 import org.dicio.skill.skill.SkillOutput
+import org.dicio.skill.standard.StandardRecognizerData
 import org.stypox.dicio.R
 import org.stypox.dicio.io.graphical.Body
 import org.stypox.dicio.io.graphical.Headline
@@ -18,14 +19,14 @@ import org.stypox.dicio.util.getString
 
 class ConfirmCallOutput(
     private val name: String,
-    private val number: String
+    private val number: String,
+    private val yesNoData: StandardRecognizerData<Sentences.UtilYesNo>,
 ) : SkillOutput {
     override fun getSpeechOutput(ctx: SkillContext): String =
         ctx.getString(R.string.skill_telephone_confirm_call, name)
 
     override fun getInteractionPlan(ctx: SkillContext): InteractionPlan {
-        val yesNoSentences = Sentences.UtilYesNo[ctx.sentencesLanguage]!!
-        val confirmYesNoSkill = object : RecognizeYesNoSkill(TelephoneInfo, yesNoSentences) {
+        val confirmYesNoSkill = object : RecognizeYesNoSkill(TelephoneInfo, yesNoData) {
             override suspend fun generateOutput(
                 ctx: SkillContext,
                 inputData: Boolean

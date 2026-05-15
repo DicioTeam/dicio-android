@@ -23,12 +23,10 @@ object JokeInfo : SkillInfo("Joke") {
     override fun icon() =
         rememberVectorPainter(Icons.Default.EmojiEmotions)
 
-    override fun isAvailable(ctx: SkillContext): Boolean {
-        return (Sentences.Joke[ctx.sentencesLanguage] != null) &&
-                LocaleUtils.isLocaleSupported(ctx.locale, JokeSkill.JOKE_SUPPORTED_LOCALES)
-    }
-
-    override fun build(ctx: SkillContext): Skill<*> {
-        return JokeSkill(JokeInfo, Sentences.Joke[ctx.sentencesLanguage]!!)
+    override fun build(ctx: SkillContext): Skill<*>? {
+        val data = Sentences.Joke[ctx.sentencesLanguage] ?: return null
+        val locale = LocaleUtils.resolveSupportedLocale(ctx.locale, JokeSkill.JOKE_SUPPORTED_LOCALES)
+            ?: return null
+        return JokeSkill(JokeInfo, data, locale)
     }
 }

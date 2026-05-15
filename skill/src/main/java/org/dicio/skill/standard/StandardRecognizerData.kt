@@ -3,6 +3,7 @@ package org.dicio.skill.standard
 import org.dicio.skill.context.SkillContext
 import org.dicio.skill.skill.Specificity
 import org.dicio.skill.standard.construct.Construct
+import org.dicio.skill.standard.util.MatchHelper
 import org.dicio.skill.standard.util.initialMemToEnd
 
 open class StandardRecognizerData<out T>(
@@ -11,7 +12,10 @@ open class StandardRecognizerData<out T>(
     private val sentencesWithId: List<Pair<String, Construct>>,
 ) {
     fun score(ctx: SkillContext, input: String): Pair<StandardScore, T> {
-        val helper = ctx.standardMatchHelper!! // surely != null, see its javadoc
+        return score(ctx.standardMatchHelper!!, input)
+    }
+
+    fun score(helper: MatchHelper, input: String): Pair<StandardScore, T> {
         val cumulativeWeight = helper.cumulativeWeight
 
         var bestRes: Pair<String, StandardScore>? = null
