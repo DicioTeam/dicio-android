@@ -47,19 +47,14 @@ abstract class SkillInfo(
     open val neededPermissions: List<Permission> = listOf()
 
     /**
-     * Use this method to signal that the skill is not available in case, for example, the user
-     * locale is not supported.
+     * Builds an instance of the [Skill] this [SkillInfo] object represents, or returns null if
+     * the skill is not available (e.g. the user locale is not supported, or required hardware is
+     * missing). Combining availability checking and construction into a single method eliminates
+     * race conditions where the context could change between an availability check and build.
      * @param ctx the skill context with useful resources, see [SkillContext]
-     * @return whether this skill can be used with the current system configuration or not
+     * @return a skill, or null if the skill is not available
      */
-    abstract fun isAvailable(ctx: SkillContext): Boolean
-
-    /**
-     * Builds an instance of the [Skill] this [SkillInfo] object represents.
-     * @param ctx the skill context with useful resources, see [SkillContext]
-     * @return a skill
-     */
-    abstract fun build(ctx: SkillContext): Skill<*>
+    abstract fun build(ctx: SkillContext): Skill<*>?
 
     /**
      * Provides a settings screen for this skill, allowing the user to customize it to

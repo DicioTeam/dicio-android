@@ -225,7 +225,7 @@
     <string name="pref_input_method_external_popup_summary">ACTION_RECOGNIZE_SPEECH aracılığıyla başka bir uygulamanın kullanıcı arayüzünü açar, örneğin whisperIME, Kõnele, Futo Voice Input</string>
     <string name="pref_wake_custom_import_summary_oww">Varsayılan \"Hey Dicio\" uyandırma sözcüğünü özel bir TFLite modeliyle değiştir; bazı özel modelleri github.com/dscripka/openWakeWord/releases adresinden indirebilirsiniz</string>
     <string name="waiting">Bekleniyor…</string>
-    <string name="pref_input_method_vosk_summary">Dicio içinde bir Vosk SpeechToText modelini çevrimdışı olarak indirir ve çalıştırır</string>
+    <string name="pref_input_method_vosk_summary">Dicio içinde bir Vosk SpeechToText modelini çevrim dışı olarak indirir ve çalıştırır</string>
     <string name="pref_input_method_external_popup">Harici SpeechToText açılır penceresi</string>
     <string name="skill_listening_already_listening">Zaten uyandırma sözcüğünü bekliyorum</string>
     <string name="skill_listening_started_listening">Tamam, uyandırma sözcüğünü bekleyeceğim</string>
@@ -234,4 +234,17 @@
     <string name="skill_listening_disabled">Uyandırma sözcüğü hizmeti ayarlardan devre dışı bırakılmış</string>
     <string name="skill_name_listening">Uyandırma sözcüğü dinlemeyi düzenle</string>
     <string name="skill_sentence_example_listening">Dinlemeyi bırak</string>
+    <string name="skill_name_joke">Şaka</string>
+    <string name="skill_sentence_example_joke">Bana bir şaka söyle</string>
+    <string name="skill_translation_success">%1$s diline çevrildi</string>
+    <string name="skill_translation_unknown_language">%1$s dilini tanımıyorum</string>
+    <string name="skill_translation_unsupported_language">%1$s (%2$s) dili desteklenmiyor</string>
+    <string name="skill_translation_failed">Sorgunuz %1$s diline çevrilemiyor</string>
+    <string name="skill_translation_failed_no_query">Anlamadım, çevirmek istediğinizi tekrar eder misiniz?</string>
+    <string name="skill_translation_to">hedef</string>
+    <string name="skill_name_translation">Çevir</string>
+    <string name="skill_sentence_example_translation">Hola sözcüğünü İspanyolca\'dan İngilizce\'ye çevir</string>
+    <string name="failed_to_copy">Panoya kopyalanamadı</string>
+    <string name="skill_translation_auto">Otomatik</string>
+    <string name="skill_search_duckduckgo_recaptcha">DuckDuckGo sonuç vermedi, Captcha çözülmesini istedi</string>
 </resources>

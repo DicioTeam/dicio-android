@@ -26,11 +26,8 @@ class ListeningInfo(
     override fun icon() =
         rememberVectorPainter(Icons.Default.Hearing)
 
-    override fun isAvailable(ctx: SkillContext): Boolean {
-        return Sentences.Listening[ctx.sentencesLanguage] != null
-    }
-
-    override fun build(ctx: SkillContext): Skill<*> {
-        return ListeningSkill(this, Sentences.Listening[ctx.sentencesLanguage]!!)
+    override fun build(ctx: SkillContext): Skill<*>? {
+        val data = Sentences.Listening[ctx.sentencesLanguage] ?: return null
+        return ListeningSkill(this, data)
     }
 }

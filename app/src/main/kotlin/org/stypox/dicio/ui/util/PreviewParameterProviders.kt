@@ -21,6 +21,7 @@ import org.stypox.dicio.skills.navigation.NavigationOutput
 import org.stypox.dicio.skills.telephone.ConfirmCallOutput
 import org.stypox.dicio.skills.telephone.ConfirmedCallOutput
 import org.stypox.dicio.skills.telephone.TelephoneInfo
+import org.stypox.dicio.sentences.Sentences
 import org.stypox.dicio.skills.timer.TimerInfo
 import org.stypox.dicio.skills.timer.TimerOutput
 import org.stypox.dicio.skills.weather.WeatherInfo
@@ -47,8 +48,7 @@ class SkillInfoPreviews : CollectionPreviewParameterProvider<SkillInfo>(listOf(
         override fun name(context: Context) = "Long name lorem ipsum dolor sit amet, consectetur"
         override fun sentenceExample(context: Context) = "Long sentence ".repeat(20)
         @Composable override fun icon() = rememberVectorPainter(Icons.Default.Extension)
-        override fun isAvailable(ctx: SkillContext) = true
-        override fun build(ctx: SkillContext) = error("not-implemented preview-only")
+        override fun build(ctx: SkillContext): Nothing = error("not-implemented preview-only")
     },
 ))
 
@@ -106,7 +106,7 @@ class InteractionLogPreviews : CollectionPreviewParameterProvider<InteractionLog
             Interaction(
                 skill = TelephoneInfo,
                 questionsAnswers = listOf(
-                    QuestionAnswer("call mom", ConfirmCallOutput("Mom", "1234567890")),
+                    QuestionAnswer("call mom", ConfirmCallOutput("Mom", "1234567890", Sentences.UtilYesNo["en"]!!)),
                     QuestionAnswer("yes", ConfirmedCallOutput("1234567890")),
                 )
             )

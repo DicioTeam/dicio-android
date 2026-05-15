@@ -113,9 +113,12 @@ fun SkillSettingsScreen(
             }
         }
         items(skills) { skill ->
+            // Note: calling build() here is slightly wasteful as it constructs a skill object
+            // just to check availability, but it ensures correct results regardless of whether
+            // the skill is enabled or disabled by the user.
             SkillSettingsItem(
                 skill = skill,
-                isAvailable = skill.isAvailable(viewModel.skillContext),
+                isAvailable = skill.build(viewModel.skillContext) != null,
                 enabled = enabledSkills.getOrDefault(skill.id, true),
                 setEnabled = { enabled -> viewModel.setSkillEnabled(skill.id, enabled) }
             )

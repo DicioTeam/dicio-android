@@ -24,14 +24,11 @@ object NotifyInfo: SkillInfo("notify") {
     override fun icon() =
         rememberVectorPainter(Icons.Default.NotificationsActive)
 
-    override fun isAvailable(ctx: SkillContext): Boolean {
-        return Sentences.Notify[ctx.sentencesLanguage] != null
-    }
-
     override val neededPermissions: List<Permission>
             = listOf(PERMISSION_NOTIFICATION_LISTENER)
 
-    override fun build(ctx: SkillContext): Skill<*> {
-        return NotifySkill(NotifyInfo, Sentences.Notify[ctx.sentencesLanguage]!!)
+    override fun build(ctx: SkillContext): Skill<*>? {
+        val data = Sentences.Notify[ctx.sentencesLanguage] ?: return null
+        return NotifySkill(NotifyInfo, data)
     }
 }

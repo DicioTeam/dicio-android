@@ -161,9 +161,9 @@ class ScreenshotTakerTest {
         // otherwise there is darkened indication around it
         composeRule.onRoot().performTouchInput { click(center) }
 
-        // make sure the app bar shows "Dicio" and not "Dicio-master" or other branch names
+        // make sure the app bar shows "Dicio" and not "Dicio-main" or other branch names
         composeRule.onNodeWithText("Dicio").assertExists()
-        composeRule.onNodeWithText("Dicio-master").assertDoesNotExist()
+        composeRule.onNodeWithText("Dicio-main").assertDoesNotExist()
 
 
         // screenshot 0: home screen with "Here is what I can do" and STT listening

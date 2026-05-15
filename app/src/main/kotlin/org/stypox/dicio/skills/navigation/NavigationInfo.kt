@@ -25,11 +25,8 @@ object NavigationInfo : SkillInfo("navigation") {
     override fun icon() =
         rememberVectorPainter(Icons.Default.Directions)
 
-    override fun isAvailable(ctx: SkillContext): Boolean {
-        return Sentences.Navigation[ctx.sentencesLanguage] != null
-    }
-
-    override fun build(ctx: SkillContext): Skill<*> {
-        return NavigationSkill(NavigationInfo, Sentences.Navigation[ctx.sentencesLanguage]!!)
+    override fun build(ctx: SkillContext): Skill<*>? {
+        val data = Sentences.Navigation[ctx.sentencesLanguage] ?: return null
+        return NavigationSkill(NavigationInfo, data)
     }
 }

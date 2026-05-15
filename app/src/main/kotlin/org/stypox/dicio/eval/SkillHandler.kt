@@ -10,7 +10,6 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
-import org.dicio.skill.skill.Skill
 import org.dicio.skill.skill.SkillInfo
 import org.stypox.dicio.di.LocaleManager
 import org.stypox.dicio.di.SkillContextImpl
@@ -73,7 +72,7 @@ class SkillHandler @Inject constructor(
 
     private val _skillRanker = MutableStateFlow(
         // an initial dummy value, will be overwritten directly by the launched job
-        SkillRanker(listOf(), buildSkillFromInfo(fallbackSkillInfoList[0]))
+        SkillRanker(listOf(), fallbackSkillInfoList[0].build(skillContext)!!)
     )
     val skillRanker: StateFlow<SkillRanker> = _skillRanker
 
@@ -87,19 +86,15 @@ class SkillHandler @Inject constructor(
 
                     val newEnabledSkillsInfo = allSkillInfoList
                         .filter { enabledSkills.getOrDefault(it.id, true) }
-                        .filter { it.isAvailable(skillContext) }
+                        .mapNotNull { info -> info.build(skillContext)?.let { skill -> Pair(info, skill) } }
 
-                    _enabledSkillsInfo.value = newEnabledSkillsInfo
+                    _enabledSkillsInfo.value = newEnabledSkillsInfo.map { (info, _skill) -> info }
                     _skillRanker.value = SkillRanker(
-                        newEnabledSkillsInfo.map(::buildSkillFromInfo),
-                        buildSkillFromInfo(fallbackSkillInfoList[0]),
+                        newEnabledSkillsInfo.map { (_info, skill) -> skill },
+                        fallbackSkillInfoList[0].build(skillContext)!!,
                     )
                 }
         }
-    }
-
-    private fun buildSkillFromInfo(skillInfo: SkillInfo): Skill<*> {
-        return skillInfo.build(skillContext)
     }
 
     companion object {

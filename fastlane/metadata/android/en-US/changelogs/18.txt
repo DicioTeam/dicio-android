@@ -1,0 +1,19 @@
+New
+* Add Turkish language
+* Allowing for configuring how quickly the app asks for confirmation by allowing longer periods of user silence
+* Read notifications skill
+* Toggle flashlight skill
+* Add an about page
+
+Improved
+* French listening skill translation
+* German translations
+* Sentences for many skills
+* Various translations updates
+
+Fixed
+* A potential continuous loop in starting the wake word service
+
+Development
+* CI was expanded and improved
+* Improved number handling

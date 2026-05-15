@@ -8,10 +8,14 @@ import org.dicio.skill.skill.SkillInfo
 import org.dicio.skill.skill.SkillOutput
 import org.dicio.skill.standard.StandardRecognizerData
 import org.dicio.skill.standard.StandardRecognizerSkill
+import org.stypox.dicio.sentences.Sentences
 import org.stypox.dicio.sentences.Sentences.Telephone
 
-class TelephoneSkill(correspondingSkillInfo: SkillInfo, data: StandardRecognizerData<Telephone>) :
-    StandardRecognizerSkill<Telephone>(correspondingSkillInfo, data) {
+class TelephoneSkill(
+    correspondingSkillInfo: SkillInfo,
+    data: StandardRecognizerData<Telephone>,
+    val yesNoData: StandardRecognizerData<Sentences.UtilYesNo>,
+) : StandardRecognizerSkill<Telephone>(correspondingSkillInfo, data) {
 
     override suspend fun generateOutput(ctx: SkillContext, inputData: Telephone): SkillOutput {
         val contentResolver = ctx.android.contentResolver
@@ -36,7 +40,7 @@ class TelephoneSkill(correspondingSkillInfo: SkillInfo, data: StandardRecognizer
                         || contacts[i + 1].distance - 2 > contact.distance)
             ) {
                 // very close match with just one number and without distance ties: call it directly
-                return ConfirmCallOutput(contact.name, numbers[0])
+                return ConfirmCallOutput(contact.name, numbers[0], yesNoData)
             }
             validContacts.add(Pair(contact.name, numbers))
             ++i
@@ -50,11 +54,11 @@ class TelephoneSkill(correspondingSkillInfo: SkillInfo, data: StandardRecognizer
         ) {
             // not a good enough match, but since we have only this, call it directly
             val contact = validContacts[0]
-            return ConfirmCallOutput(contact.first, contact.second[0])
+            return ConfirmCallOutput(contact.first, contact.second[0], yesNoData)
         }
 
         // this point will not be reached if a very close match was found
-        return TelephoneOutput(validContacts)
+        return TelephoneOutput(validContacts, yesNoData)
     }
 
     companion object {

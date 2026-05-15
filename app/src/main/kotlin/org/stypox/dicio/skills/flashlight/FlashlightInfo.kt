@@ -24,13 +24,11 @@ object FlashlightInfo : SkillInfo("flashlight") {
     override fun icon() =
         rememberVectorPainter(Icons.Default.FlashlightOn)
 
-    override fun isAvailable(ctx: SkillContext): Boolean {
-        return Sentences.Flashlight[ctx.sentencesLanguage] != null &&
-                ctx.android.packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH)
-    }
-
-    @SuppressLint("NewApi") // since build() is not called if isAvailable() returned false
-    override fun build(ctx: SkillContext): Skill<*> {
-        return FlashlightSkill(FlashlightInfo, Sentences.Flashlight[ctx.sentencesLanguage]!!)
+    @SuppressLint("NewApi") // FlashlightSkill uses API 23+; guarded by FEATURE_CAMERA_FLASH check
+    override fun build(ctx: SkillContext): Skill<*>? {
+        val data = Sentences.Flashlight[ctx.sentencesLanguage] ?: return null
+        if (!ctx.android.packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH))
+            return null
+        return FlashlightSkill(FlashlightInfo, data)
     }
 }
