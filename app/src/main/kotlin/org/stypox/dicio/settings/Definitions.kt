@@ -1,5 +1,6 @@
 package org.stypox.dicio.settings
 
+import android.os.Build
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.Send
 import androidx.compose.material.icons.filled.Alarm
@@ -32,6 +33,8 @@ import org.stypox.dicio.settings.datastore.WakeDevice
 import org.stypox.dicio.settings.ui.BooleanSetting
 import org.stypox.dicio.settings.ui.ListSetting
 import org.stypox.dicio.settings.ui.StringSetting
+
+private val isParakeetSupported = Build.VERSION.SDK_INT >= Build.VERSION_CODES.N
 
 
 @Composable
@@ -107,37 +110,49 @@ fun inputDevice() = ListSetting(
     title = stringResource(R.string.pref_input_method),
     icon = Icons.Default.Mic,
     description = stringResource(R.string.pref_input_method_summary),
-    possibleValues = listOf(
-        ListSetting.Value(
-            value = InputDevice.INPUT_DEVICE_VOSK,
-            name = stringResource(R.string.pref_input_method_vosk),
-            description = stringResource(R.string.pref_input_method_vosk_summary),
-            icon = Icons.Default.Mic,
-        ),
-        ListSetting.Value(
-            value = InputDevice.INPUT_DEVICE_PARAKEET,
-            name = stringResource(R.string.pref_input_method_parakeet),
-            description = stringResource(R.string.pref_input_method_parakeet_summary),
-            icon = Icons.Default.Mic,
-        ),
-        ListSetting.Value(
-            value = InputDevice.INPUT_DEVICE_SCRIBE_REALTIME,
-            name = stringResource(R.string.pref_input_method_scribe_realtime),
-            description = stringResource(R.string.pref_input_method_scribe_realtime_summary),
-            icon = Icons.Default.Cloud,
-        ),
-        ListSetting.Value(
-            value = InputDevice.INPUT_DEVICE_EXTERNAL_POPUP,
-            name = stringResource(R.string.pref_input_method_external_popup),
-            description = stringResource(R.string.pref_input_method_external_popup_summary),
-            icon = Icons.Default.PictureInPictureAlt,
-        ),
-        ListSetting.Value(
-            value = InputDevice.INPUT_DEVICE_NOTHING,
-            name = stringResource(R.string.pref_input_method_text),
-            icon = Icons.Default.KeyboardAlt,
-        ),
-    ),
+possibleValues = buildList {
+        add(
+            ListSetting.Value(
+                value = InputDevice.INPUT_DEVICE_VOSK,
+                name = stringResource(R.string.pref_input_method_vosk),
+                description = stringResource(R.string.pref_input_method_vosk_summary),
+                icon = Icons.Default.Mic,
+            )
+        )
+        if (isParakeetSupported) {
+            add(
+                ListSetting.Value(
+                    value = InputDevice.INPUT_DEVICE_PARAKEET,
+                    name = stringResource(R.string.pref_input_method_parakeet),
+                    description = stringResource(R.string.pref_input_method_parakeet_summary),
+                    icon = Icons.Default.Mic,
+                )
+            )
+        }
+        add(
+            ListSetting.Value(
+                value = InputDevice.INPUT_DEVICE_SCRIBE_REALTIME,
+                name = stringResource(R.string.pref_input_method_scribe_realtime),
+                description = stringResource(R.string.pref_input_method_scribe_realtime_summary),
+                icon = Icons.Default.Cloud,
+            )
+        )
+        add(
+            ListSetting.Value(
+                value = InputDevice.INPUT_DEVICE_EXTERNAL_POPUP,
+                name = stringResource(R.string.pref_input_method_external_popup),
+                description = stringResource(R.string.pref_input_method_external_popup_summary),
+                icon = Icons.Default.PictureInPictureAlt,
+            )
+        )
+        add(
+            ListSetting.Value(
+                value = InputDevice.INPUT_DEVICE_NOTHING,
+                name = stringResource(R.string.pref_input_method_text),
+                icon = Icons.Default.KeyboardAlt,
+            )
+        )
+    },
 )
 
 @Composable

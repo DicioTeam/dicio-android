@@ -3,6 +3,7 @@ package org.stypox.dicio.di
 import android.content.Context
 import android.media.AudioAttributes
 import android.media.MediaPlayer
+import android.os.Build
 import androidx.datastore.core.DataStore
 import dagger.Module
 import dagger.Provides
@@ -103,14 +104,22 @@ class SttInputDeviceWrapperImpl(
 
     private suspend fun changeInputDeviceTo(setting: InputDevice) {
         val prevSttInputDevice = sttInputDevice
-        inputDeviceSetting = setting
-        sttInputDevice = buildInputDevice(setting)
+        inputDeviceSetting = normalizeInputDeviceSetting(setting)
+        sttInputDevice = buildInputDevice(inputDeviceSetting)
         prevSttInputDevice?.destroy()
         restartUiStateJob()
     }
 
+    private fun normalizeInputDeviceSetting(setting: InputDevice): InputDevice {
+        return if (setting == INPUT_DEVICE_PARAKEET && Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+            INPUT_DEVICE_VOSK
+        } else {
+            setting
+        }
+    }
+
     private fun buildInputDevice(setting: InputDevice): SttInputDevice? {
-        return when (setting) {
+        return when (normalizeInputDeviceSetting(setting)) {
             UNRECOGNIZED,
             INPUT_DEVICE_UNSET,
             INPUT_DEVICE_VOSK -> VoskInputDevice(appContext, okHttpClient, localeManager, silencesBeforeStop)
