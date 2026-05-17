@@ -44,6 +44,16 @@ skills:
       - id: pause
       - id: previous
       - id: next
+      - id: volume_up
+      - id: volume_down
+      - id: volume_up_times
+        captures:
+          - id: times
+            type: string
+      - id: volume_down_times
+        captures:
+          - id: times
+            type: string
 
   - id: joke
     specificity: high
