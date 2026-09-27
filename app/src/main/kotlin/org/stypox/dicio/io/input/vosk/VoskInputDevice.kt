@@ -218,6 +218,17 @@ class VoskInputDevice(
         } else if (thenStartListeningEventListener != null && s is Loaded) {
             startListening(s.speechService, thenStartListeningEventListener)
             return true
+        } else if (thenStartListeningEventListener != null && s is Loading) {
+            // the model is already being loaded without listening afterwards (e.g. preloaded when
+            // the activity is recreated after a cold start, right before the assist intent is
+            // delivered): make sure listening starts once loading finishes
+            if (s.thenStartListening != null ||
+                _state.compareAndSet(Loading(null), Loading(thenStartListeningEventListener))
+            ) {
+                return true
+            }
+            // loading finished in the meantime, retry with the new state
+            return tryLoad(thenStartListeningEventListener)
         } else {
             return false
         }
