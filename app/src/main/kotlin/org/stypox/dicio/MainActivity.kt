@@ -26,6 +26,7 @@ import kotlinx.coroutines.launch
 import org.stypox.dicio.di.SttInputDeviceWrapper
 import org.stypox.dicio.di.WakeDeviceWrapper
 import org.stypox.dicio.eval.SkillEvaluator
+import org.stypox.dicio.io.input.SttForegroundService
 import org.stypox.dicio.io.wake.WakeService
 import org.stypox.dicio.io.wake.WakeState.Loaded
 import org.stypox.dicio.io.wake.WakeState.Loading
@@ -50,6 +51,7 @@ class MainActivity : BaseActivity() {
     private var wakeServiceJob: Job? = null
 
     private var nextAssistAllowed = Instant.MIN
+    private var startSttForegroundServiceOnResume = false
 
     /**
      * Automatically loads the LLM and the STT when the [ACTION_ASSIST] intent is received. Applies
@@ -62,6 +64,9 @@ class MainActivity : BaseActivity() {
             nextAssistAllowed = now.plusMillis(INTENT_BACKOFF_MILLIS)
             Log.d(TAG, "Received assist intent")
             sttInputDevice.tryLoad(skillEvaluator::processInputEvent)
+            // keep the microphone usable even if the activity goes in the background (e.g. screen
+            // off); the service can only be started once the activity is resumed
+            startSttForegroundServiceOnResume = true
         } else {
             Log.w(TAG, "Ignoring duplicate assist intent")
         }
@@ -69,12 +74,15 @@ class MainActivity : BaseActivity() {
 
     private fun handleWakeWordTurnOnScreen(intent: Intent?) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1 &&
-            intent?.action == ACTION_WAKE_WORD
+            (intent?.action == ACTION_WAKE_WORD || isAssistIntent(intent))
         ) {
-            // Dicio was started anew based on a wake word,
-            // turn on the screen to let the user see what is happening
+            // Dicio was started anew based on a wake word or an assist intent (e.g. a Bluetooth
+            // headset button), show it above the lock screen and turn on the screen to let the
+            // user see what is happening (otherwise the microphone would be silenced when locked).
+            // For headset buttons the phone is probably in a pocket: keep the screen off and rely
+            // on SttForegroundService for microphone access.
             setShowWhenLocked(true)
-            setTurnScreenOn(true)
+            setTurnScreenOn(!isHeadsetIntent(intent))
         }
 
         // the wake word triggered notification is not needed anymore
@@ -93,6 +101,14 @@ class MainActivity : BaseActivity() {
     override fun onStart() {
         isInForeground += 1
         super.onStart()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (startSttForegroundServiceOnResume) {
+            startSttForegroundServiceOnResume = false
+            SttForegroundService.start(this)
+        }
     }
 
     override fun onStop() {
@@ -178,6 +194,16 @@ class MainActivity : BaseActivity() {
             private set
         var isCreated: Int = 0
             private set
+
+        /**
+         * Sent e.g. by Bluetooth headsets when their button is long-pressed (HFP voice recognition).
+         */
+        private fun isHeadsetIntent(intent: Intent?): Boolean {
+            return when (intent?.action) {
+                ACTION_VOICE_COMMAND -> true
+                else -> false
+            }
+        }
 
         private fun isAssistIntent(intent: Intent?): Boolean {
             return when (intent?.action) {
