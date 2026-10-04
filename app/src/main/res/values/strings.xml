@@ -197,6 +197,8 @@
     <string name="skill_timer_none_canceled">OK, no timer was canceled</string>
     <string name="stt_service_label">Dicio offline speech recognition</string>
     <string name="wake_service_label">Dicio wake word service</string>
+    <string name="stt_foreground_service_label">Dicio listening service</string>
+    <string name="stt_foreground_service_notification">Dicio is listening…</string>
     <string name="wake_service_foreground_notification_summary">This notification allows the Dicio
         wake word service to listen to the microphone in the background</string>
     <string name="wake_service_foreground_notification">Listening for the \"Hey Dicio\" wake-up word</string>
