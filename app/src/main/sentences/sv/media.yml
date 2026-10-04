@@ -12,3 +12,11 @@ previous:
 next:
   - skippa|(hoppa över?) en|nästa? sång<en?>|media|låt<en?>|musik<en?>|audio|video<n?>|film<en?>|stream<en?>
   - spela|(byt|hoppa|växla till) nästa|följande sång<en?>|media|låt<en?>|musik<en?>|audio|video<n?>|film<en?>|stream<en?> (i kön)?
+
+volume_up:
+
+volume_down:
+
+volume_up_times:
+
+volume_down_times:

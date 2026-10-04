@@ -12,3 +12,11 @@ previous:
 next:
   - (bir? sonraki)|(bir? ilerideki|sıradaki) (şarkı<yı|ya?>|medya<yı|ya?>|parça<yı|ya?>|müzi<k|ği|ğe?>|ses<i|e?>|video<yu|ya?>|dizi<yi|ye?>|yayın<ı|a?>|film<i|e?>) geç|oynat|git|değiş<tir?>|geç|zıpla|(ileri sar<dır|dırt?>)
   - ileri sar
+
+volume_up:
+
+volume_down:
+
+volume_up_times:
+
+volume_down_times:

@@ -14,3 +14,25 @@ previous:
 next:
   - skip the|a|one? song|media|track|music|audio|video|movie|stream|film
   - play|(go|switch|skip|jump|(move forward) to)? the? next|following song|media|track|music|audio|video|movie|stream|film? (in the queue)?
+
+volume_up:
+  - increase|raise|(turn up) the? volume|sound
+  - (turn the?)? volume|sound up
+  - (make the?)? volume|sound|song|media|track|music|audio|video|movie|stream|film louder
+
+volume_down:
+  - decrease|lower|(turn down) the? volume|sound
+  - (turn the?)? volume|sound down
+  - (make the?)? volume|sound|song|media|track|music|audio|video|movie|stream|film quieter
+
+volume_up_times:
+  - increase|raise|(turn up) the? volume|sound by? .times. times|clicks|steps|notches|levels?
+  - (turn the?)? volume|sound up by? .times. times|clicks|steps|notches|levels?
+  - (make the?)? volume|sound|song|media|track|music|audio|video|movie|stream|film louder by .times. times|clicks|steps|notches|levels?
+  - (make the?)? volume|sound|song|media|track|music|audio|video|movie|stream|film .times. times|clicks|steps|notches|levels louder
+
+volume_down_times:
+  - decrease|lower|(turn down) the? volume|sound by? .times. times|clicks|steps|notches|levels?
+  - (turn the?)? volume|sound down by? .times. times|clicks|steps|notches|levels?
+  - (make the?)? volume|sound|song|media|track|music|audio|video|movie|stream|film quieter by .times. times|clicks|steps|notches|levels?
+  - (make the?)? volume|sound|song|media|track|music|audio|video|movie|stream|film .times. times|clicks|steps|notches|levels quieter

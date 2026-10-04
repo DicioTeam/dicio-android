@@ -12,3 +12,11 @@ previous:
 
 next:
   - (joue|jouer|jouez|mais|mets|mettez|mettre|(passe à)|(passer à)|(passez à))? la|le? chanson|média|piste|musique|audio|film|stream suivant<e?>
+
+volume_up:
+
+volume_down:
+
+volume_up_times:
+
+volume_down_times:
