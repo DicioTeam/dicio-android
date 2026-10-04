@@ -1,0 +1,7 @@
+send:
+  - send a?n? (message|text|sms) to .who. saying .what.
+  - send a?n? (message|text|sms) to .who. that says .what.
+  - (message|text|sms) .who. saying .what.
+  - (message|text|sms) .who. that says .what.
+  - send a?n? (message|text|sms) to .who.
+  - (message|text|sms) .who.
