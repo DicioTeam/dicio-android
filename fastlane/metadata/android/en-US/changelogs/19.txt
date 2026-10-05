@@ -1,0 +1,22 @@
+This time around the app received some improvements, to make the annoying a little less so, and to make the insecure a bit more secure. There was improvement...just not much!
+
+# New
+
+- Added a link to our (new) documentation in the about page.
+
+# Improved
+
+- Translations for Kabyle.
+
+# Fixed
+
+- Crash when trying to use the Calculator Skill.
+
+- Crash when switching locales.
+
+- F-Droid not being able to build and publish the app.
+
+Development
+
+- Updated vulnerable dependencies in our release publishing action.
+ 
