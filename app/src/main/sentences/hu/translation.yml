@@ -1,0 +1,4 @@
+translate:
+  - kérlek? fordítsd le .query. ((.source. nyelvről?)? (.target. nyelvre)?)|(.target. nyelvre .source. nyelvről?) (nekem)?
+  - (szeretném tudni)|(mondd meg)? mi<t?> jelent .query. .target. nyelven|ül (.source. nyelvről|ből)?
+  - hogyan mondjá<k|m?> .query. .target. nyelven|ül

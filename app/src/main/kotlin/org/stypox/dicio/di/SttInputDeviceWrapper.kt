@@ -3,6 +3,7 @@ package org.stypox.dicio.di
 import android.content.Context
 import android.media.AudioAttributes
 import android.media.MediaPlayer
+import android.os.Build
 import androidx.datastore.core.DataStore
 import dagger.Module
 import dagger.Provides
@@ -23,16 +24,21 @@ import org.stypox.dicio.io.input.InputEvent
 import org.stypox.dicio.io.input.SttInputDevice
 import org.stypox.dicio.io.input.SttState
 import org.stypox.dicio.io.input.external_popup.ExternalPopupInputDevice
+import org.stypox.dicio.io.input.parakeet.ParakeetInputDevice
+import org.stypox.dicio.io.input.scribe.ScribeRealtimeInputDevice
 import org.stypox.dicio.io.input.vosk.VoskInputDevice
 import org.stypox.dicio.settings.datastore.InputDevice
 import org.stypox.dicio.settings.datastore.InputDevice.INPUT_DEVICE_EXTERNAL_POPUP
 import org.stypox.dicio.settings.datastore.InputDevice.INPUT_DEVICE_NOTHING
+import org.stypox.dicio.settings.datastore.InputDevice.INPUT_DEVICE_PARAKEET
+import org.stypox.dicio.settings.datastore.InputDevice.INPUT_DEVICE_SCRIBE_REALTIME
 import org.stypox.dicio.settings.datastore.InputDevice.INPUT_DEVICE_UNSET
 import org.stypox.dicio.settings.datastore.InputDevice.INPUT_DEVICE_VOSK
 import org.stypox.dicio.settings.datastore.InputDevice.UNRECOGNIZED
 import org.stypox.dicio.settings.datastore.SttPlaySound
 import org.stypox.dicio.settings.datastore.UserSettings
 import org.stypox.dicio.util.distinctUntilChangedBlockingFirst
+import org.stypox.dicio.util.resolveInputDeviceSetting
 import org.stypox.dicio.util.toStateFlowDistinctBlockingFirst
 
 
@@ -58,8 +64,10 @@ class SttInputDeviceWrapperImpl(
     private val scope = CoroutineScope(Dispatchers.Default)
 
     private var inputDeviceSetting: InputDevice
+    private var effectiveInputDeviceSetting: InputDevice
     private var sttPlaySoundSetting: SttPlaySound
     private val silencesBeforeStop: StateFlow<Int>
+    private val scribeApiKey: StateFlow<String>
     private var sttInputDevice: SttInputDevice?
 
     // null means that the user has not enabled any STT input device
@@ -77,9 +85,12 @@ class SttInputDeviceWrapperImpl(
 
         inputDeviceSetting = firstSettings.first
         sttPlaySoundSetting = firstSettings.second
-        silencesBeforeStop = dataStore.data.map(SttInputDevice::getSttSilenceDurationOrDefault)
+        silencesBeforeStop = MutableStateFlow(SttInputDevice.DEFAULT_STT_SILENCE_DURATION)
+        scribeApiKey = dataStore.data
+            .map { it.scribeApiKey.trim() }
             .toStateFlowDistinctBlockingFirst(scope)
-        sttInputDevice = buildInputDevice(inputDeviceSetting)
+        effectiveInputDeviceSetting = normalizeInputDeviceSetting(inputDeviceSetting)
+        sttInputDevice = buildInputDevice(effectiveInputDeviceSetting)
         scope.launch {
             restartUiStateJob()
         }
@@ -92,14 +103,32 @@ class SttInputDeviceWrapperImpl(
                 }
             }
         }
+
+        scope.launch {
+            localeManager.locale.collect {
+                val normalized = normalizeInputDeviceSetting(inputDeviceSetting)
+                if (normalized != effectiveInputDeviceSetting) {
+                    changeInputDeviceTo(inputDeviceSetting)
+                }
+            }
+        }
     }
 
     private suspend fun changeInputDeviceTo(setting: InputDevice) {
         val prevSttInputDevice = sttInputDevice
         inputDeviceSetting = setting
-        sttInputDevice = buildInputDevice(setting)
+        val normalizedSetting = normalizeInputDeviceSetting(setting)
+        if (normalizedSetting == effectiveInputDeviceSetting) {
+            return
+        }
+        effectiveInputDeviceSetting = normalizedSetting
+        sttInputDevice = buildInputDevice(normalizedSetting)
         prevSttInputDevice?.destroy()
         restartUiStateJob()
+    }
+
+    private fun normalizeInputDeviceSetting(setting: InputDevice): InputDevice {
+        return resolveInputDeviceSetting(setting, localeManager.locale.value, Build.VERSION.SDK_INT)
     }
 
     private fun buildInputDevice(setting: InputDevice): SttInputDevice? {
@@ -107,6 +136,13 @@ class SttInputDeviceWrapperImpl(
             UNRECOGNIZED,
             INPUT_DEVICE_UNSET,
             INPUT_DEVICE_VOSK -> VoskInputDevice(appContext, okHttpClient, localeManager, silencesBeforeStop)
+            INPUT_DEVICE_PARAKEET -> ParakeetInputDevice(appContext, okHttpClient, localeManager)
+            INPUT_DEVICE_SCRIBE_REALTIME -> ScribeRealtimeInputDevice(
+                okHttpClient,
+                localeManager,
+                scribeApiKey,
+                silencesBeforeStop,
+            )
             INPUT_DEVICE_EXTERNAL_POPUP ->
                 ExternalPopupInputDevice(appContext, activityForResultManager, localeManager)
             INPUT_DEVICE_NOTHING -> null

@@ -65,14 +65,14 @@ class MainSettingsViewModel @Inject constructor(
         updateData { it.setDynamicColors(value) }
     fun setInputDevice(value: InputDevice) =
         updateData { it.setInputDevice(value) }
+    fun setScribeApiKey(value: String) =
+        updateData { it.setScribeApiKey(value.trim()) }
     fun setWakeDevice(value: WakeDevice) =
         updateData { it.setWakeDevice(value) }
     fun setSpeechOutputDevice(value: SpeechOutputDevice) =
         updateData { it.setSpeechOutputDevice(value) }
     fun setSttPlaySound(value: SttPlaySound) =
         updateData { it.setSttPlaySound(value) }
-    fun setSttSilenceDuration(value: Int) =
-        updateData { it.setSttSilenceDuration(value) }
     fun setAutoFinishSttPopup(value: Boolean) =
         updateData { it.setAutoFinishSttPopup(value) }
 }

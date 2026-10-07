@@ -36,9 +36,10 @@ unbescape = "1.1.6.RELEASE"
 # https://github.com/unicode-org/cldr repo to use as a source of data
 unicodeCldrGitCommit = "41283df11cce01751c29c400a8f94d1d8687210d"
 voskAndroid = "0.3.70"
-litert = "1.4.0" # cannot update to 2.0.0 as its minSdk is 23
+onnxruntime = "1.22.0"
+litert = "1.4.0"
 permissionFlow = "2.1.0"
-minSdk = "21"
+minSdk = "24"
 targetSdk = "36"
 compileSdk = "36"
 
@@ -93,6 +94,7 @@ test-runner = { module = "androidx.test:runner", version.ref = "androidxTest" }
 test-ui-automator = { module = "androidx.test.uiautomator:uiautomator", version.ref = "androidxTestUiAutomator" }
 unbescape = { module = "org.unbescape:unbescape", version.ref = "unbescape" }
 vosk-android = { module = "com.alphacephei:vosk-android", version.ref = "voskAndroid" }
+onnxruntime-android = { module = "com.microsoft.onnxruntime:onnxruntime-android", version.ref = "onnxruntime" }
 litert = { module = "com.google.ai.edge.litert:litert", version.ref = "litert" }
 permission-flow-android = { module = "dev.shreyaspatil.permission-flow:permission-flow-android", version.ref = "permissionFlow" }
 permission-flow-compose = { module = "dev.shreyaspatil.permission-flow:permission-flow-compose", version.ref = "permissionFlow" }

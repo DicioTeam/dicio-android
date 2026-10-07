@@ -14,6 +14,7 @@ import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.DeleteSweep
 import androidx.compose.material.icons.filled.Extension
 import androidx.compose.material.icons.filled.UploadFile
+import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -26,13 +27,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.core.os.ConfigurationCompat
 import androidx.hilt.navigation.compose.hiltViewModel
 import org.stypox.dicio.R
-import org.stypox.dicio.io.input.SttInputDevice
 import org.stypox.dicio.settings.datastore.InputDevice
 import org.stypox.dicio.settings.datastore.Language
 import org.stypox.dicio.settings.datastore.SpeechOutputDevice
@@ -43,6 +45,8 @@ import org.stypox.dicio.settings.datastore.WakeDevice
 import org.stypox.dicio.settings.ui.SettingsCategoryTitle
 import org.stypox.dicio.settings.ui.SettingsItem
 import org.stypox.dicio.ui.theme.AppTheme
+import org.stypox.dicio.util.resolveInputDeviceSetting
+import java.util.Locale
 
 
 @Composable
@@ -80,6 +84,14 @@ private fun MainSettingsScreen(
             viewModel.addOwwUserWakeFile(it)
         }
     }
+    val appLocale = ConfigurationCompat.getLocales(
+        LocalContext.current.resources.configuration
+    )[0] ?: Locale.getDefault()
+    val selectedInputDevice = resolveInputDeviceSetting(
+        settings.inputDevice,
+        appLocale,
+        Build.VERSION.SDK_INT,
+    )
 
     LazyColumn(modifier) {
         /* GENERAL SETTINGS */
@@ -125,13 +137,26 @@ private fun MainSettingsScreen(
         item { SettingsCategoryTitle(stringResource(R.string.pref_io)) }
         item {
             inputDevice().Render(
-                when (val inputDevice = settings.inputDevice) {
-                    InputDevice.UNRECOGNIZED,
-                    InputDevice.INPUT_DEVICE_UNSET -> InputDevice.INPUT_DEVICE_VOSK
-                    else -> inputDevice
-                },
+                selectedInputDevice,
                 viewModel::setInputDevice,
             )
+        }
+        if (selectedInputDevice == InputDevice.INPUT_DEVICE_SCRIBE_REALTIME) {
+            item {
+                scribeApiKeySetting().Render(
+                    settings.scribeApiKey,
+                    viewModel::setScribeApiKey,
+                )
+            }
+            if (settings.scribeApiKey.isBlank()) {
+                item {
+                    SettingsItem(
+                        title = stringResource(R.string.pref_input_method_scribe_api_key_warning_title),
+                        icon = Icons.Default.Warning,
+                        description = stringResource(R.string.pref_input_method_scribe_api_key_warning_description),
+                    )
+                }
+            }
         }
         val wakeDevice = when (val device = settings.wakeDevice) {
             WakeDevice.UNRECOGNIZED,
@@ -186,12 +211,6 @@ private fun MainSettingsScreen(
                     else -> sttPlaySound
                 },
                 viewModel::setSttPlaySound
-            )
-        }
-        item {
-            sttSilenceDuration().Render(
-                SttInputDevice.getSttSilenceDurationOrDefault(settings),
-                viewModel::setSttSilenceDuration
             )
         }
         item {

@@ -138,6 +138,8 @@ class SttStatesPreviews : CollectionPreviewParameterProvider<SttState>(listOf(
     SttState.ErrorLoading(Exception("ErrorLoading exception")),
     SttState.Loaded,
     SttState.Listening,
+    SttState.SilenceDetected,
+    SttState.Thinking,
     SttState.WaitingForResult,
 ))
 
