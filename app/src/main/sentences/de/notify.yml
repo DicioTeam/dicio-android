@@ -1,0 +1,8 @@
+notifications:
+  - (lies|lese|sag|zeig<e?>) (mir|uns)? (bitte)? (meine|die|alle)? (neuen)? benachrichtigung<en?> (vor|an)?
+  - was (sind|(gibt es)) (meine|die|für)? (neue|neuen)? benachrichtigung<en?>
+  - wie (lautet|lauten) (meine|die)? benachrichtigung<en?>
+  - welche (neuen)? benachrichtigung<en?> (habe|hab|gibt) (ich|es)
+  - (habe|hab) ich (neue)? (benachrichtigung<en?>)|nachrichten
+  - (gibt es) (neue)? (benachrichtigung<en?>)|nachrichten
+  - benachrichtigung<en?> (vorlesen|anzeigen)
