@@ -39,6 +39,7 @@ Currently Dicio answers questions about:
 - **navigation**: opens the navigation app at the requested position - _Take me to New York, fifteenth avenue_
 - **jokes**: tells you a joke - _Tell me a joke_
 - **media**: play, pause, previous, next song
+- **music**: search for and play a specific song
 - **translation**: translate from/to any language with **Lingva** - _How do I say Football in German?_
 - **wake word control**: turn on/off the wakeword - _Stop listening_
 - **notifications**: reads all notifications currently in the status bar - _What are my notifications?_

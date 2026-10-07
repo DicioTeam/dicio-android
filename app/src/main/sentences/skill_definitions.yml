@@ -37,6 +37,16 @@ skills:
           - id: where
             type: string
 
+  - id: music
+    specificity: high
+    sentences:
+      - id: query
+        captures:
+          - id: song
+            type: string
+          - id: artist
+            type: string
+
   - id: media
     specificity: high
     sentences:
