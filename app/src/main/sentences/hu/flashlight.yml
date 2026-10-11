@@ -1,0 +1,9 @@
+turn_on:
+  - kapcsold be|fel a? zseblámpa<t?>|világítás<t?>|villany<t?>
+  - (zseblámpa|világítás|villany) bekapcsol<ás|ni?>
+  - világíts|(világítás be)
+
+turn_off:
+  - kapcsold ki|le a? zseblámpa<t?>|világítás<t?>|villany<t?>
+  - (zseblámpa|világítás|villany) kikapcsol<ás|ni?>
+  - (világítás ki)|sötétítsd el

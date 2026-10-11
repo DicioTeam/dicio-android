@@ -1,0 +1,6 @@
+current:
+  - (milyen|mi|hogyan)? az? időjárás (most)? (.where.)?
+  - (.where. területén)?
+  - időjárás (.where.)?
+  - milyen az idő kint|odakint
+  - hideg|hűvös|meleg|forró|napos|esős van (most)? (.where.)|kint|odakint?
