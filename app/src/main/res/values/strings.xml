@@ -172,6 +172,8 @@
     <string name="skill_media_pausing">Pausing media…</string>
     <string name="skill_media_previous">Previous media…</string>
     <string name="skill_media_next">Next media…</string>
+    <string name="skill_media_volume_up">Increasing volume</string>
+    <string name="skill_media_volume_down">Decreasing volume</string>
     <string name="skill_media_no_media_session">No media session is active</string>
     <string name="skill_calculator_could_not_calculate">I could not calculate your request</string>
     <string name="skill_telephone_unknown_contact">No contact found, try again</string>

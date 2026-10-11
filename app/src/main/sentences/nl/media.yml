@@ -15,3 +15,11 @@ next:
   - skip (dit|deze)? (lied<je?>|nummer|song|muziek<je?>|audio|video|film<pje?>|stream|clip)?
   - speel|start|begin|(skip naar)|(ga (verder met)|naar) (de|het)? volgende lied<je?>|nummer|song|muziek<je?>|audio|video|film<pje?>|stream|clip afspelen?
   - volgende (lied<je?>|nummer|song|muziek<je?>|audio|video|film<pje?>|stream|clip)?
+
+volume_up:
+
+volume_down:
+
+volume_up_times:
+
+volume_down_times:
