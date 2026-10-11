@@ -134,3 +134,21 @@ skills:
             type: string
           - id: target
             type: string
+
+  - id: calendar
+    specificity: high
+    sentences:
+      - id: create
+        captures:
+          - id: title
+            type: string
+          - id: begin
+            type: date_time
+          - id: end
+            type: date_time
+          - id: duration
+            type: duration
+      - id: query
+        captures:
+          - id: when
+            type: date_time
