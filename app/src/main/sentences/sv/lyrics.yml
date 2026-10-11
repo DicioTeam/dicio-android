@@ -3,3 +3,4 @@ query:
   - sjung (sång|låt)? .song.
   - .song. text<en?>|låttext<en?>|sångtext<en?>
   - sjung|(hur går)|(vad heter) den|(den där)? sången|låten (som går|är)|(med texten|orden) .song.
+  - (vad är)|(hur går|lyder) text<en?>|låttext<en?>|sångtext<en?> (för|till|i (sång<en?>|låt<en?>)?)? .song.

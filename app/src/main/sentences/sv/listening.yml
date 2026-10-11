@@ -1,0 +1,8 @@
+stop:
+  - sluta lyssna ((efter|på)? väckningsord<et?>)?
+  - (stäng|slå av)|tysta|inaktivera mikrofonen|micken|väckningsord<et?>
+
+start:
+  - börja|starta (att)? lyssna igen? ((efter|på)? väckningsord<et?>)?
+  - lyssna igen ((efter|på)? väckningsord<et?>)?
+  - (sätt|slå på)|aktivera mikrofonen|micken|väckningsord<et?> igen?
