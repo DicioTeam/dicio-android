@@ -131,5 +131,11 @@
             android:foregroundServiceType="microphone"
             android:icon="@mipmap/ic_launcher"
             android:label="@string/wake_service_label" />
+
+        <service
+            android:name=".io.input.SttForegroundService"
+            android:exported="false"
+            android:foregroundServiceType="microphone"
+            android:label="@string/stt_foreground_service_label" />
     </application>
 </manifest>
