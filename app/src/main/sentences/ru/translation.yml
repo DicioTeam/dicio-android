@@ -1,0 +1,3 @@
+translate:
+  - переведи|перевод .query. (с .source.)? (на .target.)? язык?
+  - как на|по .target. будет .query.
