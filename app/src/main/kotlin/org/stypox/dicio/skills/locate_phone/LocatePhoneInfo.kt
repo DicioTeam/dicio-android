@@ -1,4 +1,4 @@
-package org.stypox.dicio.skills.WhereAreYou
+package org.stypox.dicio.skills.locate_phone
 
 import android.content.Context
 import androidx.compose.material.icons.Icons
@@ -11,7 +11,7 @@ import org.dicio.skill.skill.SkillInfo
 import org.stypox.dicio.R
 import org.stypox.dicio.sentences.Sentences
 
-object LocatePhoneInfo : SkillInfos("locate_phone") {
+object LocatePhoneInfo : SkillInfo("locate_phone") {
     override fun name(context: Context) =
         context.getString(R.string.skill_name_locate_phone)
 
