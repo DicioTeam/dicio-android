@@ -8,14 +8,12 @@ import org.stypox.dicio.io.graphical.Headline
 import org.stypox.dicio.util.getString
 import org.stypox.dicio.R
 
-sealed interface LocatePhoneOutput: SkillOutput {
-    data class CallOut(val unused: String) : LocatePhoneOutput {
-        override fun getSpeechOutput(ctx: SkillContext): String =
-            ctx.getString(R.string.skill_sentence_locate_phone)
+data object LocatePhoneOutput : SkillOutput {
+    override fun getSpeechOutput(ctx: SkillContext): String =
+        ctx.getString(R.string.skill_sentence_locate_phone)
 
-        @Composable
-        override fun GraphicalOutput(ctx: SkillContext) {
-            Headline(text = getSpeechOutput(ctx))
-        }
+    @Composable
+    override fun GraphicalOutput(ctx: SkillContext) {
+        Headline(text = getSpeechOutput(ctx))
     }
 }
