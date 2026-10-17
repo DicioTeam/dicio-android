@@ -43,7 +43,7 @@ Currently Dicio answers questions about:
 - **wake word control**: turn on/off the wakeword - _Stop listening_
 - **notifications**: reads all notifications currently in the status bar - _What are my notifications?_
 - **flashlight**: turn on/off the phone flashlight - _Turn on the flashlight_
-- **locate phone**: Find phone by sound - _Where are you?_
+- **locate phone**: Find your phone by calling for it and hearing it respond - _Where are you?_
 
 ## Speech to text
 
