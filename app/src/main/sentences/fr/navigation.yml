@@ -1,5 +1,5 @@
 query:
- (navigue|conduis moi|emmène moi|emmene moi|amène moi|amene moi|guide moi) (vers|jusqu à|jusqu a|à|a)? .where.
- (donne moi|affiche) (les? directions?|l itinéraire) (vers|pour|jusqu à|jusqu a)? .where.
- comment (aller|me rendre) (à|a|jusqu à|jusqu a)? .where.
- (où est|ou est|où se trouve|ou se trouve) .where.
+  - (navigue|conduis moi|emmène moi|emmene moi|amène moi|amene moi|guide moi) (vers|jusqu à|jusqu a|à|a)? .where.
+  - (donne moi|affiche) (les? directions?|l itinéraire) (vers|pour|jusqu à|jusqu a)? .where.
+  - comment (aller|me rendre) (à|a|jusqu à|jusqu a)? .where.
+  - (où est|ou est|où se trouve|ou se trouve) .where.

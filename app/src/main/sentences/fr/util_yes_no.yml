@@ -1,5 +1,5 @@
 yes:
- oui|(pour sur)|certainement|(bien sur|entendu)|ok|okay|(vas y)|affirmatif|procéder|continue|absolument|(fais le)|(je confirme)|confirmation
+  - oui|(pour sur)|certainement|(bien sur|entendu)|ok|okay|(vas y)|affirmatif|procéder|continue|absolument|(fais le)|(je confirme)|confirmation
 
 no:
- non|stop|nope|arrete|(ca suffit)|assez|negatif|(ne le fais pas)|arret|retour
+  - non|stop|nope|arrete|(ca suffit)|assez|negatif|(ne le fais pas)|arret|retour

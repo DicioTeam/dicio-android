@@ -1,2 +1,2 @@
 query:
- <re?>cherche<r|z?>|consulte<r|z?> ((ce que)|(ce qu est)|si)? .what. est? (sur internet|(l internet)|(le? web))?
+  - <re?>cherche<r|z?>|consulte<r|z?> ((ce que)|(ce qu est)|si)? .what. est? (sur internet|(l internet)|(le? web))?
