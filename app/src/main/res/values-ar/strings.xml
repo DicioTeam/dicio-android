@@ -6,7 +6,7 @@
     <string name="text_input_hint">اسئلني أي شيء…</string>
     <string name="here_is_what_i_can_do">هذا ما يمكنني فعله!</string>
     <string name="vosk_model_notification_description">اللغة: %1$s</string>
-    <string name="settings">الإعدادات</string>ing&gt;
+    <string name="settings">الإعدادات</string>
     <string name="pref_appearance">المظهر</string>
     <string name="pref_theme">السمة</string>
     <string name="pref_theme_light">فاتح</string>
