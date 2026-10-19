@@ -12,6 +12,8 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      HAS_SIGNING_KEY: ${{ secrets.SIGNING_KEYSTORE_BASE64 != '' }}
 
     steps:
       - name: Check out repository
@@ -69,14 +71,14 @@ jobs:
       # installable APK. Without secrets it is skipped and you still get the
       # unsigned APK + a ready-to-sign debug APK below.
       - name: Decode keystore
-        if: ${{ secrets.SIGNING_KEYSTORE_BASE64 != '' }}
+        if: env.HAS_SIGNING_KEY == 'true'
         env:
           KEYSTORE_BASE64: ${{ secrets.SIGNING_KEYSTORE_BASE64 }}
         run: |
           echo "$KEYSTORE_BASE64" | base64 -d > keystore.jks
 
       - name: Sign APK
-        if: ${{ secrets.SIGNING_KEYSTORE_BASE64 != '' }}
+        if: env.HAS_SIGNING_KEY == 'true'
         env:
           KEY_ALIAS: ${{ secrets.SIGNING_KEY_ALIAS }}
           KEYSTORE_PASSWORD: ${{ secrets.SIGNING_KEYSTORE_PASSWORD }}
