@@ -1,7 +1,7 @@
 turn_on:
-  - (allume|activer|active|mettre) (la|le)? (lampe|torche|flash|torche électrique)
-  - (allume|active) la lampe
+ (allume|activer|active|mettre) (la|le)? (lampe|torche|flash|torche électrique)
+ (allume|active) la lampe
 
 turn_off:
-  - (éteins|eteins|désactive|desactive|éteindre|désactiver) (la|le)? (lampe|torche|flash|torche électrique)
-  - (éteins|désactive) la lampe
+ (éteins|eteins|désactive|desactive|éteindre|désactiver) (la|le)? (lampe|torche|flash|torche électrique)
+ (éteins|désactive) la lampe

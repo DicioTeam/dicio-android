@@ -1,17 +1,17 @@
 addition:
-  - plus
+ plus
 
 subtraction:
-  - moins
+ moins
 
 multiplication:
-  - fois|(multiplié par)
+ fois|(multiplié par)
 
 division:
-  - sur|(divisé par)
+ sur|(divisé par)
 
 power:
-  - ((à la)? puissance)|(à l)? exposant
+ ((à la)? puissance)|(à l)? exposant
 
 square_root:
-  - la? racine carrée de?
+ la? racine carrée de?

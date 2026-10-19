@@ -1,14 +1,14 @@
 play:
-  - (joue|jouer|jouez)|((re)?(mets|mais|mettez|mettre) sur play)| (la|le)? chanson|média|piste|musique|audio|film|stream
-  - démarre|démarrer|démarrez|allume|allumer|allumez le lecteur
-  - continue|continuer|continuez la? lecture
+ (joue|jouer|jouez)|((re)?(mets|mais|mettez|mettre) sur play)| (la|le)? chanson|média|piste|musique|audio|film|stream
+ démarre|démarrer|démarrez|allume|allumer|allumez le lecteur
+ continue|continuer|continuez la? lecture
 
 pause:
-  - mais|mets|mettez|mettre (la|le? chanson|média|piste sur pause)|(sur pause la|le? chanson|média|piste|musique|audio|film|stream)
+ mais|mets|mettez|mettre (la|le? chanson|média|piste sur pause)|(sur pause la|le? chanson|média|piste|musique|audio|film|stream)
 
 previous:
-  - (joue|jouer|jouez|mais|mets|mettez|mettre)? la|le? (chanson|média|piste|musique|audio|film|stream précédent<e?>)|(précédent<e?> chanson|média|piste|musique|audio|film|stream)
-  - remettre la|le? (chanson|média|piste|musique|audio|film|stream précédent<e?>)? au début
+ (joue|jouer|jouez|mais|mets|mettez|mettre)? la|le? (chanson|média|piste|musique|audio|film|stream précédent<e?>)|(précédent<e?> chanson|média|piste|musique|audio|film|stream)
+ remettre la|le? (chanson|média|piste|musique|audio|film|stream précédent<e?>)? au début
 
 next:
-  - (joue|jouer|jouez|mais|mets|mettez|mettre|(passe à)|(passer à)|(passez à))? la|le? chanson|média|piste|musique|audio|film|stream suivant<e?>
+ (joue|jouer|jouez|mais|mets|mettez|mettre|(passe à)|(passer à)|(passez à))? la|le? chanson|média|piste|musique|audio|film|stream suivant<e?>

@@ -1,4 +1,4 @@
 dial:
-  - (r? appel<le|er?>)|(sonne<r?>)|(téléphone<r|z?> (à?))|(compose<r|z?>)|(contacte<r|z?>)|(le? numéro de) .who.
-  - je veux appeler|contacter|joindre .who.
-  - passe un appel à|au .who.
+ (r? appel<le|er?>)|(sonne<r?>)|(téléphone<r|z?> (à?))|(compose<r|z?>)|(contacte<r|z?>)|(le? numéro de) .who.
+ je veux appeler|contacter|joindre .who.
+ passe un appel à|au .who.
