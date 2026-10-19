@@ -1,0 +1,6 @@
+command:
+  - (raconte|dis|dis-moi|fais) (moi)? une? (bonne|drôle|drole|autre)? (blague|histoire drôle|histoire drole|vanne|farce)
+  - (fais-moi rire|amuse-moi|remonte-moi le moral)
+  - (tu connais|t'as|as-tu) une? (blague|vanne|farce|histoire drôle)?
+  - (dis|raconte) quelque chose de (drôle|drole|marrant|amusant)
+  - une blague

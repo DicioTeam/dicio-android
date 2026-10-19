@@ -1,0 +1,3 @@
+notifications:
+  - (lis|lit|dis|dire|annonce|raconte)? (moi)? (à voix haute)? (quelles sont|quels sont|quoi|ce que disent|le contenu de)? (mes|les|ma|la)? notifications? (reçues|que j'ai reçues)?
+  - (lis|annonce) (moi)? (mes|les|ma|la)? notifications?
