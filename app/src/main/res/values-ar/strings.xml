@@ -6,7 +6,7 @@
     <string name="text_input_hint">اسئلني أي شيء…</string>
     <string name="here_is_what_i_can_do">هذا ما يمكنني فعله!</string>
     <string name="vosk_model_notification_description">اللغة: %1$s</string>
-    <string name="settings">الإعدادات</string>ing&gt;
+    <string name="settings">الإعدادات</string>
     <string name="pref_appearance">المظهر</string>
     <string name="pref_theme">السمة</string>
     <string name="pref_theme_light">فاتح</string>
@@ -258,4 +258,28 @@
     <string name="about_contributing_title">المساهمة</string>
     <string name="about_contributing_description">ديسيو يتم تطويره بمتطوعين حول العالم. يمكنك المساعدة أيضاً بتقديم تطويرات برمجية، ترجمة، أو حتى مهارات جديدة!</string>
     <string name="about_privacy_description">ديسيو يتواصل مع خدمات خارجية فقط عندما يُتوقع من مهارة أن تفعل ذلك، أو لتحميل موديلات تعلم آلي أثناء التأسيس. كل معالجة الكلام تتم محليا على جهازك، ومعظم المهارات يمكن استعمالها بدون اتصال إنترنت.</string>
+    <string name="about_contributing_link" translatable="false">https://github.com/Stypox/dicio-android#contributing</string>
+    <string name="about_issues_link" translatable="false">https://github.com/Stypox/dicio-android/issues</string>
+    <string name="about_privacy_link" translatable="false">https://stypox.org/dicio-privacy-policy.html</string>
+    <string name="about_repository_link" translatable="false">https://github.com/Stypox/dicio-android</string>
+    <string name="about_wiki_link" translatable="false">https://dicio.stypox.org/</string>
+    <string name="app_name" translatable="false">Dicio</string>
+    <string name="pref_search_engine_duckduckgo" translatable="false">DuckDuckGo</string>
+    <string name="about_privacy_title">سياسة الخصوصية</string>
+    <string name="about_repository_title">مستودع الكود المصدري</string>
+    <string name="about_version_copy">نسخ معلومات الإصدار</string>
+    <string name="about_wiki_title">التوثيق</string>
+    <string name="about_wiki_description">تبحث عن معلومات عامة أو أدلة الإعداد أو نصائح حل المشكلات أو أكثر؟ تفقّد الويكي الخاص بنا!</string>
+    <string name="perm_notification_listener">قراءة جميع الإشعارات</string>
+    <string name="pref_stt_silence_duration_description">التوقف عن الاستماع بعد %1$d فترات صمت</string>
+    <string name="pref_stt_silence_duration_title">أقصى مدة صمت قبل بدء الكلام</string>
+    <string name="skill_name_flashlight">الكشاف</string>
+    <string name="skill_sentence_example_flashlight">شغّل الكشاف</string>
+    <string name="skill_flashlight_turned_on">تم تشغيل الكشاف</string>
+    <string name="skill_flashlight_turned_off">تم إطفاء الكشاف</string>
+    <string name="skill_flashlight_error">تعذّر التحكم في الكشاف</string>
+    <string name="skill_notify_failed">تعذّر الاتصال بخدمة الاستماع إلى الإشعارات</string>
+    <string name="skill_notify_handler_label">مهارة الإشعار في مساعد Dicio</string>
+    <string name="skill_notify_message_app">يقول إشعار %1$s: %2$s.</string>
+    <string name="skill_notify_message_no_app">يقول الإشعار: %1$s.</string>
 </resources>
