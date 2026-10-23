@@ -120,6 +120,7 @@
     <string name="pref_stt_play_sound_none">Do not play sound</string>
     <string name="perm_read_contacts">read your contacts</string>
     <string name="perm_call_phone">directly call phone numbers</string>
+    <string name="perm_send_sms">send SMS messages</string>
     <string name="settings_description_with_value">%1$s — %2$s</string>
     <string name="eval_missing_permissions">The skill \"%1$s\" needs these permissions to work: %2$s</string>
     <string name="eval_fatal_error">Could not evaluate your request</string>
@@ -150,6 +151,8 @@
     <string name="skill_navigation_navigating_to">Navigating to %1$s</string>
     <string name="skill_name_telephone">Telephone</string>
     <string name="skill_sentence_example_telephone">Call Tom</string>
+    <string name="skill_name_sms">SMS</string>
+    <string name="skill_sentence_example_sms">Send a message to Tom</string>
     <string name="skill_name_timer">Timer</string>
     <string name="skill_sentence_example_timer">Set a timer for five minutes</string>
     <string name="skill_name_current_time">Current time</string>
@@ -179,6 +182,12 @@
     <string name="skill_telephone_confirm_call">Should I call %1$s?</string>
     <string name="skill_telephone_calling">Calling %1$s…</string>
     <string name="skill_telephone_not_calling">OK, I am not calling anyone</string>
+    <string name="skill_sms_unknown_contact">No contact found, try again</string>
+    <string name="skill_sms_found_contacts">I found %1$d contacts, which one shall I message?</string>
+    <string name="skill_sms_what_message">What do you want the message to say?</string>
+    <string name="skill_sms_confirm">Should I send \"%1$s\" to %2$s?</string>
+    <string name="skill_sms_sent">Message sent to %1$s</string>
+    <string name="skill_sms_not_sending">OK, I am not sending any message</string>
     <string name="skill_time_current_time">Right now, it is %1$s</string>
     <string name="skill_timer_how_much_time">How much time should the timer last?</string>
     <string name="skill_timer_confirm_cancel">Are you sure you want to cancel all timers?</string>
