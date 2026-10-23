@@ -3,7 +3,7 @@
     <string name="vosk_model_unsupported_language">Não há um modelo Vosk para o idioma atual</string>
     <string name="drawer_open">Abrir gaveta de navegação</string>
     <string name="drawer_header_subtitle">Posso te ajudar\?</string>
-    <string name="share">Compartilhar</string>
+    <string name="share">Partilhar</string>
     <string name="no_app_to_open_intent">Nenhuma das suas apps pode abrir isso</string>
     <string name="copied_to_clipboard">Copiado para a área de transferência</string>
     <string name="permission_denied">Permissão negada</string>
