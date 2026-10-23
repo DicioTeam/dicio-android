@@ -1,0 +1,9 @@
+stop:
+  - (hagyd abba a hallgatást)|(ne figyeld az ébresztő szót)
+  - némítsd el a? mikrofon<t?>
+  - kapcsold ki a? mikrofon<t?>
+
+start:
+  - (kezdj el hallgatni)|(figyeld az ébresztő szót)
+  - (mikrofon be)|(mikrofon bekapcsol<ás?>)
+  - kapcsold be a? mikrofon<t?>

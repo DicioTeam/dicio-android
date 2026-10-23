@@ -1,0 +1,6 @@
+query:
+  - keress|mutasd|töltsd be|jelenítsd meg a? dalszöveg<et?> (a dalhoz|ehhez a dalhoz)? .song.
+  - énekeld el (a dalt)? .song.
+  - .song. dalszöveg<et?>
+  - mi<k?> a dalszöveg<ek?> (a dalhoz|ehhez)? .song.
+  - (mi a szövege)|(mi a szöveg) .song.
