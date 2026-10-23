@@ -10,8 +10,7 @@ import org.dicio.skill.standard.StandardRecognizerSkill
 class LocatePhoneSkill(
     correspondingSkillInfo: SkillInfo,
     data: StandardRecognizerData<LocatePhone>
-) :
-    StandardRecognizerSkill<LocatePhone>(correspondingSkillInfo, data) {
+) : StandardRecognizerSkill<LocatePhone>(correspondingSkillInfo, data) {
     override suspend fun generateOutput(ctx: SkillContext, inputData: LocatePhone): SkillOutput {
         return LocatePhoneOutput
     }
