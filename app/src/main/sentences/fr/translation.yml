@@ -1,0 +1,5 @@
+translate:
+  - (je voudrais|j aimerais|peux tu|peux tu|s il te plaît|svp)? (me)? traduis? .query. ((du|de .source.)? (en|vers|à|a .target.)?)|((du|de .source.) (en|vers|à|a) .target.)
+  - (je voudrais|j aimerais) savoir (comment on dit|ce que veut dire) .query. (en|vers|à|a) .target. (en partant du|du|de .source.)?
+  - comment (dit on|dis tu|on dit|se dit|dire) .query. (en|vers|à|a) .target.
+  - (que|qu est ce que) veut dire .query. (en|vers|à|a) .target.

@@ -1,5 +1,5 @@
 query:
-  - trouve<r|z?>|<re?>cherche<r|z?>|charge<r|z?>|consulte<r|z?>|(quelles sont) (pour? moi)? les|le? paroles|texte (de (la musique|chanson)?)?  .song.
+  - trouve<r|z?>|<re?>cherche<r|z?>|charge<r|z?>|consulte<r|z?>|(quelles sont) (pour? moi)? les|le? paroles|texte (de (la musique|chanson)?)? .song.
   - .song. paroles|texte
   - paroles|texte de .song.
   - comment s appelle (la? musique|chanson) (qui dit|(va avec?)|chante)|(avec (le? texte)|(les? paroles)) .song.
