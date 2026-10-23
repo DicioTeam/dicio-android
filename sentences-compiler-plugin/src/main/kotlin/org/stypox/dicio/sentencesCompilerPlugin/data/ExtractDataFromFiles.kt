@@ -21,7 +21,7 @@ fun extractDataFromFiles(logger: Logger, inputDirFile: File): ExtractedData {
                 continue
             }
 
-            val parsedSentences: Map<String, List<String>?> = parseYamlFile(file)
+            val parsedSentences: Map<String, Any?> = parseYamlFile(file)
             val expectedSentenceIds = skill.sentences.map { it.id }.toSet()
             if (!parsedSentences.keys.containsAll(expectedSentenceIds)) {
                 throw SentencesCompilerPluginException(
@@ -41,22 +41,21 @@ fun extractDataFromFiles(logger: Logger, inputDirFile: File): ExtractedData {
                 )
             }
 
-            val emptySentences = parsedSentences
-                .filter { it.value.isNullOrEmpty() }
-                .map { it.key }
-            if (emptySentences.isNotEmpty()) {
-                logger.error(
-                    "[Warning] Skill sentences file ${lang.name}/${
-                        file.name
-                    } has no sentence definitions for these sentence ids ${
-                        emptySentences
-                    }: ${file.absolutePath}"
-                )
-            }
-
+            val emptySentenceIds = ArrayList<String>()
             for ((sentenceId, parsedSentencesWithoutId) in parsedSentences) {
-                if (parsedSentencesWithoutId == null) {
-                    continue // the warning was issued above
+                if ((parsedSentencesWithoutId as? String)?.isBlank() == true
+                    || (parsedSentencesWithoutId as? List<*>)?.isEmpty() == true
+                ) {
+                    emptySentenceIds.add(sentenceId)
+                    continue // a warning is raised below
+                } else if ((parsedSentencesWithoutId as? List<*>)?.all { it is String } != true) {
+                    throw SentencesCompilerPluginException(
+                        "Skill sentences file ${lang.name}/${
+                            file.name
+                        } contains an invalid value for sentence id ${
+                            sentenceId
+                        }: ${file.absolutePath}"
+                    )
                 }
 
                 // only mark as true if there actually is a sentence for this language
@@ -69,10 +68,20 @@ fun extractDataFromFiles(logger: Logger, inputDirFile: File): ExtractedData {
                             RawSentence(
                                 id = sentenceId,
                                 file = file,
-                                rawConstructs = sentence,
+                                rawConstructs = sentence as String,
                             )
                         )
                 }
+            }
+
+            if (emptySentenceIds.isNotEmpty()) {
+                logger.warn(
+                    "[Warning] Skill sentences file ${lang.name}/${
+                        file.name
+                    } has no sentence definitions for these sentence ids ${
+                        emptySentenceIds
+                    }: ${file.absolutePath}"
+                )
             }
         }
 
