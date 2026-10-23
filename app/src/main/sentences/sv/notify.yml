@@ -1,0 +1,6 @@
+notifications:
+  - (läs upp?)|(berätta om)|kolla (mina|alla|(alla mina)|(de senaste))? nya? notiser<na?>|aviseringar<na?>|notifikationer<na?>|notifieringar<na?> (som? jag har? fått)?
+  - (läs upp?)|berätta|säg? vad (har jag)|(jag har) fått? för nya? notiser|aviseringar|notifikationer|notifieringar
+  - (läs upp?)|berätta|säg? vilka nya? notiser|aviseringar|notifikationer|notifieringar (har jag)|(jag har) fått?
+  - har jag fått? någon|några ny|nya? notis<er?>|avisering<ar?>|notifikation<er?>|notifiering<ar?>
+  - vad säger|(står det i) mina? notiser<na?>|aviseringar<na?>|notifikationer<na?>|notifieringar<na?>

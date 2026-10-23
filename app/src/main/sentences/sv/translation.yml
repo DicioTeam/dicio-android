@@ -1,0 +1,5 @@
+translate:
+  - ((kan|vill du)|(skulle du kunna)|(jag vill|(skulle vilja) att du))? snälla? översätt<a|er?> .query. ((från .source.)? (till|på .target.)?)|(till|på .target. från .source.) (åt mig)? tack?
+  - (jag vill|(skulle vilja) veta)|(snälla? berätta|säg (för mig)?)? vad (är|heter|betyder|blir .query.)|(.query. är|heter|betyder|blir) på .target. (från .source.)?
+  - hur säger|skriver|översätter man|jag|du|ni .query. på|till .target.
+  - hur ska|skulle|kan|bör man|jag|du|ni säga|skriva|översätta .query. på|till .target.

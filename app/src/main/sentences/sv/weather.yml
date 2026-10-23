@@ -1,5 +1,6 @@
 current:
-  - (vad är det?)|(hur är) för? väd<er|ret> (i|på .where.)?
+  - (vad är|blir det?)|(hur är|blir) för? väd<er|ret> (i|på .where.)?
   - väd<er|ret> (i|på? .where.)?
   - hur är det ute|utomhus
-  - är det kallt|svalt|varmt|hett|soligt|regningt (i|på .where.)|ute|utomhus?
+  - är det kallt|svalt|varmt|hett|soligt|regnigt|blåsigt (i|på .where.)|ute|utomhus?
+  - regnar|snöar|blåser det (i|på .where.)|ute|utomhus?

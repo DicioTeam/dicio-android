@@ -1,0 +1,7 @@
+turn_on:
+  - (sätt|slå på|igång)|tänd|aktivera|starta ficklampa<n?>|lampa<n?>|lyset|ljuset|blixten
+  - ficklampa<n?>|lampa<n?>|lyset|ljuset|blixten på
+
+turn_off:
+  - (stäng|slå av)|släck|inaktivera ficklampa<n?>|lampa<n?>|lyset|ljuset|blixten
+  - ficklampa<n?>|lampa<n?>|lyset|ljuset|blixten av
