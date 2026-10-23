@@ -2,6 +2,7 @@ package org.stypox.dicio.skills.locate_phone
 
 import android.content.Context
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.DeviceUnknown
 import androidx.compose.material.icons.filled.Hearing
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
@@ -20,7 +21,7 @@ object LocatePhoneInfo : SkillInfo("locate_phone") {
 
     @Composable
     override fun icon() =
-        rememberVectorPainter(Icons.Default.Hearing)
+        rememberVectorPainter(Icons.Default.DeviceUnknown)
 
     override fun build(ctx: SkillContext): Skill<*>? {
         val data = Sentences.LocatePhone[ctx.sentencesLanguage] ?: return null
