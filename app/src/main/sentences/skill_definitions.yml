@@ -134,3 +134,8 @@ skills:
             type: string
           - id: target
             type: string
+
+  - id: locate_phone
+    specificity: high
+    sentences:
+      - id: command
