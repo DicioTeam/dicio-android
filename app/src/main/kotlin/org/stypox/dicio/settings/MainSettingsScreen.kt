@@ -1,9 +1,14 @@
 package org.stypox.dicio.settings
 
 import android.app.Application
+import android.content.ActivityNotFoundException
+import android.content.Intent
+import android.net.Uri
 import android.os.Build
+import android.provider.Settings
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
@@ -13,6 +18,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.DeleteSweep
 import androidx.compose.material.icons.filled.Extension
+import androidx.compose.material.icons.filled.Layers
 import androidx.compose.material.icons.filled.UploadFile
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -25,7 +31,11 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -167,6 +177,11 @@ private fun MainSettingsScreen(
                 }
             }
         }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q &&
+            wakeDevice != WakeDevice.WAKE_DEVICE_NOTHING
+        ) {
+            item { WakeOverlayPermissionSetting() }
+        }
         item {
             speechOutputDevice().Render(
                 when (val speechOutputDevice = settings.speechOutputDevice) {
@@ -205,6 +220,44 @@ private fun MainSettingsScreen(
             Spacer(modifier = Modifier.height(8.dp))
         }
     }
+}
+
+/**
+ * Lets the user grant the "Display over other apps" permission, which allows the wake word service
+ * to open Dicio directly on Android 10+, instead of showing a notification that has to be tapped.
+ */
+@RequiresApi(Build.VERSION_CODES.M)
+@Composable
+private fun WakeOverlayPermissionSetting() {
+    val context = LocalContext.current
+    var canDrawOverlays by remember { mutableStateOf(Settings.canDrawOverlays(context)) }
+    val overlayPermissionLauncher =
+        rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            // the result code is not meaningful, so just check the permission again
+            canDrawOverlays = Settings.canDrawOverlays(context)
+        }
+
+    SettingsItem(
+        modifier = Modifier.clickable {
+            val packageUri = Uri.fromParts("package", context.packageName, null)
+            try {
+                overlayPermissionLauncher.launch(
+                    Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, packageUri)
+                )
+            } catch (_: ActivityNotFoundException) {
+                // some devices do not have this settings screen, so open the app details instead
+                overlayPermissionLauncher.launch(
+                    Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, packageUri)
+                )
+            }
+        },
+        title = stringResource(R.string.pref_wake_open_directly),
+        icon = Icons.Default.Layers,
+        description = stringResource(
+            if (canDrawOverlays) R.string.pref_wake_open_directly_summary_granted
+            else R.string.pref_wake_open_directly_summary_not_granted
+        ),
+    )
 }
 
 @Preview

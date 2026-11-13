@@ -97,6 +97,9 @@
     <string name="pref_wake_custom_delete_summary">Return to default \"Hey Dicio\" wake word</string>
     <string name="pref_wake_custom_import">Import custom wake word</string>
     <string name="pref_wake_custom_import_summary_oww">Replace the default \"Hey Dicio\" wake word with a custom TFLite model; you can download some custom models from github.com/dscripka/openWakeWord/releases</string>
+    <string name="pref_wake_open_directly">Open Dicio directly on wake word</string>
+    <string name="pref_wake_open_directly_summary_not_granted">Allow \"Display over other apps\" so that Dicio can open by itself when the wake word is detected, instead of showing a notification that needs to be tapped</string>
+    <string name="pref_wake_open_directly_summary_granted">\"Display over other apps\" is allowed, so Dicio opens by itself when the wake word is detected</string>
     <string name="pref_skill_not_available">This skill is not yet available for your language. Contributions are welcome!</string>
     <string name="pref_skill_missing_permissions">Requires these permissions: %1$s</string>
     <string name="pref_skill_grant_permissions">Grant</string>
