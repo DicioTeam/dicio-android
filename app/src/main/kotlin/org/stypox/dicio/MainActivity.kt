@@ -81,10 +81,26 @@ class MainActivity : BaseActivity() {
         WakeService.cancelTriggeredNotification(this)
     }
 
+    /**
+     * If the [WakeService] started this activity directly after detecting the wake word, make sure
+     * to start listening, since some input devices (i.e. the external popup) can only do that from
+     * an activity, which might not have existed when the wake word was detected. This has no effect
+     * if the input device is already listening.
+     */
+    private fun handleWakeWordStartListening(intent: Intent) {
+        if (intent.action == ACTION_WAKE_WORD &&
+            intent.getBooleanExtra(EXTRA_START_LISTENING, false) &&
+            (intent.flags and Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY) == 0
+        ) {
+            sttInputDevice.tryLoad(skillEvaluator::processInputEvent)
+        }
+    }
+
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
 
         handleWakeWordTurnOnScreen(intent)
+        handleWakeWordStartListening(intent)
         if (isAssistIntent(intent)) {
             onAssistIntentReceived()
         }
@@ -117,6 +133,10 @@ class MainActivity : BaseActivity() {
         } else if (intent.action != ACTION_WAKE_WORD) {
             // load the input device, without starting to listen
             sttInputDevice.tryLoad(null)
+        }
+        if (savedInstanceState == null) {
+            // only if the activity is not being recreated (e.g. after a configuration change)
+            handleWakeWordStartListening(intent)
         }
 
         WakeService.start(this)
@@ -173,6 +193,7 @@ class MainActivity : BaseActivity() {
         private const val INTENT_BACKOFF_MILLIS = 100L
         private val TAG = MainActivity::class.simpleName
         const val ACTION_WAKE_WORD = "org.stypox.dicio.MainActivity.ACTION_WAKE_WORD"
+        const val EXTRA_START_LISTENING = "org.stypox.dicio.MainActivity.EXTRA_START_LISTENING"
 
         var isInForeground: Int = 0
             private set

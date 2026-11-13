@@ -32,6 +32,7 @@ import kotlinx.coroutines.flow.drop
 import kotlinx.coroutines.launch
 import org.stypox.dicio.MainActivity
 import org.stypox.dicio.MainActivity.Companion.ACTION_WAKE_WORD
+import org.stypox.dicio.MainActivity.Companion.EXTRA_START_LISTENING
 import org.stypox.dicio.R
 import org.stypox.dicio.di.SttInputDeviceWrapper
 import org.stypox.dicio.di.WakeDeviceWrapper
@@ -229,6 +230,21 @@ class WakeService : Service() {
         intent.setAction(ACTION_WAKE_WORD)
         intent.setFlags(FLAG_ACTIVITY_NEW_TASK)
 
+        // Start the activity before starting to listen, so that input devices which open another
+        // activity (i.e. the external popup) end up on top of the MainActivity and not behind it
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q || MainActivity.isInForeground > 0) {
+            // start the activity directly on versions prior to Android 10,
+            // or if the MainActivity is already running in the foreground
+            startActivity(intent)
+
+        } else if (!Settings.canDrawOverlays(this) || !startActivityFromBackground(intent)) {
+            // Android 10+ does not allow starting activities from the background (unless the user
+            // granted the "Display over other apps" permission, see startActivityFromBackground),
+            // so show a full-screen notification instead, which does actually result in starting
+            // the activity from the background if the phone is off and Do Not Disturb is not active
+            showTriggeredNotification(intent)
+        }
+
         // Start listening and pass STT events to the skill evaluator.
         // Note that this works even if the MainActivity is opened later!
         sttInputDevice.tryLoad(skillEvaluator::processInputEvent)
@@ -236,39 +252,34 @@ class WakeService : Service() {
         // Unload the STT after a while because it would be using RAM uselessly
         handler.removeCallbacks(releaseSttResourcesRunnable)
         handler.postDelayed(releaseSttResourcesRunnable, RELEASE_STT_RESOURCES_MILLIS)
+    }
 
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q || MainActivity.isInForeground > 0) {
-            // start the activity directly on versions prior to Android 10,
-            // or if the MainActivity is already running in the foreground
-            startActivity(intent)
-
-        } else if (Settings.canDrawOverlays(this)) {
-            // Android 10+ does not allow starting activities from the background, except if the
-            // user granted the "Display over other apps" permission, which is one of the exemptions
-            // https://developer.android.com/guide/components/activities/background-starts
-            try {
-                startActivity(intent)
-            } catch (t: Throwable) {
-                Log.e(TAG, "Could not start MainActivity directly from the background", t)
-                showTriggeredNotification(intent)
-                return
-            }
-
-            // If the system blocks the activity start anyway, it does so silently (i.e. without
-            // throwing), so show the notification if the MainActivity did not appear in time.
-            handler.postDelayed({
-                if (MainActivity.isInForeground <= 0) {
-                    Log.w(TAG, "MainActivity was not started directly, showing notification")
-                    showTriggeredNotification(intent)
-                }
-            }, DIRECT_START_CHECK_MILLIS)
-
-        } else {
-            // Android 10+ does not allow starting activities from the background,
-            // so show a full-screen notification instead, which does actually result in starting
-            // the activity from the background if the phone is off and Do Not Disturb is not active
-            showTriggeredNotification(intent)
+    /**
+     * Android 10+ does not allow starting activities from the background, except if the user
+     * granted the "Display over other apps" permission, which is one of the exemptions
+     * https://developer.android.com/guide/components/activities/background-starts
+     *
+     * @return `false` if starting the activity failed right away, `true` otherwise
+     */
+    @RequiresApi(Build.VERSION_CODES.Q)
+    private fun startActivityFromBackground(intent: Intent): Boolean {
+        try {
+            // the MainActivity will start listening by itself in case it's not happening already
+            startActivity(Intent(intent).putExtra(EXTRA_START_LISTENING, true))
+        } catch (t: Throwable) {
+            Log.e(TAG, "Could not start MainActivity directly from the background", t)
+            return false
         }
+
+        // If the system blocks the activity start anyway, it does so silently (i.e. without
+        // throwing), so show the notification if the MainActivity did not appear in time.
+        handler.postDelayed({
+            if (MainActivity.isInForeground <= 0) {
+                Log.w(TAG, "MainActivity was not started directly, showing notification")
+                showTriggeredNotification(intent)
+            }
+        }, DIRECT_START_CHECK_MILLIS)
+        return true
     }
 
     @RequiresApi(Build.VERSION_CODES.Q)

@@ -132,7 +132,15 @@ class ExternalPopupInputDevice(
                 ExternalPopupState.WaitingForResult(eventListener)
         )) {
             try {
-                activityForResultManager.launch(getIntent(), this::onActivityResult)
+                if (!activityForResultManager.launch(getIntent(), this::onActivityResult)) {
+                    // There is no activity to launch the popup from (e.g. the wake word was
+                    // detected while no activity was open), so go back to being available, so
+                    // that an activity can start listening later.
+                    _state.compareAndSet(
+                        ExternalPopupState.WaitingForResult { },
+                        ExternalPopupState.Available
+                    )
+                }
             } catch (e: Throwable) {
                 Log.e(TAG, "Could not start STT activity", e)
                 _state.compareAndSet(
