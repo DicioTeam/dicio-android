@@ -55,12 +55,11 @@ class ActivityForResultManager @Inject constructor() {
         } ?: return false
 
         synchronized(this) {
-            if (callback == null) {
-                callback = newCallback
-                callbackLauncher = launcher
-            } else {
-                throw IllegalArgumentException("An activity for result request is already active")
-            }
+            // If a previous request is still waiting for a result, it is stale (e.g. the input
+            // device that launched it was reinitialized in the meantime, or the launched activity
+            // never returned), so replace it instead of failing all requests from now on.
+            callback = newCallback
+            callbackLauncher = launcher
         }
 
         try {

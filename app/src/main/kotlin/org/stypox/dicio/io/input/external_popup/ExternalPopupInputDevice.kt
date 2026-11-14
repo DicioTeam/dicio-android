@@ -2,11 +2,13 @@ package org.stypox.dicio.io.input.external_popup
 
 import android.app.Activity.RESULT_CANCELED
 import android.app.Activity.RESULT_OK
+import android.app.KeyguardManager
 import android.content.Context
 import android.content.Intent
 import android.speech.RecognizerIntent
 import android.util.Log
 import androidx.activity.result.ActivityResult
+import androidx.core.content.ContextCompat
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -49,6 +51,8 @@ class ExternalPopupInputDevice(
 
     private val scope = CoroutineScope(Dispatchers.Default)
 
+    private val keyguardManager = ContextCompat.getSystemService(context, KeyguardManager::class.java)
+
     init {
         // Run blocking, because the locale is always available right away since LocaleManager also
         // initializes in a blocking way.
@@ -76,6 +80,12 @@ class ExternalPopupInputDevice(
 
     override fun tryLoad(thenStartListeningEventListener: ((InputEvent) -> Unit)?): Boolean {
         if (thenStartListeningEventListener != null) {
+            if (keyguardManager?.isKeyguardLocked == true) {
+                // The popup of the external app can't be used on top of the lock screen, so don't
+                // start it automatically (e.g. after the wake word) while the phone is locked: the
+                // user can start listening manually after unlocking.
+                return false
+            }
             return startListening(thenStartListeningEventListener)
         }
         return when (_state.value) {
