@@ -281,4 +281,11 @@
     <string name="about_privacy_title">Privacy policy</string>
     <string name="about_privacy_description">Dicio connects to external services only when a skill is expected to do so, or to download machine learning models during setup. All speech processing is performed locally on-device, and most skills can be used offline.</string>
     <string name="about_privacy_link" translatable="false">https://stypox.org/dicio-privacy-policy.html</string>
+    <string name="skill_timer_opened_clock_app">Here are the timers in the Clock app</string>
+    <string name="skill_timer_cancel_in_clock_app">Running timers of the Clock app can only be canceled there, here they are</string>
+    <string name="pref_timer_app">Timer app</string>
+    <string name="pref_timer_app_clock">Clock app</string>
+    <string name="pref_timer_app_clock_description">Timers are set in the system Clock app and ring even if Dicio is closed. Dicio stops ringing timers, but a running timer can only be canceled in the Clock app</string>
+    <string name="pref_timer_app_dicio">Dicio</string>
+    <string name="pref_timer_app_dicio_description">Timers run inside Dicio, which can say how much time is left and cancel them</string>
 </resources>

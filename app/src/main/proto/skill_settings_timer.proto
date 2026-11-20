@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+option java_package = "org.stypox.dicio.skills.timer";
+option java_multiple_files = true;
+
+enum TimerApp {
+  // timers are set in the system Clock app through AlarmClock.ACTION_SET_TIMER, so they ring
+  // even if Dicio is closed; falls back to Dicio if no Clock app supports it
+  TIMER_APP_CLOCK = 0;
+  // timers run inside Dicio, which can also say how much time is left and cancel them
+  TIMER_APP_DICIO = 1;
+}
+
+message SkillSettingsTimer {
+  TimerApp app = 1;
+}
