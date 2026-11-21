@@ -1,2 +1,3 @@
 query:
-  - what|(what s|is)|whats the? time (is it)?
+  - what|(what s|is)|whats the? time (is it)? (in .where.)?
+  - what time is it (right now)? in .where.

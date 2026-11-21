@@ -11,6 +11,7 @@ import org.stypox.dicio.skills.weather.WeatherInfo.weatherDataStore
 import org.stypox.dicio.util.ConnectionUtils
 import org.stypox.dicio.util.StringUtils
 import java.io.FileNotFoundException
+import org.json.JSONObject
 import java.util.Locale
 import kotlin.math.roundToInt
 
@@ -21,16 +22,9 @@ class WeatherSkill(correspondingSkillInfo: SkillInfo, data: StandardRecognizerDa
         val prefs = ctx.android.weatherDataStore.data.first()
         val city = getCity(prefs, inputData) ?: return WeatherOutput.Failed(city = "")
 
-        val weatherData = try {
-            ConnectionUtils.getPageJson(
-                // always request in metric units (°C and m) and convert later
-                "$WEATHER_API_URL?APPID=$API_KEY&units=metric&lang=" +
-                        ctx.locale.language.lowercase(Locale.getDefault()) +
-                        "&q=" + ConnectionUtils.urlEncode(city)
-            )
-        } catch (_: FileNotFoundException) {
-            return WeatherOutput.Failed(city = city)
-        }
+        val language = ctx.locale.language.lowercase(Locale.getDefault())
+        val weatherData = fetchCurrentWeather(city, language)
+            ?: return WeatherOutput.Failed(city = city)
 
         val weatherObject = weatherData.getJSONArray("weather").getJSONObject(0)
         val mainObject = weatherData.getJSONObject("main")
@@ -76,6 +70,64 @@ class WeatherSkill(correspondingSkillInfo: SkillInfo, data: StandardRecognizerDa
     }
 
     companion object {
+        /**
+         * Requests the current weather in [city] from OpenWeatherMap, in metric units (°C and m).
+         * Also used by the current time skill, since the response contains the city's time zone
+         * offset ("timezone", in seconds from UTC).
+         * @return the response, or `null` if the city was not found
+         */
+        internal fun fetchCurrentWeather(city: String, language: String): JSONObject? {
+            // OpenWeatherMap only knows the nominative case of city names, e.g. "москва" and not
+            // the "москве" in "погода в москве", so try a few possible nominative forms
+            return cityNameCandidates(city, language).firstNotNullOfOrNull { candidate ->
+                try {
+                    ConnectionUtils.getPageJson(
+                        "$WEATHER_API_URL?APPID=$API_KEY&units=metric&lang=$language" +
+                                "&q=" + ConnectionUtils.urlEncode(candidate)
+                    )
+                } catch (_: FileNotFoundException) {
+                    null // city not found
+                }
+            }
+        }
+
+        /**
+         * @return the city name itself, followed by guesses of its nominative form for languages
+         * whose prepositions require other cases (e.g. "в москве" -> москва, "в твери" -> тверь,
+         * "в нижнем новгороде" -> нижний новгород)
+         */
+        internal fun cityNameCandidates(city: String, language: String): List<String> {
+            if (language != "ru" && language != "uk" && language != "be") {
+                return listOf(city)
+            }
+
+            val words = city.trim().split(Regex("\\s+"))
+            val last = words.last().lowercase()
+            val lastOptions = when {
+                // киеве, ростове -> киев, ростов; иванове -> иваново
+                last.endsWith("ове") || last.endsWith("еве") -> listOf(last.dropLast(1), last.dropLast(1) + "о")
+                last.endsWith("ии") -> listOf(last.dropLast(1) + "я") // германии -> германия
+                last.endsWith("е") -> listOf(last.dropLast(1) + "а", last.dropLast(1), last.dropLast(1) + "я")
+                last.endsWith("и") -> listOf(last.dropLast(1) + "ь") // твери, электростали
+                last.endsWith("ах") || last.endsWith("ях") -> listOf(last.dropLast(2) + "и") // химках
+                last.endsWith("у") -> listOf(last.dropLast(1)) // в крыму
+                else -> listOf()
+            }
+            // adjectives before the noun, e.g. нижнем -> нижний, великом -> великий, новом -> новый
+            val firstWords = words.dropLast(1).map { word ->
+                val w = word.lowercase()
+                when {
+                    w.endsWith("ем") -> w.dropLast(2) + "ий"
+                    w.endsWith("ком") || w.endsWith("гом") || w.endsWith("хом") -> w.dropLast(2) + "ий"
+                    w.endsWith("ом") -> w.dropLast(2) + "ый"
+                    w.endsWith("ой") -> w.dropLast(2) + "ая"
+                    else -> w
+                }
+            }
+            return (listOf(city) + lastOptions.map { (firstWords + it).joinToString(" ") })
+                .distinct()
+        }
+
         private const val IP_INFO_URL = "https://ipinfo.io/json"
         private const val WEATHER_API_URL = "https://api.openweathermap.org/data/2.5/weather"
         private const val API_KEY = "061f24cf3cde2f60644a8240302983f2"
