@@ -11,6 +11,7 @@ import org.stypox.dicio.skills.weather.WeatherInfo.weatherDataStore
 import org.stypox.dicio.util.ConnectionUtils
 import org.stypox.dicio.util.StringUtils
 import java.io.FileNotFoundException
+import org.json.JSONObject
 import java.util.Locale
 import kotlin.math.roundToInt
 
@@ -22,19 +23,8 @@ class WeatherSkill(correspondingSkillInfo: SkillInfo, data: StandardRecognizerDa
         val city = getCity(prefs, inputData) ?: return WeatherOutput.Failed(city = "")
 
         val language = ctx.locale.language.lowercase(Locale.getDefault())
-        // OpenWeatherMap only knows the nominative case of city names, e.g. "москва" and not the
-        // "москве" in "погода в москве", so try a few possible nominative forms
-        val weatherData = cityNameCandidates(city, language).firstNotNullOfOrNull { candidate ->
-            try {
-                ConnectionUtils.getPageJson(
-                    // always request in metric units (°C and m) and convert later
-                    "$WEATHER_API_URL?APPID=$API_KEY&units=metric&lang=$language" +
-                            "&q=" + ConnectionUtils.urlEncode(candidate)
-                )
-            } catch (_: FileNotFoundException) {
-                null // city not found
-            }
-        } ?: return WeatherOutput.Failed(city = city)
+        val weatherData = fetchCurrentWeather(city, language)
+            ?: return WeatherOutput.Failed(city = city)
 
         val weatherObject = weatherData.getJSONArray("weather").getJSONObject(0)
         val mainObject = weatherData.getJSONObject("main")
@@ -80,6 +70,27 @@ class WeatherSkill(correspondingSkillInfo: SkillInfo, data: StandardRecognizerDa
     }
 
     companion object {
+        /**
+         * Requests the current weather in [city] from OpenWeatherMap, in metric units (°C and m).
+         * Also used by the current time skill, since the response contains the city's time zone
+         * offset ("timezone", in seconds from UTC).
+         * @return the response, or `null` if the city was not found
+         */
+        internal fun fetchCurrentWeather(city: String, language: String): JSONObject? {
+            // OpenWeatherMap only knows the nominative case of city names, e.g. "москва" and not
+            // the "москве" in "погода в москве", so try a few possible nominative forms
+            return cityNameCandidates(city, language).firstNotNullOfOrNull { candidate ->
+                try {
+                    ConnectionUtils.getPageJson(
+                        "$WEATHER_API_URL?APPID=$API_KEY&units=metric&lang=$language" +
+                                "&q=" + ConnectionUtils.urlEncode(candidate)
+                    )
+                } catch (_: FileNotFoundException) {
+                    null // city not found
+                }
+            }
+        }
+
         /**
          * @return the city name itself, followed by guesses of its nominative form for languages
          * whose prepositions require other cases (e.g. "в москве" -> москва, "в твери" -> тверь,

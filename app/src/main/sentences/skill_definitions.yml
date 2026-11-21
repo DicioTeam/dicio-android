@@ -3,6 +3,9 @@ skills:
     specificity: high
     sentences:
       - id: query
+        captures:
+          - id: where
+            type: string
 
   - id: calculator
     specificity: medium

@@ -180,6 +180,8 @@
     <string name="skill_telephone_calling">Calling %1$s…</string>
     <string name="skill_telephone_not_calling">OK, I am not calling anyone</string>
     <string name="skill_time_current_time">Right now, it is %1$s</string>
+    <string name="skill_time_current_time_city">In %1$s it is %2$s</string>
+    <string name="skill_time_city_not_found">I could not find the time in %1$s</string>
     <string name="skill_timer_how_much_time">How much time should the timer last?</string>
     <string name="skill_timer_confirm_cancel">Are you sure you want to cancel all timers?</string>
     <string name="skill_timer_expired">The timer has expired!</string>
