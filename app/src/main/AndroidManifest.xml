@@ -4,6 +4,8 @@
     android:installLocation="auto"> <!-- Allow installing also on external storage -->
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <!-- set timers in the system Clock app (AlarmClock.ACTION_SET_TIMER) -->
+    <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
@@ -28,6 +30,13 @@
     <uses-feature android:name="android.hardware.telephony" android:required="false" />
 
     <!-- allowBackup=false because of a critical nasty bug: https://medium.com/p/924c91bafcac -->
+    <queries>
+        <!-- to know whether a Clock app can set timers -->
+        <intent>
+            <action android:name="android.intent.action.SET_TIMER" />
+        </intent>
+    </queries>
+
     <application
         android:name=".App"
         android:allowBackup="false"

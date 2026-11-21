@@ -128,6 +128,22 @@ sealed interface TimerOutput : SkillOutput {
     ) : TimerOutput, HeadlineSpeechSkillOutput {
         override fun getSpeechOutput(ctx: SkillContext): String = speechOutput
     }
+
+    /** The timer was set in the system Clock app */
+    class SetInClockApp(
+        private val milliseconds: Long,
+        private val name: String?,
+    ) : TimerOutput, HeadlineSpeechSkillOutput {
+        override fun getSpeechOutput(ctx: SkillContext): String = formatStringWithName(
+            ctx, name, milliseconds, R.string.skill_timer_set, R.string.skill_timer_set_name
+        )
+    }
+
+    /** Timers in the Clock app can't be queried or canceled by other apps, so they are shown */
+    data object OpenedClockAppTimers : TimerOutput, HeadlineSpeechSkillOutput {
+        override fun getSpeechOutput(ctx: SkillContext): String =
+            ctx.getString(R.string.skill_timer_opened_clock_app)
+    }
 }
 
 fun formatStringWithName(
