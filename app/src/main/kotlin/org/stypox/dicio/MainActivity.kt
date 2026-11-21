@@ -6,6 +6,7 @@ import android.content.Intent.ACTION_ASSIST
 import android.content.Intent.ACTION_VOICE_COMMAND
 import android.os.Build
 import android.os.Bundle
+import android.speech.RecognizerIntent
 import android.util.Log
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -69,7 +70,8 @@ class MainActivity : BaseActivity() {
 
     private fun handleWakeWordTurnOnScreen(intent: Intent?) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1 &&
-            intent?.action == ACTION_WAKE_WORD
+            (intent?.action == ACTION_WAKE_WORD ||
+                    intent?.action == RecognizerIntent.ACTION_VOICE_SEARCH_HANDS_FREE)
         ) {
             // Dicio was started anew based on a wake word,
             // turn on the screen to let the user see what is happening
@@ -181,7 +183,8 @@ class MainActivity : BaseActivity() {
 
         private fun isAssistIntent(intent: Intent?): Boolean {
             return when (intent?.action) {
-                ACTION_ASSIST, ACTION_VOICE_COMMAND -> true
+                ACTION_ASSIST, ACTION_VOICE_COMMAND,
+                RecognizerIntent.ACTION_VOICE_SEARCH_HANDS_FREE -> true
                 else -> false
             }
         }

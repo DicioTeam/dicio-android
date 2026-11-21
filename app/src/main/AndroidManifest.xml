@@ -57,6 +57,14 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
 
+            <!-- hands-free voice input, which Android allows to start while the device is locked
+                 (e.g. from a Bluetooth headset or a hotword detector): Dicio shows itself on the
+                 lock screen and starts listening, like for its own wake word -->
+            <intent-filter>
+                <action android:name="android.speech.action.VOICE_SEARCH_HANDS_FREE" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
             <meta-data
                 android:name="com.android.systemui.action_assist_icon"
                 android:resource="@mipmap/ic_launcher" />
